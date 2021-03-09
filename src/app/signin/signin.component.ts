@@ -23,7 +23,12 @@ export class SigninComponent implements OnInit {
   }
 
   onLogin(): void {
-    this.signInService.signIn(this.checkoutForm.value);
+    this.signInService.login(this.checkoutForm.value).subscribe(res=>{}, err=> alert('Wrong login or password!'));
+  }
+
+  user(): void{
+    console.log('heh');
+    this.signInService.user();
   }
 
 }
