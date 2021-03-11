@@ -13,6 +13,7 @@ import { ACCESS_TOKEN_KEY } from './signin/services/singin.service';
 import { MypageComponent } from './mypage/mypage.component';
 import { AUTH_API_URL } from './app-injection-tokens';
 import { httpInterceptorProviders } from './interceptors';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 export function tokenGetter(){
   return localStorage.getItem(ACCESS_TOKEN_KEY);
@@ -23,7 +24,8 @@ export function tokenGetter(){
     AppComponent,
     SigninComponent,
     NotFoundComponent,
-    MypageComponent
+    MypageComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,

@@ -26,9 +26,4 @@ export class SigninComponent implements OnInit {
     this.signInService.login(this.checkoutForm.value).subscribe(res=>{}, err=> alert('Wrong login or password!'));
   }
 
-  user(): void{
-    console.log('heh');
-    this.signInService.user();
-  }
-
 }
