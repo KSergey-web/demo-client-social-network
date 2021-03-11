@@ -6,7 +6,7 @@ import {
   HttpInterceptor
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ACCESS_TOKEN_KEY } from './signin/services/singin.service';
+import { ACCESS_TOKEN_KEY } from '../signin/services/singin.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -15,7 +15,6 @@ export class AuthInterceptor implements HttpInterceptor {
               next: HttpHandler): Observable<HttpEvent<any>> {
 
         const idToken = localStorage.getItem(ACCESS_TOKEN_KEY);
-        console.log(idToken);
         if (idToken) {
             const cloned = req.clone({
                 headers: req.headers.set("Authorization",
