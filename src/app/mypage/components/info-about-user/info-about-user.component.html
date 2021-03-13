@@ -1,0 +1,8 @@
+
+<p *ngIf="user" >e-mail: {{user.email}} </p>
+<span>Организация</span> -> <span>Должность:</span>
+<ul class="listOrganizations">
+    <li *ngFor="let link of organizationUserLinks">
+      <span>{{link.organization.name}}</span> -> <span>{{link.position}}</span>
+    </li>
+</ul>

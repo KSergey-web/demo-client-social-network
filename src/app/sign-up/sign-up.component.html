@@ -1,7 +1,7 @@
 <form [formGroup]="registrForm" (ngSubmit)="onRegistr()">
     <div>
         <label for="login">
-          Name
+          Login
         </label>
         <input id="login" type="text" formControlName="login">
       </div>
@@ -11,6 +11,27 @@
           Password
         </label>
         <input id="password" type="text" formControlName="password">
+      </div>
+
+      <div>
+        <label for="name">
+          Name
+        </label>
+        <input id="name" type="text" formControlName="name">
+      </div>
+
+      <div>
+        <label for="surname">
+          Surname
+        </label>
+        <input id="surname" type="text" formControlName="surname">
+      </div>
+
+      <div>
+        <label for="email">
+          Email
+        </label>
+        <input id="email" type="text" formControlName="email">
       </div>
 
     <button class="button" type="submit">Зарегистрироваться</button>

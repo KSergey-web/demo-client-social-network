@@ -10,10 +10,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {JwtModule} from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
 import { ACCESS_TOKEN_KEY } from './signin/services/singin.service';
-import { MypageComponent } from './mypage/mypage.component';
-import { AUTH_API_URL } from './app-injection-tokens';
+import { MyPageComponent } from './mypage/mypage.component';
+import { AUTH_API_URL, INWORK_API } from './app-injection-tokens';
 import { httpInterceptorProviders } from './interceptors';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { FormsModule } from '@angular/forms';
+import { HeaderComponent } from './header/header.component';
+import { InfoAboutUserComponent } from './mypage/components/info-about-user/info-about-user.component';
 
 export function tokenGetter(){
   return localStorage.getItem(ACCESS_TOKEN_KEY);
@@ -24,14 +27,17 @@ export function tokenGetter(){
     AppComponent,
     SigninComponent,
     NotFoundComponent,
-    MypageComponent,
-    SignUpComponent
+    MyPageComponent,
+    SignUpComponent,
+    HeaderComponent,
+    InfoAboutUserComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
     JwtModule.forRoot({config:{
       tokenGetter, 
       allowedDomains: environment.tokenWhiteListedDomains
@@ -39,6 +45,10 @@ export function tokenGetter(){
   ],
   providers: [{
     provide: AUTH_API_URL,
+    useValue: environment.inWorkApi
+  },
+  {
+    provide: INWORK_API,
     useValue: environment.inWorkApi
   },
   httpInterceptorProviders

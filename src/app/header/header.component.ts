@@ -1,0 +1,53 @@
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { SinginService } from '../signin/services/singin.service';
+import { HeaderOrganization, HeaderUser } from './interfaces/Header';
+import { HeaderService } from './services/header.service';
+
+@Component({
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss']
+})
+export class HeaderComponent implements OnInit {
+
+  user?: HeaderUser;
+
+  organization?: HeaderOrganization;
+  
+  constructor(
+    private router: Router,
+    private headerService: HeaderService ,
+    private signInService: SinginService
+  ) { }
+
+  ngOnInit(): void {
+    if (!this.signInService.isAuthenticated()){
+      this.router.navigate((['signin']));
+    }
+    this.initUser();
+    this.initOrganization();
+    
+  }
+
+  initUser() {
+    this.headerService.getUser().subscribe(
+      res => {
+        this.user = res
+      console.log(this.user)
+    }, 
+      err => {
+        console.log(err); 
+        alert("user is not available");
+        this.router.navigate((['signin']));
+      });
+  }
+
+  initOrganization() {
+    this.headerService.getOrganization().subscribe(
+      res => {this.organization = res},
+      err => {
+        console.log(err);
+      });
+  }
+}

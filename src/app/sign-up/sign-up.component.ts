@@ -13,7 +13,9 @@ export class SignUpComponent implements OnInit {
   registrForm = this.formBuilder.group({
     login: '',
     password: '',
-    email: ''
+    email: '',
+    name:'',
+    surname:'',
   });
 
   constructor(

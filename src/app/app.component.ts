@@ -13,8 +13,4 @@ export class AppComponent {
   constructor(
     private signInService: SinginService,
 ) { }
-
-  user(): void{
-    this.signInService.user();
-  }
 }

@@ -2,9 +2,9 @@ export interface RegisterDTO {
 
 email: string;
 
-//  name: string;
+name: string;
 
-//  surname: string;
+surname: string;
 
 //  patronymic: string;
 

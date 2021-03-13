@@ -7,6 +7,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
 import { Token } from '@angular/compiler';
 import { tap} from 'rxjs/operators'
+import { RegisterDTO } from 'src/app/sign-up/dto/register';
+import { CURRENT_USER_ID } from 'src/app/services/user.service';
 
 export const ACCESS_TOKEN_KEY: string = "inwork_access_token";
 
@@ -27,8 +29,9 @@ export class SinginService {
     return this.http.post(`${this.apiUrl}/v1/api/auth/login`, dto)
     .pipe(
       tap( (obj: any) => {
-        console.log(obj);
+        localStorage.setItem(CURRENT_USER_ID, obj.user._id);
         localStorage.setItem(ACCESS_TOKEN_KEY, obj.token);
+        let token = localStorage.getItem(ACCESS_TOKEN_KEY);
       })
     );
   }
@@ -41,10 +44,10 @@ export class SinginService {
 
   logOut():void{
     localStorage.removeItem(ACCESS_TOKEN_KEY);
-    this.router.navigate([''])
+    this.router.navigate(['signin'])
   }
 
-  user() {
-    return this.http.get(`${this.apiUrl}/v1/api/user`).subscribe(res=>{console.log(res)});
+  getUser():Observable<RegisterDTO> {
+    return this.http.get<RegisterDTO>(`${this.apiUrl}/v1/api/user`);
   }
 }

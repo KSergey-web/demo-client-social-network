@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { CURRENT_USER_ID } from '../services/user.service';
 import { SinginService } from '../signin/services/singin.service';
 
 @Component({
@@ -6,9 +8,26 @@ import { SinginService } from '../signin/services/singin.service';
   templateUrl: './mypage.component.html',
   styleUrls: ['./mypage.component.scss']
 })
-export class MypageComponent implements OnInit {
+export class MyPageComponent implements OnInit {
 
-  constructor(private signinService: SinginService) { }
+  userId: string = "";
+
+  constructor(
+    private signinService: SinginService,
+    private activateRoute: ActivatedRoute
+    ) {
+      activateRoute.params.subscribe(params=>{
+      this.userId=params['id'];
+      console.log(this.userId);
+  }, err =>{ 
+      let id = localStorage.getItem(CURRENT_USER_ID);
+      if (id) 
+      {
+        this.userId = id;
+      }
+      console.log(id);
+    });
+   }
 
   public get isLoggedIn(): boolean {
     return this.signinService.isAuthenticated();
