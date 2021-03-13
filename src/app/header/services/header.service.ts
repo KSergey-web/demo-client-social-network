@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AUTH_API_URL, ORGANIZATION_KEY } from 'src/app/app-injection-tokens';
+import { Organization } from 'src/app/services/interfaces/organization.interface';
 import { SinginService } from 'src/app/signin/services/singin.service';
 import { HeaderOrganization, HeaderUser} from '../interfaces/Header';
 
@@ -16,7 +17,7 @@ export class HeaderService {
     private http: HttpClient,
     @Inject(AUTH_API_URL) private apiUrl:string,
     private router: Router,
-    private signInService: SinginService
+    private signInService: SinginService,
   ) { }
 
   getUser():Observable<HeaderUser>{

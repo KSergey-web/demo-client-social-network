@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { OrganizationService } from '../services/organization.service';
 import { SinginService } from '../signin/services/singin.service';
 import { HeaderOrganization, HeaderUser } from './interfaces/Header';
 import { HeaderService } from './services/header.service';
@@ -18,7 +19,8 @@ export class HeaderComponent implements OnInit {
   constructor(
     private router: Router,
     private headerService: HeaderService ,
-    private signInService: SinginService
+    private signInService: SinginService,
+    private organizationService: OrganizationService 
   ) { }
 
   ngOnInit(): void {
@@ -44,10 +46,6 @@ export class HeaderComponent implements OnInit {
   }
 
   initOrganization() {
-    this.headerService.getOrganization().subscribe(
-      res => {this.organization = res},
-      err => {
-        console.log(err);
-      });
+    this.organizationService.currentOrganization.subscribe(org => {this.organization = org;})
   }
 }

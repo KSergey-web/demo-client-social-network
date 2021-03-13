@@ -18,7 +18,6 @@ export class MyPageComponent implements OnInit {
     ) {
       activateRoute.params.subscribe(params=>{
       this.userId=params['id'];
-      console.log(this.userId);
   }, err =>{ 
       let id = localStorage.getItem(CURRENT_USER_ID);
       if (id) 

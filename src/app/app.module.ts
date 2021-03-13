@@ -17,6 +17,9 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { InfoAboutUserComponent } from './mypage/components/info-about-user/info-about-user.component';
+import { NavigationComponent } from './navigation/navigation.component';
+import { MyOrganizationsComponent } from './my-organizations/my-organizations.component';
+import { ArrayOrganizationsComponent } from './my-organizations/components/array-organizations/array-organizations.component';
 
 export function tokenGetter(){
   return localStorage.getItem(ACCESS_TOKEN_KEY);
@@ -30,7 +33,10 @@ export function tokenGetter(){
     MyPageComponent,
     SignUpComponent,
     HeaderComponent,
-    InfoAboutUserComponent
+    InfoAboutUserComponent,
+    NavigationComponent,
+    MyOrganizationsComponent,
+    ArrayOrganizationsComponent
   ],
   imports: [
     BrowserModule,

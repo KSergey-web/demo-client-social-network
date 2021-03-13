@@ -25,7 +25,6 @@ export class InfoAboutUserComponent implements OnInit {
 
   ngOnInit(): void {
     this.organizationService.getOrganizationsOfUser(this.userId).subscribe(res => {this.organizationUserLinks = res});
-    console.log(this.userId);
     this.userService.getUser(this.userId).subscribe(res => {this.user = res});
   }
 }
