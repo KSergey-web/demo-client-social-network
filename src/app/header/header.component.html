@@ -1,4 +1,9 @@
 <div *ngIf="user" class="header">
+    <div>
+        <img src="../../assets/icons8-w-в-круге-50.png" alt='логотип'/>
+        <img src="../../assets/Inwork.png" alt='логотип'/>
+    </div>
+    
     <span>{{user.name}} {{user.surname}}</span>
     <div *ngIf="organization"><span>{{organization.name}}</span></div>
 </div>

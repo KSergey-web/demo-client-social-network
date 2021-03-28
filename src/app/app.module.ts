@@ -20,6 +20,8 @@ import { InfoAboutUserComponent } from './mypage/components/info-about-user/info
 import { NavigationComponent } from './navigation/navigation.component';
 import { MyOrganizationsComponent } from './my-organizations/my-organizations.component';
 import { ArrayOrganizationsComponent } from './my-organizations/components/array-organizations/array-organizations.component';
+import { OrganizationFormComponent } from './my-organizations/components/organization-form/organization-form.component';
+import { EmployeesComponent } from './employees/employees.component';
 
 export function tokenGetter(){
   return localStorage.getItem(ACCESS_TOKEN_KEY);
@@ -36,7 +38,9 @@ export function tokenGetter(){
     InfoAboutUserComponent,
     NavigationComponent,
     MyOrganizationsComponent,
-    ArrayOrganizationsComponent
+    ArrayOrganizationsComponent,
+    OrganizationFormComponent,
+    EmployeesComponent
   ],
   imports: [
     BrowserModule,

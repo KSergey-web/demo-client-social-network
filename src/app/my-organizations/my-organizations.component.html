@@ -1,3 +1,5 @@
 <app-header></app-header>
 <app-navigation></app-navigation>
+<button class="simple-button" (click)="showDialog()">Добавить новую организацию</button>
+<app-organization-form *ngIf="isModalDialogVisible"  (isConfirmed)="closeModal($event)"></app-organization-form>
 <app-array-organizations></app-array-organizations>

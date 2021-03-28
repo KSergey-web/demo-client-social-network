@@ -19,4 +19,14 @@ export class OrganizationService {
   getOrganizationsOfUser(userId:string): Observable<Array<OrganizationUserLink>>{
     return this.http.get<Array<OrganizationUserLink>>(`${this.apiUrl}/v1/api/organization/all/${userId}`);
   }
+
+  createOrganization(organization: any): Observable<Organization>{
+    return this.http.post<Organization>(`${this.apiUrl}/v1/api/organization/`, organization);
+  }
+
+  getUsersFromOrganization(): Observable<Array<OrganizationUserLink>>{
+    const organizationId = this.currentOrganization.getValue()._id;
+    console.warn(organizationId);
+    return this.http.get<Array<OrganizationUserLink>>(`${this.apiUrl}/v1/api/organization/${organizationId}/users`);
+  }
 }

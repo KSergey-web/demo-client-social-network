@@ -23,11 +23,14 @@ export class ArrayOrganizationsComponent implements OnInit {
   ngOnInit(): void {
     const id = localStorage.getItem(CURRENT_USER_ID);
     if (id) this.userId = id;
-    this.organizationService.getOrganizationsOfUser(this.userId).subscribe(res => {this.organizationUserLinks = res});
+    this.updateArray();
   }
 
   onSelect(organization: Organization){
     this.organizationService.currentOrganization.next(organization);
   }
 
+  updateArray(): void {
+    this.organizationService.getOrganizationsOfUser(this.userId).subscribe(res => {this.organizationUserLinks = res});
+  }
 }

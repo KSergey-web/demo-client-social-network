@@ -1,3 +1,4 @@
+<div class="container">
 <form [formGroup]="checkoutForm" (ngSubmit)="onLogin()">
     <div>
         <label for="login">
@@ -15,4 +16,5 @@
 
     <button class="button" type="submit">Войти</button>
   </form>
-  <a routerLink="/signup">Зарегистрироваться</a>
+  <div><span>У вас еще нет аккаунта?</span> <a routerLink="/signup"  class="registration">Зарегистрироваться</a></div>
+  </div>

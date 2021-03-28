@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { EmployeesComponent } from './employees/employees.component';
 import { MyOrganizationsComponent } from './my-organizations/my-organizations.component';
 import { MyPageComponent } from './mypage/mypage.component';
 import { NotFoundComponent } from './not-found/not-found.component';
@@ -11,6 +12,7 @@ const routes: Routes = [
     { path: 'signup', component: SignUpComponent},
     {path: 'mypage/:id', component: MyPageComponent},
     {path: 'myorganizations', component: MyOrganizationsComponent},
+    {path: 'employees', component: EmployeesComponent},
     { path: '**', component: NotFoundComponent }
 ];
 

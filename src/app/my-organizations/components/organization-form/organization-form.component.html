@@ -1,0 +1,18 @@
+<form [formGroup]="organizationForm" (ngSubmit)="onSubmit()">
+    <label>
+      Name:
+      <input type="text" formControlName="name" required>
+    </label>
+  
+    <label>
+      Description:
+      <input type="text" formControlName="description">
+    </label>
+    
+    <label>
+      Avatar:
+      <input type="text" formControlName="avatar">
+    </label>
+  
+    <button type="submit" [disabled]="!organizationForm.valid">Submit</button>
+  </form>

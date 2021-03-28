@@ -1,23 +1,59 @@
 /* You can add global styles to this file, and also import other style files */
 /* Application-wide Styles */
 h1 {
-    color: #369;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 250%;
-  }
-  h2, h3 {
-    color: #444;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: lighter;
-  }
-  body {
-    margin: 2em;
-  }
-  body, input[type="text"], button {
-    color: #333;
-    font-family: Cambria, Georgia, serif;
-  }
-  /* everywhere else */
-  * {
-    font-family: Arial, Helvetica, sans-serif;
-  }
+  color: #369;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 250%;
+}
+h2, h3 {
+  color: #444;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: lighter;
+}
+body {
+}
+
+body, input[type="text"], button {
+  color: #333;
+  font-family: Cambria, Georgia, serif;
+}
+/* everywhere else */
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background-image: url(./assets/background.png);
+  background-attachment:fixed;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 1920px;
+  height: 1080px;
+  z-index: 2;
+}
+
+button{
+    background-color: #535353;
+    color: #01d5ff;
+    font:Myriad Pro;
+    width: 254px;
+    height: 56px;
+    z-index: 20;
+    font-size: 8pt;
+    font-family: "Myriad Pro";
+    border-radius: 10px;
+    
+}
+
+label, span{
+  color: #b1aeae;
+}
+
+input{
+  background-color: #ececec;
+}
+
+.container{
+background-color: #2a2d2e;
+}

@@ -1,0 +1,13 @@
+Ваши организаци:
+<app-header></app-header>
+<app-navigation></app-navigation>
+Работники организации 
+<span *ngIf="organization._id != ''">{{organization.name}}</span>
+<ul class="employees">
+        <li *ngFor="let link of organizationUserLinks"
+        (dblclick)="toPageUser(link.user)">
+        <img src='{{link.organization.avatar}}' alt = 'avatar'>  
+        <span> {{link.user.name}} {{link.user.surname}} </span> 
+          <div> position: {{link.position}} <span> Your role: {{link.roleUser}}</span> </div>            
+        </li>
+      </ul>
