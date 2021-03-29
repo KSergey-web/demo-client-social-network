@@ -1,13 +1,30 @@
 Ваши организаци:
 <app-header></app-header>
 <app-navigation></app-navigation>
-Работники организации 
+<form [formGroup]="addWorkerForm" (ngSubmit)="hireWorker()">
+    <div>
+        <label for="login">
+            login
+        </label>
+        <input id="login" type="text" formControlName="login">
+      </div>
+    
+      <div>
+        <label for="position">
+          Должность
+        </label>
+        <input id="position" type="text" formControlName="position">
+      </div>
+
+    <button class="button" type="submit">Нанять работника</button>
+  </form>
+Работники организации:
 <span *ngIf="organization._id != ''">{{organization.name}}</span>
 <ul class="employees">
         <li *ngFor="let link of organizationUserLinks"
         (dblclick)="toPageUser(link.user)">
         <img src='{{link.organization.avatar}}' alt = 'avatar'>  
         <span> {{link.user.name}} {{link.user.surname}} </span> 
-          <div> position: {{link.position}} <span> Your role: {{link.roleUser}}</span> </div>            
+          <div> position: {{link.position}} <span> role: {{link.roleUser}}</span> </div>            
         </li>
       </ul>

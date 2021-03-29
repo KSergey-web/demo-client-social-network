@@ -2,7 +2,6 @@
 <ul class="organizations">
     <li *ngFor="let link of organizationUserLinks">
       <span> {{link.organization.name}} </span> 
-      <img src='{{link.organization.avatar}}' alt = 'avatar'>
       <span> Your position: {{link.position}}</span>
       <span> Your role: {{link.roleUser}}</span> 
       <p>{{link.organization.description}}</p>

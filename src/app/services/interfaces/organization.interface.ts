@@ -13,3 +13,9 @@ export interface OrganizationUserLink{
     organization: Organization,
     user: User
 }
+
+export interface HireUserByLoginDTO{
+    position: string,
+    login: string,
+    organizationId: string
+}
