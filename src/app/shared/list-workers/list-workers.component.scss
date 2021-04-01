@@ -1,0 +1,34 @@
+.employees {
+    margin: 0 0 2em 0;
+    list-style-type: none;
+    padding: 0;
+    width: 934px;
+    height: 509;
+    color: black;
+  }
+
+  span{
+    color: black;
+  }
+
+  .employees li {
+    cursor: pointer;
+    position: relative;
+    left: 0;
+    background-color: #acb5b8;
+    margin: .5em;
+    padding: .3em 0;
+    height: 1.6em;
+    border-radius: 4px;
+  }
+  .employees li:hover {
+    background-color: #e6e6e6;
+    left: .1em;
+  }
+  .employees li.selected {
+    background-color:#84c4d0;
+  }
+
+  .employees li.selected:active {
+    background-color: black;
+  }

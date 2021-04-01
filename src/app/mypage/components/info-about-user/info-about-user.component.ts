@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ChatService } from 'src/app/services/chat.service';
 import { OrganizationUserLink } from 'src/app/services/interfaces/organization.interface';
 import { User } from 'src/app/services/interfaces/user.interface';
 import { OrganizationService } from 'src/app/services/organization.service';
@@ -19,7 +20,8 @@ export class InfoAboutUserComponent implements OnInit {
 
   constructor(
     private organizationService: OrganizationService,
-    private userService: UserService
+    private userService: UserService,
+    private chatService: ChatService
     ) { 
   }
 

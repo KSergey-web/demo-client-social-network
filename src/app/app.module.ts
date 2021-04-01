@@ -22,6 +22,10 @@ import { MyOrganizationsComponent } from './my-organizations/my-organizations.co
 import { ArrayOrganizationsComponent } from './my-organizations/components/array-organizations/array-organizations.component';
 import { OrganizationFormComponent } from './my-organizations/components/organization-form/organization-form.component';
 import { EmployeesComponent } from './employees/employees.component';
+import { MessagesComponent } from './messages/messages.component';
+import { ChatsComponent } from './chats/chats.component';
+import { ListWorkersComponent } from './shared/list-workers/list-workers.component';
+import { ChatFormComponent } from './chats/chat-form/chat-form.component';
 
 export function tokenGetter(){
   return localStorage.getItem(ACCESS_TOKEN_KEY);
@@ -40,7 +44,11 @@ export function tokenGetter(){
     MyOrganizationsComponent,
     ArrayOrganizationsComponent,
     OrganizationFormComponent,
-    EmployeesComponent
+    EmployeesComponent,
+    MessagesComponent,
+    ChatsComponent,
+    ListWorkersComponent,
+    ChatFormComponent
   ],
   imports: [
     BrowserModule,

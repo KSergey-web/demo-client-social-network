@@ -1,0 +1,28 @@
+<app-header></app-header>
+<app-navigation></app-navigation>
+
+<div id="app" class="container">
+    {{chat.name}}
+    <div class="row">
+        <div class="col-md-6 offset-md-3 col-sm-12">
+            <br>
+            <div id="status"></div>
+            <div id="chat">
+                <br>
+                <div class="card">
+                    <div id="messages" class="card-block">
+                        <ul>
+                            <li *ngFor="let message of messages">{{ message.text }}</li>
+                        </ul>
+                    </div>
+                </div>
+                <form [formGroup]="msgForm" (ngSubmit)="sendMessage()">
+                    <label>
+                      <input type="text" formControlName="text" required>
+                    </label>
+                    <button type="submit" class="btn" [disabled]="!msgForm.valid">Отправить</button>
+                  </form>
+            </div>
+        </div>
+    </div>
+</div>
