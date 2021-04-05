@@ -2,7 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ChatsComponent } from './chats/chats.component';
 import { EmployeesComponent } from './employees/employees.component';
+import { AddUsersComponent } from './messages/add-users/add-users.component';
 import { MessagesComponent } from './messages/messages.component';
+import { UsersInChatComponent } from './messages/users-in-chat/users-in-chat.component';
 import { MyOrganizationsComponent } from './my-organizations/my-organizations.component';
 import { MyPageComponent } from './mypage/mypage.component';
 import { NotFoundComponent } from './not-found/not-found.component';
@@ -17,6 +19,9 @@ const routes: Routes = [
     {path: 'employees', component: EmployeesComponent},
     {path: 'chats', component: ChatsComponent},
     {path: 'messages', component: MessagesComponent},
+    {path: 'chat/addusers', component: AddUsersComponent},
+    {path: 'usersinchat', component: UsersInChatComponent},
+    
     { path: '**', component: NotFoundComponent }
 ];
 

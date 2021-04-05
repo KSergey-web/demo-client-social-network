@@ -19,6 +19,6 @@ export class MessageService {
   }
 
   getMessages(chatId:string): Observable<Array<MessageEntity>>{
-    return this.http.get<Array<MessageEntity>>(`${this.apiUrl}/v1/api/message/${chatId}`);
+    return this.http.get<Array<MessageEntity>>(`${this.apiUrl}/v1/api/message/all/chat/${chatId}`);
   }
 }

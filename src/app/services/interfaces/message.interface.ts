@@ -1,3 +1,6 @@
+import { Chat } from "./chat.interface";
+import { User } from "./user.interface";
+
 export interface MessageDTO{
     text:string;
 
@@ -16,5 +19,5 @@ export interface MessageEntity{
   
     chat: string;
   
-    user: string;
+    user: User;
 }

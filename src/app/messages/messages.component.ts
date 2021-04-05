@@ -54,4 +54,12 @@ export class MessagesComponent implements OnInit {
     this.subscriptionMsg?.unsubscribe();
     this.subscriptionMsg = null;
   }
+
+  onAddUsersToChat():void{
+    this.router.navigate(['chat/addusers'],{state: {data: this.chat}})
+  }
+
+  onUsersFromChat():void{
+    this.router.navigate(['usersinchat'],{state: {data: this.chat}})
+  }
 }

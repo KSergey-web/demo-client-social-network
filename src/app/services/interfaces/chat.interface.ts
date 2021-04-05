@@ -9,3 +9,8 @@ export interface ChatDTO{
     avatar: string;
     users?: Array<string>; 
 }
+
+export interface AddUsersToChatDTO{
+   chat:string;
+    users: Array<string>; 
+}

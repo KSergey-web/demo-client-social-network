@@ -20,6 +20,7 @@ export class SocketService {
     this.socket=io('http://localhost:4000/');
     this.authEvent();
     this.msgFromChatEvent();
+    this.connectedEvent();
   }
 
   authEvent(){
@@ -37,6 +38,7 @@ export class SocketService {
   private msgFromChatEvent():void {
     this.msgObservable =  new Observable((observer:any) => {
       this.socket.on('msgFromChat',(msg :MessageEntity) => {
+        console.log(msg);
         observer.next(msg);
       });
     });
@@ -44,5 +46,11 @@ export class SocketService {
   
   getObsmsg():Observable<MessageEntity>{
     return this.msgObservable;
+  }
+
+  private connectedEvent():void {
+      this.socket.on('connectedEvent',() => {
+        this.authEvent();
+      });
   }
 }

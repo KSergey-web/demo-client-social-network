@@ -26,6 +26,8 @@ import { MessagesComponent } from './messages/messages.component';
 import { ChatsComponent } from './chats/chats.component';
 import { ListWorkersComponent } from './shared/list-workers/list-workers.component';
 import { ChatFormComponent } from './chats/chat-form/chat-form.component';
+import { AddUsersComponent } from './messages/add-users/add-users.component';
+import { UsersInChatComponent } from './messages/users-in-chat/users-in-chat.component';
 
 export function tokenGetter(){
   return localStorage.getItem(ACCESS_TOKEN_KEY);
@@ -48,7 +50,9 @@ export function tokenGetter(){
     MessagesComponent,
     ChatsComponent,
     ListWorkersComponent,
-    ChatFormComponent
+    ChatFormComponent,
+    AddUsersComponent,
+    UsersInChatComponent
   ],
   imports: [
     BrowserModule,

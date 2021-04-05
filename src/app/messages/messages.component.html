@@ -2,7 +2,9 @@
 <app-navigation></app-navigation>
 
 <div id="app" class="container">
-    {{chat.name}}
+    <div class='chatName'><h1>{{chat.name}}</h1></div>
+    <button (click)='onAddUsersToChat()'> Добавить сотрудников в чат</button>
+    <button (click)='onUsersFromChat()'> Участники</button>
     <div class="row">
         <div class="col-md-6 offset-md-3 col-sm-12">
             <br>
@@ -12,7 +14,11 @@
                 <div class="card">
                     <div id="messages" class="card-block">
                         <ul>
-                            <li *ngFor="let message of messages">{{ message.text }}</li>
+                            <li *ngFor="let message of messages">
+                                <div class="author"> {{message.user.surname}} {{message.user.name}}</div>
+                                <span class='date'>{{message.date  | date:'short'}}</span>
+                                {{ message.text }}
+                            </li>
                         </ul>
                     </div>
                 </div>
