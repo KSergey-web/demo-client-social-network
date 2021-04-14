@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { INWORK_API } from '../app-injection-tokens';
 import { OrganizationUserLink } from './interfaces/organization.interface';
-import { CreateTeamDTO, Team } from './interfaces/team.interface';
+import { CreateTeamDTO, Status, Team } from './interfaces/team.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +28,9 @@ export class TeamService {
 
   getTeams(organizationId: string): Observable<Array<Team>>{
     return this.http.get<Array<Team>>(`${this.apiUrl}/v1/api/team/all/organization/${organizationId}`);
+  }
+
+   getStatuses(teamId: string): Observable<Array<Status>>{
+    return this.http.get<Array<Status>>(`${this.apiUrl}/v1/api/team/${teamId}/statuses`);
   }
 }

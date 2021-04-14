@@ -38,7 +38,6 @@ export class HeaderComponent implements OnInit {
     this.headerService.getUser().subscribe(
       res => {
         this.user = res
-      console.log(this.user)
     }, 
       err => {
         console.log(err); 

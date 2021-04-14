@@ -25,7 +25,8 @@ export class TeamsComponent implements OnInit {
     this.organizationId= this.organizationService.currentOrganization.getValue()._id;
     if (this.organizationId == ""){
         alert('Выберите организацию');
-        this.router.navigate(['myorganizations'])
+        this.router.navigate(['myorganizations']);
+        return;
       }
       this.updateArray();
   }

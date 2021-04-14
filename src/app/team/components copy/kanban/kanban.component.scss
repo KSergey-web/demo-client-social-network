@@ -1,0 +1,25 @@
+.container{
+    width: 1182px;
+    height: 700px;
+    left: 300px;
+    top:220px;
+    position: absolute;
+    padding: 30px;
+}
+
+.statistic {
+    margin: 0 0 2em 0;
+    list-style-type: none;
+    padding: 0;
+    width: 934px;
+    color: black;
+    background-color: #acb5b8;
+  }
+
+  th{
+    border-bottom: 1px solid #000;
+  }
+
+  td {
+  height: 500px;
+  }

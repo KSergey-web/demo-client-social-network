@@ -16,6 +16,12 @@ export interface Team{
     avatar: string;
 
     name: string;
+}
 
+export interface Status{
+    _id: string;
 
+    position: number;
+
+    name: string;
 }
