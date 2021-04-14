@@ -39,7 +39,7 @@ export class MessagesComponent implements OnInit {
 
   ngOnInit(): void {
     this.messageService.getMessages(this.chat._id).subscribe(res => this.messages = res);
-    this.socketService.getObsmsg().subscribe(msg => this.messages.push(msg));
+    this.socketService.getObsmsg().subscribe(msg => this.messages.unshift(msg));
   }
 
   sendMessage(){

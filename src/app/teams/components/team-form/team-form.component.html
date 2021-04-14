@@ -1,0 +1,14 @@
+<form [formGroup]="teamForm" (ngSubmit)="onSubmit()">
+    <label>
+      Name:
+      <input type="text" formControlName="name" required>
+    </label>
+  
+    <label>
+      Avatar:
+      <input type="text" formControlName="avatar">
+    </label>
+    <app-list-workers (arrayWorkers)="getArrayWorkers($event)"></app-list-workers>
+    <button type="button" (click)="onCancel()">Отмена</button>
+    <button type="submit" [disabled]="!teamForm.valid">Создать</button>
+  </form>

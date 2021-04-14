@@ -10,6 +10,7 @@ import { MyPageComponent } from './mypage/mypage.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { SigninComponent } from './signin/signin.component';
+import { TeamsComponent } from './teams/teams.component';
 
 const routes: Routes = [
     { path: 'signin', component: SigninComponent},
@@ -21,6 +22,7 @@ const routes: Routes = [
     {path: 'messages', component: MessagesComponent},
     {path: 'chat/addusers', component: AddUsersComponent},
     {path: 'usersinchat', component: UsersInChatComponent},
+    {path: 'teams', component: TeamsComponent},
     
     { path: '**', component: NotFoundComponent }
 ];

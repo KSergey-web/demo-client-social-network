@@ -1,0 +1,21 @@
+export interface CreateTeamDTO{
+    name: string;
+
+    organization: string;
+
+    avatar: string;
+
+    users?: Array<string>;
+}
+
+export interface Team{
+    _id: string;
+
+    organization: string;
+
+    avatar: string;
+
+    name: string;
+
+
+}
