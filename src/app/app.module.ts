@@ -31,7 +31,8 @@ import { UsersInChatComponent } from './messages/users-in-chat/users-in-chat.com
 import { TeamsComponent } from './teams/teams.component';
 import { TeamFormComponent } from './teams/components/team-form/team-form.component';
 import { TeamComponent } from './team/team.component';
-import { KanbanComponent } from './team/components copy/kanban/kanban.component';
+import { KanbanComponent } from './team/components/kanban/kanban.component';
+import { ContextMenuComponent } from './team/components/kanban/context-menu/context-menu.component';
 
 export function tokenGetter(){
   return localStorage.getItem(ACCESS_TOKEN_KEY);
@@ -60,7 +61,8 @@ export function tokenGetter(){
     TeamsComponent,
     TeamFormComponent,
     TeamComponent,
-    KanbanComponent
+    KanbanComponent,
+    ContextMenuComponent
   ],
   imports: [
     BrowserModule,

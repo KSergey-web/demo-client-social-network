@@ -1,0 +1,19 @@
+<h1>Kanban</h1>
+<div class="container">
+    <table class="statistic">
+        <thead>
+            <tr>
+                <th *ngFor="let status of statuses" (contextmenu)="displayContextMenuOnStatus($event,status); false">
+                    {{status.name}}
+                    <app-context-menu *ngIf="rightClickMenuItems.length > 0 && isDisplayContextMenu"
+                        [ngStyle]="getRightClickMenuStyle()" [contextMenuItems]="rightClickMenuItems"
+                        (onContextMenuItemClick)="handleMenuItemClickOnStatus($event)"></app-context-menu>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <td>s</td>
+            <td>sds</td>>
+        </tbody>
+    </table>
+</div>
