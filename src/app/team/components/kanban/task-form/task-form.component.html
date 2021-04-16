@@ -1,0 +1,40 @@
+<h1>Долбавление задачи в статус "{{status.name}}"</h1>
+<form [formGroup]="taskForm" (ngSubmit)="onCreate()">
+    <div>
+        <label for="name">
+          Название задачи
+        </label>
+        <input id="name" type="text" formControlName="name">
+      </div>
+    
+      <div>
+        <label for="description">
+          Описание
+        </label>
+        <input id="description" type="text" formControlName="description">
+      </div>
+
+      <div>
+        <label for="color">
+            Цвет
+          </label>
+        <select formControlName="color" class="form-control"  (change)="changedColor($event)">
+            <option disabled>Цвет</option>
+            <option selected>Зеленый</option>
+            <option>Оранжевый</option>
+        </select>
+      </div>
+
+
+      <div class="input-group" *ngIf="deadlineVisible">
+        <label for="deadline">
+            Крайний срок
+          </label>
+        <input id="deadline" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker" formControlName="deadline">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
+        </div>
+      </div>
+
+    <button class="button" type="submit">Создать задачу</button>
+  </form>

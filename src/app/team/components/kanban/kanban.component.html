@@ -12,8 +12,19 @@
             </tr>
         </thead>
         <tbody>
-            <td>s</td>
-            <td>sds</td>>
+            <td *ngFor="let status of statuses; let i = index" >
+                <div *ngFor="let task of tasks">
+                    <div class='task' *ngIf="comparePosition(i,task.status)"
+                    [class.green] = "task.color == 'green'"
+                    [class.orange] = "task.color == 'orange'"
+                    [class.red] = "task.color == 'red'"
+                    >
+                        <p class='name'> {{task.name}}</p>
+                        <hr/>
+                        <div class='user' *ngFor="let user of $any(task.users)"> {{user.name}}</div>
+                    </div>
+                </div>
+            </td>
         </tbody>
     </table>
 </div>

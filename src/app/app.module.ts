@@ -33,6 +33,8 @@ import { TeamFormComponent } from './teams/components/team-form/team-form.compon
 import { TeamComponent } from './team/team.component';
 import { KanbanComponent } from './team/components/kanban/kanban.component';
 import { ContextMenuComponent } from './team/components/kanban/context-menu/context-menu.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TaskFormComponent } from './team/components/kanban/task-form/task-form.component';
 
 export function tokenGetter(){
   return localStorage.getItem(ACCESS_TOKEN_KEY);
@@ -62,7 +64,8 @@ export function tokenGetter(){
     TeamFormComponent,
     TeamComponent,
     KanbanComponent,
-    ContextMenuComponent
+    ContextMenuComponent,
+    TaskFormComponent
   ],
   imports: [
     BrowserModule,
@@ -74,6 +77,7 @@ export function tokenGetter(){
       tokenGetter, 
       allowedDomains: environment.tokenWhiteListedDomains
     }}),
+    NgbModule,
   ],
   providers: [{
     provide: AUTH_API_URL,
