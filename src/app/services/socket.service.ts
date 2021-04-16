@@ -18,7 +18,6 @@ export class SocketService {
   ) { 
     
     this.socket=io('http://localhost:4000/');
-    this.authEvent();
     this.msgFromChatEvent();
     this.connectedEvent();
   }
@@ -52,5 +51,13 @@ export class SocketService {
       this.socket.on('connectedEvent',() => {
         this.authEvent();
       });
+  }
+
+  disconnect():void{
+    this.socket.disconnect();
+  }
+
+  connect():void{
+    this.socket.connect();
   }
 }

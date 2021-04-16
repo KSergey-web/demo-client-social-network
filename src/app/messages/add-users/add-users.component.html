@@ -1,7 +1,7 @@
 <app-header></app-header>
 <app-navigation></app-navigation>
 <form [formGroup]="usersForm" (ngSubmit)="onSubmit()">
-    <app-list-workers (arrayWorkers)="getArrayWorkers($event)"></app-list-workers>
+    <app-list-workers [fncGetUsers]='fncUsersFromChat' (arrayWorkers)="getArrayWorkers($event)"></app-list-workers>
     <button type="button" (click)="onCancel()">Отмена</button>
     <button type="submit">Добавить</button>
   </form>

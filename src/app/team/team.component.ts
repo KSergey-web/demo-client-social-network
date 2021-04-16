@@ -15,7 +15,6 @@ export class TeamComponent implements OnInit {
     private router: Router,
   ) { 
       this.team = history.state.data;
-      console.warn(this.team);
     if (!this.team){
       router.navigate(['teams']);
     }
@@ -24,4 +23,8 @@ export class TeamComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onSturctureTeam(){
+    this.router.navigate(['team/structure'],{state: {data: this.team}})
+  }
 }
+

@@ -1,0 +1,11 @@
+<app-header></app-header>
+<app-navigation></app-navigation>
+<h1>Состав команды {{team.name}}</h1>
+<button (click)='openAddUserForm()'>Добавить участника</button>
+<ul class="employees">
+    <div *ngFor="let user of users">
+        <li >
+        <span> {{user.name}} {{user.surname}} </span>            
+        </li>
+    </div>
+      </ul>

@@ -35,6 +35,8 @@ import { KanbanComponent } from './team/components/kanban/kanban.component';
 import { ContextMenuComponent } from './team/components/kanban/context-menu/context-menu.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TaskFormComponent } from './team/components/kanban/task-form/task-form.component';
+import { TeamStructureComponent } from './team/components/team-structure/team-structure.component';
+import { AddUserFormComponent } from './team/components/team-structure/add-user-form/add-user-form.component';
 
 export function tokenGetter(){
   return localStorage.getItem(ACCESS_TOKEN_KEY);
@@ -65,7 +67,9 @@ export function tokenGetter(){
     TeamComponent,
     KanbanComponent,
     ContextMenuComponent,
-    TaskFormComponent
+    TaskFormComponent,
+    TeamStructureComponent,
+    AddUserFormComponent
   ],
   imports: [
     BrowserModule,

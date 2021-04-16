@@ -1,5 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Organization, OrganizationUserLink } from 'src/app/services/interfaces/organization.interface';
+import { User } from 'src/app/services/interfaces/user.interface';
 import { OrganizationService } from 'src/app/services/organization.service';
 import { CURRENT_USER_ID } from 'src/app/services/user.service';
 
@@ -12,9 +14,13 @@ export class ListWorkersComponent implements OnInit {
 
   @Output() arrayWorkers: EventEmitter<Array<OrganizationUserLink>> = new EventEmitter<Array<OrganizationUserLink>>();
 
+  unwantedUsers: Array<User> = [];
+
   organizationUserLinks: Array<OrganizationUserLink> = [];
 
   organization!:Organization;
+
+  @Input() fncGetUsers!: () => Observable<Array<User>>;
 
   currentUserId!:string;
   constructor(
@@ -35,8 +41,20 @@ export class ListWorkersComponent implements OnInit {
   }
 
   updateListUsers(){
-    this.organizationService.getUsersFromOrganization().subscribe(res => {
-      this.organizationUserLinks = res;
+    this.organizationService.getUsersFromOrganization().subscribe(usersFromOrg => {
+      this.fncGetUsers().subscribe(users => 
+        {
+          this.unwantedUsers = users;
+          for(let i = 0;i < this.unwantedUsers.length;++i){
+            for(let y = 0; y < usersFromOrg.length;y++){
+              if (this.unwantedUsers[i]._id == usersFromOrg[y].user._id) {
+                usersFromOrg.splice(y,1);
+                break;
+              }
+            }
+          }
+          this.organizationUserLinks = usersFromOrg;
+        });
     });
   }  
 

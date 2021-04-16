@@ -44,7 +44,7 @@ export class SinginService {
 
   logOut():void{
     localStorage.removeItem(ACCESS_TOKEN_KEY);
-    this.router.navigate(['signin'])
+    this.router.navigate(['signin']);
   }
 
   getUser():Observable<RegisterDTO> {
