@@ -7,6 +7,7 @@ import { TeamService } from 'src/app/services/team.service';
 import { ContextMenuModel } from './context-menu/context-menu-model';
 import { munuForStatus } from './context-menu/context-menu.constants';
 import { TaskFormComponent } from './task-form/task-form.component';
+import { UpdateTaskFormComponent } from './update-task-form/update-task-form.component';
 
 @Component({
   selector: 'app-kanban',
@@ -111,6 +112,15 @@ export class KanbanComponent implements OnInit {
     modalRef.result.then((task)=>{
       console.warn(task)
       this.tasks.push(task)
+    },(err) => {
+    })
+  }
+
+  openModalUpdateTask(task: Task){
+    const modalRef = this.modalService.open(UpdateTaskFormComponent);
+    (modalRef.componentInstance as UpdateTaskFormComponent).task = task;
+    modalRef.result.then((task)=>{
+      this.updateTasks();
     },(err) => {
     })
   }

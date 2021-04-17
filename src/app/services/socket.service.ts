@@ -37,7 +37,6 @@ export class SocketService {
   private msgFromChatEvent():void {
     this.msgObservable =  new Observable((observer:any) => {
       this.socket.on('msgFromChat',(msg :MessageEntity) => {
-        console.log(msg);
         observer.next(msg);
       });
     });

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Organization, OrganizationUserLink } from 'src/app/services/interfaces/organization.interface';
 import { User } from 'src/app/services/interfaces/user.interface';
@@ -14,35 +15,49 @@ export class ListWorkersComponent implements OnInit {
 
   @Output() arrayWorkers: EventEmitter<Array<OrganizationUserLink>> = new EventEmitter<Array<OrganizationUserLink>>();
 
+  @Output() arrayUsers: EventEmitter<Array<User>> = new EventEmitter<Array<User>>();
+
   unwantedUsers: Array<User> = [];
 
   organizationUserLinks: Array<OrganizationUserLink> = [];
 
   organization!:Organization;
 
-  @Input() fncGetUsers!: () => Observable<Array<User>>;
+  @Input() fncGetUnwantedUsers!: () => Observable<Array<User>>;
+
+  @Input() fncGetUsers: (() => Observable<Array<User>>) | undefined;
+
+  users: Array<User> = [];
 
   currentUserId!:string;
   constructor(
     private organizationService: OrganizationService,
-    ) { 
+    private router: Router,
+    ) {
   }
 
   ngOnInit(): void {
     this.currentUserId = localStorage.getItem(CURRENT_USER_ID)!;
     this.organization = this.organizationService.currentOrganization.getValue();
     if (this.organization._id != ""){
-      this.updateListUsers();
+      if (!this.fncGetUsers){
+      this.updateListWorkers();
       this.emitWorkers();
+      }
+      else {
+        this.updateListUsers();
+        this.emitUsers();
+      }
     }
     else {
       alert('Организация не выбрана');
+      this.router.navigate(['myorganizations'])
     }
   }
 
-  updateListUsers(){
+  updateListWorkers(){
     this.organizationService.getUsersFromOrganization().subscribe(usersFromOrg => {
-      this.fncGetUsers().subscribe(users => 
+      this.fncGetUnwantedUsers().subscribe(users => 
         {
           this.unwantedUsers = users;
           for(let i = 0;i < this.unwantedUsers.length;++i){
@@ -56,11 +71,33 @@ export class ListWorkersComponent implements OnInit {
           this.organizationUserLinks = usersFromOrg;
         });
     });
-  }  
+  }
+  
+  updateListUsers(){
+    if (!this.fncGetUsers){
+      return;
+    }
+    this.fncGetUsers().subscribe(users => {
+      this.fncGetUnwantedUsers().subscribe(unwanedUsers => 
+        {
+          this.unwantedUsers = unwanedUsers;
+          for(let i = 0;i < this.unwantedUsers.length;++i){
+            for(let y = 0; y < users.length;y++){
+              if (this.unwantedUsers[i]._id == users[y]._id) {
+                users.splice(y,1);
+                break;
+              }
+            }
+          }
+          this.users = users;
+          console.log(this.users);
+        });
+  })
+}
 
   selectedWorkers: Array<OrganizationUserLink> = [];
 
-  onSelect(link: OrganizationUserLink): void {
+  onSelectWorker(link: OrganizationUserLink): void {
       const ind = this.selectedWorkers.indexOf(link);
       if (ind == -1) {
         this.selectedWorkers.push(link);
@@ -72,5 +109,21 @@ export class ListWorkersComponent implements OnInit {
 
   emitWorkers(){
     this.arrayWorkers.emit(this.selectedWorkers);
+  }
+
+  selectedUsers: Array<User> = [];
+
+  onSelectUser(user: User): void {
+      const ind = this.selectedUsers.indexOf(user);
+      if (ind == -1) {
+        this.selectedUsers.push(user);
+      }
+      else {
+        this.selectedUsers.splice(ind,1);
+      }
+  }
+
+  emitUsers(){
+    this.arrayUsers.emit(this.selectedUsers);
   }
 }

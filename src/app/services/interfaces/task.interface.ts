@@ -12,9 +12,11 @@ export interface TasKDTO{
 }
 
 export interface Task{
+  _id:string;
+
     name: string;
 
-    discription: string;
+    description: string;
 
   color: string;
 
@@ -27,4 +29,19 @@ export interface Task{
   users: Array<User> | Array<string>;
 
   answer: string;
+}
+
+export interface UpdateTaskDto{
+
+    name?: string;
+
+    description?: string;
+
+  color?: string;
+
+  deadline?: Date;
+
+  status?: string;
+
+  answer?: string;
 }
