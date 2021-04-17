@@ -18,12 +18,13 @@ export class UpdateTaskFormComponent implements OnInit {
   @Input() task!: Task;
   deadlineVisible: boolean = false;
   isVisibleArrayAddedUsers: boolean = false;
+  @Input()isDisableEdit: boolean = false;
   fncUsersFromTeam!: () => Observable<Array<User>>;
   fncUsersFromTask!: () => Observable<Array<User>>;
 
 
   taskForm = this.formBuilder.group({
-    description: '',
+    description: [''],
     color: '',
     deadline: '',
     name: '',
@@ -59,6 +60,11 @@ export class UpdateTaskFormComponent implements OnInit {
       emitEvent: true
     });
     (this.task.color == 'green') ? this.deadlineVisible = false : this.deadlineVisible = true;
+    if (this.isDisableEdit) {
+      this.taskForm.disable({
+      emitEvent: true
+    });
+  }
     //if ( this.task.color == colorEnum.orange || this.task.color == colorEnum.red) this.initDeadline(this.task.deadline.toString())
 
   }

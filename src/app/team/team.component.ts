@@ -26,5 +26,9 @@ export class TeamComponent implements OnInit {
   onSturctureTeam(){
     this.router.navigate(['team/structure'],{state: {data: this.team}})
   }
+
+  onHistoryTasks(){
+    this.router.navigate(['tasks/history'],{state: {data: this.team}})
+  }
 }
 

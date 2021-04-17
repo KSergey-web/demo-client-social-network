@@ -44,5 +44,16 @@ export class TaskService {
     return observable;
   }
 
+  changeStatusForTask(taskId: string, statusId: string): Observable<Task>{
+    return this.http.patch<Task>(`${this.apiUrl}/v1/api/task/status`,{task:taskId, status:statusId})
+  }
+
+  completeTask(taskId: string): Observable<Task>{
+    return this.http.patch<Task>(`${this.apiUrl}/v1/api/task/status/complete`,{id:taskId})
+  }
+
+  getHistory(teamId: string): Observable<Array<Task>>{
+    return this.http.get<Array<Task>>(`${this.apiUrl}/v1/api/task/history/team/${teamId}`)
+  }
  }
 

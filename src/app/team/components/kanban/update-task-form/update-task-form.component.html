@@ -3,21 +3,21 @@
         <label for="name">
             Название задачи
         </label>
-        <input id="name" type="text" formControlName="name">
+        <input id="name" type="text" formControlName="name" >
     </div>
 
     <div>
         <label for="description">
             Описание
         </label>
-        <input id="description" type="text" formControlName="description">
+        <input id="description" type="text" formControlName="description" >
     </div>
 
     <div>
         <label for="color">
             Цвет
         </label>
-        <input formControlName="color" class="form-control" type="text" (change)="changedColor($event)">
+        <input formControlName="color" class="form-control" type="text" (change)="changedColor($event)" >
     </div>
 
 
@@ -25,17 +25,17 @@
         <label for="deadline">
             Крайний срок
         </label>
-        <input id="deadline" class="form-control" type="text" formControlName="deadline">
+        <input id="deadline" class="form-control" type="text" formControlName="deadline" >
     </div>
 
     <div>
         <label for="answer">
             Ответ
         </label>
-        <input id="answer" type="answer" formControlName="answer">
+        <input id="answer" type="answer" formControlName="answer" >
     </div>
     <div *ngIf='!isVisibleArrayAddedUsers' class='executors'>
-        <button class="button" type="button" (click)="addUsers()">Назначить исполнителей</button>
+        <button class="button" type="button" (click)="addUsers()" *ngIf='!isDisableEdit'>Назначить исполнителей</button>
         <div> Исполнители
             <div *ngFor="let user of $any(task.users)"> {{user.name}} {{user.surname}}</div>
         </div>
@@ -45,5 +45,5 @@
         hh
         <button class="button" type="button" (click)="swith()">Добавить</button>
     </div>
-    <button class="button" type="submit">Сохранить</button>
+    <button *ngIf='!isDisableEdit' class="button" type="submit">Сохранить</button>
 </form>

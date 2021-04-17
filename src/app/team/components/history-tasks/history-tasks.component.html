@@ -1,0 +1,12 @@
+<app-header></app-header>
+<app-navigation></app-navigation>
+<ul>
+    <li *ngFor="let task of tasks" >
+            <div class='task' 
+            (dblclick)="openModalUpdateTask(task)"
+            >
+                <p class='name'> {{task.name}}</p>
+                <p class='date' *ngIf="task.deadline"> {{task.deadline | date:'short'}}</p>
+            </div>
+    </li>
+</ul>

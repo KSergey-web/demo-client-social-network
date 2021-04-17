@@ -5,7 +5,7 @@ import { Status } from 'src/app/services/interfaces/team.interface';
 import { TaskService } from 'src/app/services/task.service';
 import { TeamService } from 'src/app/services/team.service';
 import { ContextMenuModel } from './context-menu/context-menu-model';
-import { munuForStatus } from './context-menu/context-menu.constants';
+import { munuForStatus, munuForTask } from './context-menu/context-menu.constants';
 import { TaskFormComponent } from './task-form/task-form.component';
 import { UpdateTaskFormComponent } from './update-task-form/update-task-form.component';
 
@@ -33,8 +33,9 @@ export class KanbanComponent implements OnInit {
   }
 
   selectedStatus: Status | null = null;
+  selectedTask: Task | null = null;
 
-  comparePosition(i: number, status: Status | string):boolean {
+  comparePosition(i: number, status: Status | string): boolean {
     if (i + 1 == (status as Status).position)
       return true;
     else
@@ -80,6 +81,13 @@ export class KanbanComponent implements OnInit {
     this.displayContextMenu(event);
   }
 
+  displayContextMenuOnTask(event: any, task: Task) {
+    this.selectedTask = task;
+    this.rightClickMenuItems = munuForTask;
+    this.displayContextMenu(event);
+  }
+
+
   displayContextMenu(event: any) {
     this.isDisplayContextMenu = true;
     this.rightClickMenuPositionX = event.clientX;
@@ -104,25 +112,75 @@ export class KanbanComponent implements OnInit {
     }
   }
 
+  handleMenuItemClickOnTask(event: any) {
+    switch (event.data) {
+      case this.rightClickMenuItems[0].menuEvent:
+      {  
+        const statusId = this.aboutStatusToTheRightOfTask();
+        if (!statusId) { return }
+        this.changeStatusForTask(statusId);
+        break;
+      }
+      case this.rightClickMenuItems[1].menuEvent:
+        {
+        const statusId = this.aboutStatusToTheLeftOfTask();
+        if (!statusId) { return }
+        this.changeStatusForTask(statusId);
+        break;
+        }
+        case this.rightClickMenuItems[2].menuEvent:
+        {
+        this.taskService.completeTask(this.selectedTask!._id).subscribe(res => this.updateTasks());
+        break;
+        }
+    }
+  }
+
+  aboutStatusToTheRightOfTask(): null | string {
+    let initPosition = (this.selectedTask!.status as Status).position;
+    let newPosition = this.statuses.findIndex((status): boolean => {
+      return (status.position == 1 + initPosition);
+    });
+    if (newPosition == -1) {
+      return null;
+    }
+    else return this.statuses[newPosition]._id;
+  }
+
+  aboutStatusToTheLeftOfTask(): null | string {
+    let initPosition = (this.selectedTask!.status as Status).position;
+    let newPosition = this.statuses.findIndex((status): boolean => {
+      return (status.position == initPosition - 1);
+    });
+    if (newPosition == -1) {
+      return null;
+    }
+    else return this.statuses[newPosition]._id;
+  }
+
 
   openCreateTaskForm() {
     const modalRef = this.modalService.open(TaskFormComponent);
     (modalRef.componentInstance as TaskFormComponent).status = (this.selectedStatus as Status);
     (modalRef.componentInstance as TaskFormComponent).teamId = this.teamId;
-    modalRef.result.then((task)=>{
+    modalRef.result.then((task) => {
       console.warn(task)
       this.tasks.push(task)
-    },(err) => {
+    }, (err) => {
     })
   }
 
-  openModalUpdateTask(task: Task){
+  openModalUpdateTask(task: Task) {
     const modalRef = this.modalService.open(UpdateTaskFormComponent);
     (modalRef.componentInstance as UpdateTaskFormComponent).task = task;
-    modalRef.result.then((task)=>{
+    modalRef.result.then((task) => {
       this.updateTasks();
-    },(err) => {
+    }, (err) => {
     })
+  }
+
+  changeStatusForTask(statusId: string) {
+    this.taskService.changeStatusForTask(this.selectedTask!._id, statusId).subscribe(res => this.updateTasks(), err => console.warn(err));
   }
 
   @HostListener('document:click')

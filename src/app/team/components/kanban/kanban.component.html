@@ -19,11 +19,15 @@
                     [class.orange] = "task.color == 'orange'"
                     [class.red] = "task.color == 'red'"
                     (dblclick)="openModalUpdateTask(task)"
+                    (contextmenu)="displayContextMenuOnTask($event,task); false"
                     >
                         <p class='name'> {{task.name}}</p>
                         <p class='date' *ngIf="task.deadline"> {{task.deadline | date:'short'}}</p>
                         <hr/>
                         <div class='user' *ngFor="let user of $any(task.users)"> {{user.name}}</div>
+                        <app-context-menu *ngIf="rightClickMenuItems.length > 0 && isDisplayContextMenu"
+                            [ngStyle]="getRightClickMenuStyle()" [contextMenuItems]="rightClickMenuItems"
+                            (onContextMenuItemClick)="handleMenuItemClickOnTask($event)"></app-context-menu>
                     </div>
                 </div>
             </td>
