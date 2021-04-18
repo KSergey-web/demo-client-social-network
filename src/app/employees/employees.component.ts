@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HireUserByLoginDTO, Organization, OrganizationUserLink } from '../services/interfaces/organization.interface';
 import { User } from '../services/interfaces/user.interface';
 import { OrganizationService } from '../services/organization.service';
+import { NewPositionComponent } from './new-position/new-position.component';
 
 @Component({
   selector: 'app-employees',
@@ -20,6 +22,7 @@ export class EmployeesComponent implements OnInit {
     private organizationService: OrganizationService,
     private router:Router,
     private formBuilder: FormBuilder,
+    private modalService: NgbModal,
     ) { 
   }
 
@@ -31,13 +34,28 @@ export class EmployeesComponent implements OnInit {
 
   ngOnInit(): void {
     this.organization = this.organizationService.currentOrganization.getValue();
-    if (this.organization._id != ""){
-      this.updateListUsers();
+    if (this.organization._id == ""){
+      alert('Выберите организацию');
+      this.router.navigate(['myorganizations']);
+      return;
     }
+      this.updateListUsers();
+  }
+
+  openNewPositionForm(link: OrganizationUserLink) {
+    const modalRef = this.modalService.open(NewPositionComponent);
+    (modalRef.componentInstance as NewPositionComponent).link = link;
+      modalRef.result.then((task) => {
+      this.updateListUsers();
+    }, (err) => {
+    })
   }
 
   updateListUsers(){
-    this.organizationService.getUsersFromOrganization().subscribe(res => {this.organizationUserLinks = res});
+    this.organizationService.getUsersFromOrganization().subscribe(res => {
+      console.log(res[0]);
+      this.organizationUserLinks = res
+    });
   }
 
   toPageUser(user: User){
@@ -73,4 +91,6 @@ export class EmployeesComponent implements OnInit {
   }
   return;
 }
+
+
 }

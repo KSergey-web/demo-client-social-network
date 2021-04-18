@@ -24,6 +24,8 @@
         (dblclick)="toPageUser(link.user)">
         <img src='{{link.organization.avatar}}' alt = 'avatar'>  
         <span> {{link.user.name}} {{link.user.surname}} </span> 
-          <div> position: {{link.position}} <span> role: {{link.roleUser}}</span> </div>            
+          <div> position: {{link.position}} <span> role: {{link.roleUser}}</span> </div>
+          <span>{{link.user.status}}</span> 
+          <button class="button" (click)='openNewPositionForm(link)'>Изменить должность</button>           
         </li>
       </ul>

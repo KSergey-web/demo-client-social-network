@@ -3,6 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { INWORK_API } from '../app-injection-tokens';
 import {HireUserByLoginDTO, Organization, OrganizationUserLink} from './interfaces/organization.interface'
+import { userStatusEnum } from './interfaces/user.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -31,5 +32,15 @@ export class OrganizationService {
 
   hireWorker(dto:HireUserByLoginDTO): Observable<any>{
     return this.http.post<Array<any>>(`${this.apiUrl}/v1/api/organization/hirewithlogin`, dto);
+  }
+
+  setNewPosition(userId: string, position: string):Observable<any>{
+    const organizationId = this.currentOrganization.getValue()._id;
+    return this.http.patch<any>(`${this.apiUrl}/v1/api/organization/${organizationId}/position`, {userId, position});
+  }
+
+  getStatusUser(userId: string):Observable<{status: userStatusEnum}>{
+    const organizationId = this.currentOrganization.getValue()._id;
+    return this.http.get<any>(`${this.apiUrl}/v1/api/organization/user/${userId}`);
   }
 }

@@ -39,6 +39,7 @@ import { TeamStructureComponent } from './team/components/team-structure/team-st
 import { AddUserFormComponent } from './team/components/team-structure/add-user-form/add-user-form.component';
 import { UpdateTaskFormComponent } from './team/components/kanban/update-task-form/update-task-form.component';
 import { HistoryTasksComponent } from './team/components/history-tasks/history-tasks.component';
+import { NewPositionComponent } from './employees/new-position/new-position.component';
 
 export function tokenGetter(){
   return localStorage.getItem(ACCESS_TOKEN_KEY);
@@ -73,7 +74,8 @@ export function tokenGetter(){
     TeamStructureComponent,
     AddUserFormComponent,
     UpdateTaskFormComponent,
-    HistoryTasksComponent
+    HistoryTasksComponent,
+    NewPositionComponent
   ],
   imports: [
     BrowserModule,
