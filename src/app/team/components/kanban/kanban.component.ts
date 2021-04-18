@@ -176,6 +176,7 @@ export class KanbanComponent implements OnInit {
     modalRef.result.then((task) => {
       this.updateTasks();
     }, (err) => {
+      this.updateTasks();
     })
   }
 

@@ -1,4 +1,5 @@
 import { HttpClient } from '@angular/common/http';
+import { ConstantPool } from '@angular/compiler';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -36,9 +37,21 @@ export class TaskService {
   addUsersToTask(taskId:string, users: Array<User>) : Observable<any>{
     let observable:Observable<any> = new Observable((observer:any) => {
       users.forEach(user => {
-        this.http.patch<User>(`${this.apiUrl}/v1/api/task/addUser`,{task:taskId, user:user._id}).subscribe(val => {
+        this.http.patch<User>(`${this.apiUrl}/v1/api/task/adduser`,{task:taskId, user:user._id}).subscribe(val => {
           observer.next(val)
-        },err => {alert(err), console.log(err)});
+        },err => {console.log(err)});
+      })
+    });
+    return observable;
+  }
+
+  deleteUsersFromTask(taskId:string, users: Array<User>) : Observable<any>{
+    console.warn(users.length);
+    let observable:Observable<any> = new Observable((observer:any) => {
+      users.forEach(user => {
+        this.http.patch<any>(`${this.apiUrl}/v1/api/task/deleteuser`,{task:taskId, user:user._id}).subscribe(val => {
+          observer.next(val)
+        },err => { console.log(err)});
       })
     });
     return observable;

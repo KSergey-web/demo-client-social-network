@@ -36,9 +36,12 @@
     </div>
     <div *ngIf='!isVisibleArrayAddedUsers' class='executors'>
         <button class="button" type="button" (click)="addUsers()" *ngIf='!isDisableEdit'>Назначить исполнителей</button>
-        <div> Исполнители
-            <div *ngFor="let user of $any(task.users)"> {{user.name}} {{user.surname}}</div>
-        </div>
+        <ul > Исполнители
+            <li *ngFor="let user of $any(task.users)"  [class.selected]="deletedUsers.indexOf(user) != -1"> 
+                {{user.name}} {{user.surname}}
+                <button (click)='deleteUser(user)' type='button'><img src="../../../../../assets/deleteicon.png" height='20px' width='20px' alt="Удалить"></button>
+            </li>
+        </ul>
     </div>
     <div *ngIf='isVisibleArrayAddedUsers' class='newexecutors'>
         <app-list-workers [fncGetUnwantedUsers]='fncUsersFromTask' [fncGetUsers]='fncUsersFromTeam' (arrayUsers)="getArrayUsers($event)"></app-list-workers>

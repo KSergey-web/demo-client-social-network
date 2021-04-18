@@ -57,6 +57,8 @@ export class ListWorkersComponent implements OnInit {
 
   updateListWorkers(){
     this.organizationService.getUsersFromOrganization().subscribe(usersFromOrg => {
+      this.organizationUserLinks = usersFromOrg;
+      if (this.fncGetUnwantedUsers){
       this.fncGetUnwantedUsers().subscribe(users => 
         {
           this.unwantedUsers = users;
@@ -70,6 +72,7 @@ export class ListWorkersComponent implements OnInit {
           }
           this.organizationUserLinks = usersFromOrg;
         });
+      }
     });
   }
   

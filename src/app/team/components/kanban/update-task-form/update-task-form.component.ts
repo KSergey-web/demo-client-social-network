@@ -40,10 +40,11 @@ export class UpdateTaskFormComponent implements OnInit {
   ) { }
 
   color!: string;
+  initUsers: Array<User>=[]
 
   ngOnInit(): void {
+    this.initUsers=(this.task.users as Array<User>).slice();
     this.fncUsersFromTeam = () => { 
-      console.warn(this.task.team);
       return this.teamService.getUsers(this.task.team as string) };
     this.fncUsersFromTask = () => {
       return new Observable((observer: any) => {
@@ -92,7 +93,6 @@ export class UpdateTaskFormComponent implements OnInit {
       dto.color = this.taskForm.value.color;
     }
     if (dto.color != colorEnum.green) {
-      console.log((new Date(this.taskForm.value.deadline.get)).getMonth())
       const date = new Date(this.taskForm.value.deadline)
       if (date != this.task.deadline) dto.deadline = date
     }
@@ -112,26 +112,28 @@ export class UpdateTaskFormComponent implements OnInit {
       return;
     }
     const dto = this.compare();
-    console.log(dto);
-    if ((Object.keys(dto).length == 0) && (this.addedUsers.length ==0)){
+    if ((Object.keys(dto).length == 0) && (this.addedUsers.length ==0)  && (this.deletedUsers.length ==0)){
       this.activeModal.dismiss();
     }
+    //this.checkAdded();
     if (this.addedUsers.length !=0){
       this.taskService.addUsersToTask(this.task._id, this.addedUsers).subscribe((res) => {
       }, err => {
-        console.log(err),
-          alert(err.message)
       });
-  
+    }
+    //this.checkDeleted();
+    if (this.deletedUsers.length !=0){
+      
+      this.taskService.deleteUsersFromTask(this.task._id, this.deletedUsers).subscribe((res) => {
+      }, err => {
+      });
     }
   
     if (Object.keys(dto).length != 0) {
     this.taskService.updateTask(this.task._id, dto).subscribe((res) => {
-      alert("Succes");
       this.activeModal.close(res);
     }, err => {
-      console.log(err),
-        alert(err.message)
+      console.log(err);
     });
   }
   }
@@ -141,6 +143,7 @@ export class UpdateTaskFormComponent implements OnInit {
   }
 
   addedUsers: Array<User> = [];
+  deletedUsers: Array<User> = [];
 
   getArrayUsers(users: Array<User>) {
     this.addedUsers= users
@@ -155,4 +158,39 @@ export class UpdateTaskFormComponent implements OnInit {
   addUsers() {
     this.isVisibleArrayAddedUsers = true;
   }
+
+  deleteUser(user: User){
+    const ind = this.deletedUsers.indexOf(user);
+     if (ind == -1){
+       this.deletedUsers.push(user);
+     }
+     else{
+      this.deletedUsers.splice(ind,1);
+     }
+  }
+
+  // checkAdded(){
+  //   this.initUsers.forEach(user => {
+  //     const ind = this.addedUsers.findIndex(added=> added._id == user._id)
+  //     if (ind == -1){
+  //       this.addedUsers.splice(ind,1);
+  //     }
+  //   })
+  // }
+
+  // checkDeleted(){
+  //   console.warn(this.deletedUsers);
+  //   this.initUsers.forEach(user => {
+      
+  //     const ind = this.deletedUsers.findIndex(deleted => {
+  //       console.warn(deleted);
+  //       console.warn(user)
+  //       return deleted._id == user._id})
+  //     if (ind == -1){
+  //       console.log(ind);
+  //       this.deletedUsers.splice(ind,1);
+  //     }
+  //   })
+  //   console.log(this.deletedUsers);
+  // }
 }
