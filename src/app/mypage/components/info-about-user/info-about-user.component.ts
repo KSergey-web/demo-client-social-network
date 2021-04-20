@@ -3,7 +3,7 @@ import { ChatService } from 'src/app/services/chat.service';
 import { OrganizationUserLink } from 'src/app/services/interfaces/organization.interface';
 import { User } from 'src/app/services/interfaces/user.interface';
 import { OrganizationService } from 'src/app/services/organization.service';
-import { UserService } from 'src/app/services/user.service';
+import { CURRENT_USER_ID, UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-info-about-user',
@@ -15,6 +15,7 @@ export class InfoAboutUserComponent implements OnInit {
   organizationUserLinks: Array<OrganizationUserLink> = [];
 
   user?: User;
+  currentUserId!: string;
 
   @Input() userId!: string ;
 
@@ -26,6 +27,7 @@ export class InfoAboutUserComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.currentUserId = localStorage.getItem(CURRENT_USER_ID)!;
     this.organizationService.getOrganizationsOfUser(this.userId).subscribe(res => {this.organizationUserLinks = res});
     this.userService.getUser(this.userId).subscribe(res => {
       this.user = res
@@ -33,5 +35,12 @@ export class InfoAboutUserComponent implements OnInit {
         this.user!.status =res.status;
       }, err => console.log(err));
     });
+  }
+
+  checkCurretUser(){
+    if (this.user?._id==this.currentUserId){
+      return true;
+    }
+    else return false;
   }
 }

@@ -1,10 +1,10 @@
 Ваши организаци:
-<ul class="organizations">
+<ul class="list-group">
     <li *ngFor="let link of organizationUserLinks">
-      <span> {{link.organization.name}} </span> 
-      <span> Your position: {{link.position}}</span>
-      <span> Your role: {{link.roleUser}}</span> 
-      <p>{{link.organization.description}}</p>
+      <span> {{link.organization.name}} </span><br/> 
+      <span> Ваша должность: {{link.position}}</span><br/> 
+      <span> Ваш статус: {{link.roleUser}}</span> <br/> 
+      <p>{{link.organization.description}}</p><br/> 
       <button (click)="onSelect(link.organization)"> select</button>
     </li>
   </ul>

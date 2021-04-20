@@ -1,0 +1,47 @@
+.registration{
+    border: 0;
+    width: 140px;
+    height: 0px;
+}
+
+.container{
+    width: 300px;
+    height: 600px;
+    left: 500px;
+    top:50px;
+    position: absolute;
+    padding: 30px;
+}
+
+button.calendar, button.calendar:active {
+    height: 2em;
+    background-color: #01d5ff;
+    width: 2.75rem;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAcCAYAAAAEN20fAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAEUSURBVEiJ7ZQxToVAEIY/YCHGxN6XGOIpnpaEsBSeQC9ArZbm9TZ6ADyBNzAhQGGl8Riv4BLAWAgmkpBYkH1b8FWT2WK/zJ8ZJ4qiI6XUI3ANnGKWBnht2/ZBDRK3hgVGNsCd7/ui+JkEIrKtqurLpEWaphd933+IyI3LEIdpCYCiKD6HcuOa/nwOa0ScJEnk0BJg0UTUWJRl6RxCYEzEmomsIlPU3IPW+grIAbquy+q6fluy/28RIBeRMwDXdXMgXLj/B2uimRXpui4D9sBeRLKl+1N+L+t6RwbWrZliTTTr1oxYtzVWiTQAcRxvTX+eJMnlUDaO1vpZRO5NS0x48sIwfPc87xg4B04MCzQi8hIEwe4bl1DnFMCN2zsAAAAASUVORK5CYII=') !important;
+    background-repeat: no-repeat;
+    background-size: 23px;
+    background-position: center;
+  }
+
+  .reg{
+    height: 2.5em;
+    border-radius: 10px;
+    font: bold;
+    color: #01d5ff;
+    background-color: #535353;
+    width: 13em;
+    margin-top: 20px;
+  }
+
+  .container{
+    width: 300px;
+    height: 43em;
+    left: 40%;
+    top: 30px;
+    position: absolute;
+    padding: 30px;
+  }
+
+  #file{
+      width:250px;
+  }

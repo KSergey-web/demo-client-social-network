@@ -5,11 +5,6 @@ export const munuForStatus: Array<ContextMenuModel> = [
         menuText: 'Создать задачу',
         menuEvent: 'Handle create task',
       },
-
-      {
-        menuText: 'New status left',
-        menuEvent: 'Handle new status left',
-      },
 ]
 
 

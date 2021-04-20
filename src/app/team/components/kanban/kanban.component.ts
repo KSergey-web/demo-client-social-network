@@ -76,12 +76,14 @@ export class KanbanComponent implements OnInit {
   rightClickMenuPositionY!: number;
 
   displayContextMenuOnStatus(event: any, status: Status) {
+    console.log('disstatus');
     this.selectedStatus = status;
     this.rightClickMenuItems = munuForStatus;
     this.displayContextMenu(event);
   }
 
   displayContextMenuOnTask(event: any, task: Task) {
+    console.log('distask');
     this.selectedTask = task;
     this.rightClickMenuItems = munuForTask;
     this.displayContextMenu(event);
@@ -103,6 +105,7 @@ export class KanbanComponent implements OnInit {
   }
 
   handleMenuItemClickOnStatus(event: any) {
+    console.log('status');
     switch (event.data) {
       case this.rightClickMenuItems[0].menuEvent:
         this.openCreateTaskForm();
@@ -113,6 +116,12 @@ export class KanbanComponent implements OnInit {
   }
 
   handleMenuItemClickOnTask(event: any) {
+    if("Handle create task"==event.data) {
+      this.handleMenuItemClickOnStatus(event);
+      return;
+    }
+    console.log(this.rightClickMenuItems[0].menuEvent);
+    console.log(this.rightClickMenuItems[0].menuEvent == event.data)
     switch (event.data) {
       case this.rightClickMenuItems[0].menuEvent:
       {  
@@ -160,6 +169,7 @@ export class KanbanComponent implements OnInit {
 
 
   openCreateTaskForm() {
+    console.log('create Task')
     const modalRef = this.modalService.open(TaskFormComponent);
     (modalRef.componentInstance as TaskFormComponent).status = (this.selectedStatus as Status);
     (modalRef.componentInstance as TaskFormComponent).teamId = this.teamId;
@@ -181,6 +191,7 @@ export class KanbanComponent implements OnInit {
   }
 
   changeStatusForTask(statusId: string) {
+    console.log('change status');
     this.taskService.changeStatusForTask(this.selectedTask!._id, statusId).subscribe(res => this.updateTasks(), err => console.warn(err));
   }
 

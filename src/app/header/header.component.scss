@@ -1,4 +1,38 @@
-.header{
+header{
     background-color: #535353;
     color: #ffffff;
+    padding-left: 5%;
+    padding-right: 5%;
+    display: block;
+    width: 100%;
+}
+
+.blockhead{
+    width: 90%;
+}
+
+.logo{
+    display: inline-block;
+    margin-left: 40px;
+    margin-top:0.2em ;
+    vertical-align: top;
+}
+
+.info{
+    font-size: 1em;
+    color:#fff;
+    margin-top: 0.2em;
+    display: inline-block;
+    margin-left: 70%;
+    display: inline-flex;
+    h1{
+        font-size: 1em;
+        color:#fff;
+    }
+}
+
+.organization{
+    font-size: 1em;
+    color: #01d5ff;
+    margin-top: 3px;
 }

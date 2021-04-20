@@ -18,6 +18,9 @@ export class SignUpComponent implements OnInit {
     email: '',
     name:'',
     surname:'',
+    birthdate:'',
+    patronymic:'',
+    telephone:'',
   });
 
   constructor(
@@ -36,6 +39,21 @@ export class SignUpComponent implements OnInit {
   }
 
   onRegistr(){
-    this.signUpService.registr(this.registrForm.value).subscribe(()=>{ alert("Succes"),this.router.navigate(['/signin'])}, err=>{ console.log(err),alert('Wrong data!')});;
+    let dto = {...this.registrForm.value};
+      dto.birthdate= new Date();
+      dto.birthdate.setFullYear(this.registrForm.value.birthdate.year);
+      dto.birthdate.setMonth(this.registrForm.value.birthdate.month);
+      dto.birthdate.setDate(this.registrForm.value.birthdate.day)
+      console.log(dto);
+    this.signUpService.registr(dto).subscribe(()=>{ alert("Succes"),this.router.navigate(['/signin'])}, err=>{ console.log(err),alert('Wrong data!')});;
+  }
+
+  uploadFile(files?:any) {
+    console.log('files', files)
+    //     var formData = new FormData();
+
+    // for(let i =0; i < files.length; i++){
+    //   formData.append("files", files[i], files[i]['name']);
+    //     }
   }
 }

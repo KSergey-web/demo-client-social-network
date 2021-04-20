@@ -6,11 +6,13 @@
 
 .container{
     width: 300px;
-    height: 200px;
+    height: 270px;
     left: 500px;
     top:220px;
     position: absolute;
     padding: 30px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 button{
@@ -18,3 +20,13 @@ button{
     width: 130px;
     font-size: 22px;
 }
+
+.signin{
+    border-radius: 10px;
+    font: bold;
+    color: #01d5ff;
+    background-color: #535353;
+    width: 7em;
+    margin-top: 20px;
+    margin-left: 15%;
+  }

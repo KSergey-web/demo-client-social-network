@@ -29,6 +29,7 @@ const routes: Routes = [
     {path: 'team', component: TeamComponent},
     {path: 'team/structure', component: TeamStructureComponent},
     {path: 'tasks/history', component: HistoryTasksComponent},
+    { path: '',   redirectTo: '/signin', pathMatch: 'full' },
     { path: '**', component: NotFoundComponent }
 ];
 

@@ -14,6 +14,8 @@ export class ContextMenuComponent {
   onContextMenuItemClick: EventEmitter<any> = new EventEmitter<any>();
 
   onContextMenuClick(event:any, data:any): any {
+    console.log(this.contextMenuItems);
+    console.warn(data);
     this.onContextMenuItemClick.emit({
       event,
       data,

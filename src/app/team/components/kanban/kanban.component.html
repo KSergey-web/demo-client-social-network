@@ -1,4 +1,3 @@
-<h1>Kanban</h1>
 <div class="container">
     <table class="statistic">
         <thead>
@@ -22,9 +21,9 @@
                     (contextmenu)="displayContextMenuOnTask($event,task); false"
                     >
                         <p class='name'> {{task.name}}</p>
-                        <p class='date' *ngIf="task.deadline"> {{task.deadline | date:'short'}}</p>
+                        <p class='date' *ngIf="task.deadline"> {{task.deadline | date:'dd.MM.yyyy h:mm'}}</p>
                         <hr/>
-                        <div class='user' *ngFor="let user of $any(task.users)"> {{user.name}}</div>
+                        <div class='user' *ngFor="let user of $any(task.users)"> {{user.surname}} {{user.name}}</div>
                         <app-context-menu *ngIf="rightClickMenuItems.length > 0 && isDisplayContextMenu"
                             [ngStyle]="getRightClickMenuStyle()" [contextMenuItems]="rightClickMenuItems"
                             (onContextMenuItemClick)="handleMenuItemClickOnTask($event)"></app-context-menu>

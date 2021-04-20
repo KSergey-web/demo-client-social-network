@@ -1,9 +1,15 @@
-<div *ngIf="user" class="header">
-    <div>
-        <img src="../../assets/icons8-w-в-круге-50.png" alt='логотип'/>
-        <img src="../../assets/Inwork.png" alt='логотип'/>
+<header *ngIf="user" class="header">
+    <div class="blockhead">
+        <div class='logo'>
+            <img src="../../assets/icons8-w-в-круге-50.png" alt='логотип' />
+            <img src="../../assets/Inwork.png" alt='логотип' />
+        </div>
+        <div class="info">
+            <div class="user">
+        <h1>{{user.name}} {{user.surname}}</h1>
+        <h2 *ngIf="organization" class='organization'>{{organization.name}}</h2>
     </div>
-    
-    <span>{{user.name}} {{user.surname}}</span>
-    <div *ngIf="organization"><span>{{organization.name}}</span></div>
-</div>
+        <div class='avatar'><img src='../../assets/avatar.png'></div>
+    </div>
+    </div>
+</header>
