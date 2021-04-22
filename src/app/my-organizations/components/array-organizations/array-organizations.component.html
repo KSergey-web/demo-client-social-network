@@ -1,10 +1,20 @@
 Ваши организаци:
-<ul class="list-group">
+<ul class="organizations">
     <li *ngFor="let link of organizationUserLinks">
-      <span> {{link.organization.name}} </span><br/> 
-      <span> Ваша должность: {{link.position}}</span><br/> 
-      <span> Ваш статус: {{link.roleUser}}</span> <br/> 
-      <p>{{link.organization.description}}</p><br/> 
-      <button (click)="onSelect(link.organization)"> select</button>
+      <div class="parent-box">
+        <div>
+      <h1> {{link.organization.name}} </h1> 
+      <h2> Ваша должность: {{link.position}}</h2> 
+      <h3> Ваш статус: 
+        <span *ngIf="link.roleUser=='superUser'">Создатель организаци</span>
+        <span *ngIf="link.roleUser=='user'">Работник</span>
+      </h3> 
+      <p>{{link.organization.description}}</p> 
+    </div>
+    <div class='select'>
+      <button (click)="onSelect(link.organization)">Выбрать</button>
+    </div>
+    </div>
+    <div class="line"></div>
     </li>
   </ul>

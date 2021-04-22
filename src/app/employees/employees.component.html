@@ -17,15 +17,19 @@
 
     <button class="button" type="submit">Нанять работника</button>
   </form>
-Работники организации:
-<span *ngIf="organization._id != ''">{{organization.name}}</span>
+<h1 class='em'>Работники организации {{organization.name}}</h1>
 <ul class="employees">
         <li *ngFor="let link of organizationUserLinks"
         (dblclick)="toPageUser(link.user)">
-        <img src='{{link.organization.avatar}}' alt = 'avatar'>  
-        <span> {{link.user.name}} {{link.user.surname}} </span> 
-          <div> Должность: {{link.position}} <span> role: {{link.roleUser}}</span> </div>
-          <span [class.online]="link.user.status=='online'">{{link.user.status}}</span> 
-          <button class="button" (click)='openNewPositionForm(link)'>Изменить должность</button>           
+        <img src='../../assets/avatar.png' alt = 'avatar'>  
+        <h2> {{link.user.name}} {{link.user.surname}} </h2> 
+         <h2>  Должность: {{link.position}} </h2>
+           <h2> Статус в организаци: 
+            <span *ngIf="link.roleUser=='superUser'">Создатель организации</span>
+            <span *ngIf="link.roleUser=='user'">Работник</span>
+           </h2> 
+          <h2 [class.online]="link.user.status=='online'">{{link.user.status}}</h2> 
+          <button class="button" (click)='openNewPositionForm(link)'>Изменить должность</button>
+          <div class="line"></div>           
         </li>
       </ul>

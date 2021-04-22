@@ -6,7 +6,7 @@
                     {{status.name}}
                     <app-context-menu *ngIf="rightClickMenuItems.length > 0 && isDisplayContextMenu"
                         [ngStyle]="getRightClickMenuStyle()" [contextMenuItems]="rightClickMenuItems"
-                        (onContextMenuItemClick)="handleMenuItemClickOnStatus($event)"></app-context-menu>
+                        (onContextMenuItemClick)="handleMenuItemClick($event)"></app-context-menu>
                 </th>
             </tr>
         </thead>
@@ -20,13 +20,13 @@
                     (dblclick)="openModalUpdateTask(task)"
                     (contextmenu)="displayContextMenuOnTask($event,task); false"
                     >
-                        <p class='name'> {{task.name}}</p>
+                        <b class='name'>  {{task.name}}</b>
                         <p class='date' *ngIf="task.deadline"> {{task.deadline | date:'dd.MM.yyyy h:mm'}}</p>
-                        <hr/>
+                        <div class="line"></div>
                         <div class='user' *ngFor="let user of $any(task.users)"> {{user.surname}} {{user.name}}</div>
                         <app-context-menu *ngIf="rightClickMenuItems.length > 0 && isDisplayContextMenu"
                             [ngStyle]="getRightClickMenuStyle()" [contextMenuItems]="rightClickMenuItems"
-                            (onContextMenuItemClick)="handleMenuItemClickOnTask($event)"></app-context-menu>
+                            (onContextMenuItemClick)="handleMenuItemClick($event)"></app-context-menu>
                     </div>
                 </div>
             </td>

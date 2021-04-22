@@ -1,7 +1,10 @@
+import { MessageEntity } from "./message.interface";
+
 export interface Chat{
     _id: string;
     name: string;
     avatar: string;
+    message: MessageEntity
 }
 
 export interface ChatDTO{

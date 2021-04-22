@@ -76,14 +76,12 @@ export class KanbanComponent implements OnInit {
   rightClickMenuPositionY!: number;
 
   displayContextMenuOnStatus(event: any, status: Status) {
-    console.log('disstatus');
     this.selectedStatus = status;
     this.rightClickMenuItems = munuForStatus;
     this.displayContextMenu(event);
   }
 
   displayContextMenuOnTask(event: any, task: Task) {
-    console.log('distask');
     this.selectedTask = task;
     this.rightClickMenuItems = munuForTask;
     this.displayContextMenu(event);
@@ -104,45 +102,46 @@ export class KanbanComponent implements OnInit {
     }
   }
 
-  handleMenuItemClickOnStatus(event: any) {
-    console.log('status');
-    switch (event.data) {
-      case this.rightClickMenuItems[0].menuEvent:
-        this.openCreateTaskForm();
-        break;
-      case this.rightClickMenuItems[1].menuEvent:
-        console.log('To handle formatting');
-    }
+  handleMenuItemClick(event: any){
+    if(this.handleMenuItemClickOnStatus(event)) return;
+    if(this.handleMenuItemClickOnTask(event)) return;
+    console.error(event.data);
   }
 
-  handleMenuItemClickOnTask(event: any) {
-    if("Handle create task"==event.data) {
-      this.handleMenuItemClickOnStatus(event);
-      return;
-    }
-    console.log(this.rightClickMenuItems[0].menuEvent);
-    console.log(this.rightClickMenuItems[0].menuEvent == event.data)
+  handleMenuItemClickOnStatus(event: any):boolean {
     switch (event.data) {
-      case this.rightClickMenuItems[0].menuEvent:
+      case munuForStatus[0].menuEvent:
+        this.openCreateTaskForm();
+        return true;
+      case munuForStatus[1].menuEvent:
+        console.log('To handle formatting');
+    }
+    return false;
+  }
+
+  handleMenuItemClickOnTask(event: any):boolean {
+    switch (event.data) {
+      case munuForTask[0].menuEvent:
       {  
         const statusId = this.aboutStatusToTheRightOfTask();
-        if (!statusId) { return }
+        if (!statusId) { return true}
         this.changeStatusForTask(statusId);
-        break;
+        return true;
       }
-      case this.rightClickMenuItems[1].menuEvent:
+      case munuForTask[1].menuEvent:
         {
         const statusId = this.aboutStatusToTheLeftOfTask();
-        if (!statusId) { return }
+        if (!statusId) { return true}
         this.changeStatusForTask(statusId);
-        break;
+        return true;
         }
-        case this.rightClickMenuItems[2].menuEvent:
+      case munuForTask[2].menuEvent:
         {
         this.taskService.completeTask(this.selectedTask!._id).subscribe(res => this.updateTasks());
-        break;
+        return true;
         }
     }
+    return false;
   }
 
   aboutStatusToTheRightOfTask(): null | string {
@@ -169,7 +168,6 @@ export class KanbanComponent implements OnInit {
 
 
   openCreateTaskForm() {
-    console.log('create Task')
     const modalRef = this.modalService.open(TaskFormComponent);
     (modalRef.componentInstance as TaskFormComponent).status = (this.selectedStatus as Status);
     (modalRef.componentInstance as TaskFormComponent).teamId = this.teamId;

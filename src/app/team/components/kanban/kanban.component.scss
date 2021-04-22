@@ -17,12 +17,15 @@
   }
 
   th{
-    width: 300px;
-    border-bottom: 1px solid #000;
+    width: 400px;
+    border-bottom: 3px solid #000;
+    border-right: 3px solid #000;
   }
 
   td{
     vertical-align: top;
+    height: 800px;
+    border-right: 3px solid #000;
   }
 
   tbody {
@@ -44,10 +47,18 @@
   .user{
     color: #000;
   }
+  text-align: center;
+  margin-top: 15px;
+  height: 150px;
 }
 
 .green{
   background-color: #85e709;
+}
+
+.line{
+  background-color: black;
+  height: 5px;
 }
 
 .red{

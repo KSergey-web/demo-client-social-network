@@ -48,6 +48,7 @@ export class UpdateTaskFormComponent implements OnInit {
       return this.teamService.getUsers(this.task.team as string) };
     this.fncUsersFromTask = () => {
       return new Observable((observer: any) => {
+        console.warn(this.task.users)
         observer.next(this.task.users);
       });
     }

@@ -10,7 +10,7 @@
         <label for="description">
             Описание
         </label>
-        <input id="description" type="text" formControlName="description" >
+        <textarea id="description" type="text" formControlName="description" ></textarea>>
     </div>
 
     <div>
@@ -32,7 +32,7 @@
         <label for="answer">
             Ответ
         </label>
-        <input id="answer" type="answer" formControlName="answer" >
+        <textarea id="answer" type="answer" formControlName="answer" ></textarea>
     </div>
     <div *ngIf='!isVisibleArrayAddedUsers' class='executors'>
         <button class="button" type="button" (click)="addUsers()" *ngIf='!isDisableEdit'>Назначить исполнителей</button>
