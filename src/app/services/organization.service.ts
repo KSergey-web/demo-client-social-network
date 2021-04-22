@@ -38,9 +38,4 @@ export class OrganizationService {
     const organizationId = this.currentOrganization.getValue()._id;
     return this.http.patch<any>(`${this.apiUrl}/v1/api/organization/${organizationId}/position`, {userId, position});
   }
-
-  getStatusUser(userId: string):Observable<{status: userStatusEnum}>{
-    const organizationId = this.currentOrganization.getValue()._id;
-    return this.http.get<any>(`${this.apiUrl}/v1/api/organization/user/${userId}`);
-  }
 }

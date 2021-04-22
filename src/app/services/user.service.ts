@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { INWORK_API } from '../app-injection-tokens';
-import { User } from './interfaces/user.interface';
+import { User, userStatusEnum } from './interfaces/user.interface';
 
 export const CURRENT_USER_ID: string = "CURRENT_USER_ID";
 
@@ -20,5 +20,9 @@ export class UserService {
 
   getUser(userId:string) :Observable<User> {
     return this.http.get<User>(`${this.apiUrl}/v1/api/user/${userId}`);
+  }
+
+  getStatusUser(userId: string):Observable<{status: userStatusEnum}>{
+    return this.http.get<any>(`${this.apiUrl}/v1/api/user/${userId}/status`);
   }
 }
