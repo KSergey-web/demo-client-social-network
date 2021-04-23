@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Observer, Subscription } from 'rxjs';
 import * as io from 'socket.io-client';
 import { ACCESS_TOKEN_KEY } from '../signin/services/singin.service';
 import { MessageDTO, MessageEntity } from './interfaces/message.interface';
+import { Task } from './interfaces/task.interface';
 import { UserService } from './user.service';
 
 @Injectable({
@@ -19,6 +20,7 @@ export class SocketService {
     
     this.socket=io('http://localhost:4000/');
     this.msgFromChatEvent();
+    this.taskChanged();
     this.connectedEvent();
   }
 
@@ -42,6 +44,28 @@ export class SocketService {
     });
   }
   
+  taskChangedObs!: Observable<Task>
+  private taskChanged():void{
+    this.taskChangedObs = new Observable((observer: Observer<Task>) => {
+      this.socket.on('changedTask', (task: Task)=> {
+        console.warn(task);
+        observer.next(task);
+      })
+    })
+  }
+
+  enterToTeamEvent(teamId:string){
+    this.socket.emit('enterTeam',{id:teamId})
+  }
+
+  leaveTeamEvent(teamId:string){
+    this.socket.emit('leaveTeam',{id:teamId})
+  }
+
+  getTaskChangeStatusObs(): Observable<Task>{
+    return this.taskChangedObs;
+  }
+
   getObsmsg():Observable<MessageEntity>{
     return this.msgObservable;
   }

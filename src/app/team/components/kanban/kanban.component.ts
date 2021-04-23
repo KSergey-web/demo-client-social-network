@@ -1,11 +1,13 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from 'rxjs';
 import { Task } from 'src/app/services/interfaces/task.interface';
 import { Status } from 'src/app/services/interfaces/team.interface';
+import { SocketService } from 'src/app/services/socket.service';
 import { TaskService } from 'src/app/services/task.service';
 import { TeamService } from 'src/app/services/team.service';
 import { ContextMenuModel } from './context-menu/context-menu-model';
-import { munuForStatus, munuForTask } from './context-menu/context-menu.constants';
+import { menuForStatus, menuForTask } from './context-menu/context-menu.constants';
 import { TaskFormComponent } from './task-form/task-form.component';
 import { UpdateTaskFormComponent } from './update-task-form/update-task-form.component';
 
@@ -25,11 +27,22 @@ export class KanbanComponent implements OnInit {
     private teamService: TeamService,
     private taskService: TaskService,
     private modalService: NgbModal,
+    private socketService: SocketService
   ) { }
 
+  subTaskChanged!: Subscription | null;
+
   ngOnInit(): void {
+    this.socketService.enterToTeamEvent(this.teamId);
+    this.subTaskChanged=this.socketService.getTaskChangeStatusObs().subscribe(task => this.updateTasks());
     this.updateArrayStatuses();
     this.updateTasks();
+  }
+
+  ngOnDestroy(): void{
+    this.socketService.leaveTeamEvent(this.teamId);
+    this.subTaskChanged?.unsubscribe();
+    this.subTaskChanged = null;
   }
 
   selectedStatus: Status | null = null;
@@ -52,6 +65,7 @@ export class KanbanComponent implements OnInit {
         alert(err.message)
       })
   }
+
 
 
   updateArrayStatuses() {
@@ -77,13 +91,13 @@ export class KanbanComponent implements OnInit {
 
   displayContextMenuOnStatus(event: any, status: Status) {
     this.selectedStatus = status;
-    this.rightClickMenuItems = munuForStatus;
+    this.rightClickMenuItems = menuForStatus;
     this.displayContextMenu(event);
   }
 
   displayContextMenuOnTask(event: any, task: Task) {
     this.selectedTask = task;
-    this.rightClickMenuItems = munuForTask;
+    this.rightClickMenuItems = menuForTask;
     this.displayContextMenu(event);
   }
 
@@ -110,32 +124,30 @@ export class KanbanComponent implements OnInit {
 
   handleMenuItemClickOnStatus(event: any):boolean {
     switch (event.data) {
-      case munuForStatus[0].menuEvent:
+      case menuForStatus[0].menuEvent:
         this.openCreateTaskForm();
         return true;
-      case munuForStatus[1].menuEvent:
-        console.log('To handle formatting');
     }
     return false;
   }
 
   handleMenuItemClickOnTask(event: any):boolean {
     switch (event.data) {
-      case munuForTask[0].menuEvent:
+      case menuForTask[0].menuEvent:
       {  
         const statusId = this.aboutStatusToTheRightOfTask();
         if (!statusId) { return true}
         this.changeStatusForTask(statusId);
         return true;
       }
-      case munuForTask[1].menuEvent:
+      case menuForTask[1].menuEvent:
         {
         const statusId = this.aboutStatusToTheLeftOfTask();
         if (!statusId) { return true}
         this.changeStatusForTask(statusId);
         return true;
         }
-      case munuForTask[2].menuEvent:
+      case menuForTask[2].menuEvent:
         {
         this.taskService.completeTask(this.selectedTask!._id).subscribe(res => this.updateTasks());
         return true;
@@ -189,8 +201,7 @@ export class KanbanComponent implements OnInit {
   }
 
   changeStatusForTask(statusId: string) {
-    console.log('change status');
-    this.taskService.changeStatusForTask(this.selectedTask!._id, statusId).subscribe(res => this.updateTasks(), err => console.warn(err));
+    this.taskService.changeStatusForTask(this.selectedTask!._id, statusId).subscribe(res => {}, err => console.warn(err));
   }
 
   @HostListener('document:click')

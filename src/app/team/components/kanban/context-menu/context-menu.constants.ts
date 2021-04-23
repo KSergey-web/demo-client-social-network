@@ -1,6 +1,6 @@
 import { ContextMenuModel } from "./context-menu-model";
 
-export const munuForStatus: Array<ContextMenuModel> = [
+export const menuForStatus: Array<ContextMenuModel> = [
     {
         menuText: 'Создать задачу',
         menuEvent: 'Handle create task',
@@ -8,10 +8,10 @@ export const munuForStatus: Array<ContextMenuModel> = [
 ]
 
 
-export const munuForTask: Array<ContextMenuModel> = [
+export const menuForTask: Array<ContextMenuModel> = [
   {
       menuText: 'Перенести задачу вправо',
-      menuEvent: 'Handle change status for task to riight',
+      menuEvent: 'Handle change status for task to right',
   },
   {
     menuText: 'Перенести задачу влево',
