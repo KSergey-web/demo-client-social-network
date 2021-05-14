@@ -1,0 +1,11 @@
+
+<app-header></app-header>
+<app-navigation></app-navigation>
+<button class="simple-button" (click)="openCreateGroupForm()">Создать группу</button>
+Группы:
+<ul class="groups">
+        <li *ngFor="let group of groups"
+        (dblclick)="toGroup(group)">
+           <div> <span> {{group.name}} </span> </div>            
+        </li>
+</ul>

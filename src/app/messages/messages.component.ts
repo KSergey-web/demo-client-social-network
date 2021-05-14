@@ -49,7 +49,11 @@ export class MessagesComponent implements OnInit {
     this.messageService.createMessage({
       text:this.msgForm.value.text, 
       chat:this.chat._id
-    }).subscribe(res=>{}, err => console.warn(err));
+    }).subscribe(res=>{
+      this.msgForm.setValue({text:''},{
+        emitEvent: true
+      })
+    }, err => console.warn(err));
     //this.msgForm.reset();
   }
 

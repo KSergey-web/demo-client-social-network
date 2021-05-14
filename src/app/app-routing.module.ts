@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ChatsComponent } from './chats/chats.component';
 import { EmployeesComponent } from './employees/employees.component';
+import { GroupComponent } from './group/group.component';
+import { GroupsComponent } from './groups/groups.component';
 import { AddUsersComponent } from './messages/add-users/add-users.component';
 import { MessagesComponent } from './messages/messages.component';
 import { UsersInChatComponent } from './messages/users-in-chat/users-in-chat.component';
@@ -27,6 +29,8 @@ const routes: Routes = [
     {path: 'usersinchat', component: UsersInChatComponent},
     {path: 'teams', component: TeamsComponent},
     {path: 'team', component: TeamComponent},
+    {path: 'groups', component: GroupsComponent},
+    {path: 'group', component: GroupComponent},
     {path: 'team/structure', component: TeamStructureComponent},
     {path: 'tasks/history', component: HistoryTasksComponent},
     { path: '',   redirectTo: '/signin', pathMatch: 'full' },

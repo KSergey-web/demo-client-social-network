@@ -31,18 +31,25 @@ export class KanbanComponent implements OnInit {
   ) { }
 
   subTaskChanged!: Subscription | null;
+  subTaskCreated!: Subscription | null;
 
   ngOnInit(): void {
     this.socketService.enterToTeamEvent(this.teamId);
     this.subTaskChanged=this.socketService.getTaskChangeStatusObs().subscribe(task => this.updateTasks());
+    this.subTaskCreated=this.socketService.getTaskCreatedStatusObs().subscribe(task => this.tasks.push(task));
     this.updateArrayStatuses();
     this.updateTasks();
   }
 
   ngOnDestroy(): void{
     this.socketService.leaveTeamEvent(this.teamId);
-    this.subTaskChanged?.unsubscribe();
-    this.subTaskChanged = null;
+    this.unSubscription(this.subTaskChanged);
+    this.unSubscription(this.subTaskCreated);
+  }
+
+  unSubscription(sub:Subscription|null){
+    sub?.unsubscribe();
+    sub = null;
   }
 
   selectedStatus: Status | null = null;
@@ -184,8 +191,8 @@ export class KanbanComponent implements OnInit {
     (modalRef.componentInstance as TaskFormComponent).status = (this.selectedStatus as Status);
     (modalRef.componentInstance as TaskFormComponent).teamId = this.teamId;
     modalRef.result.then((task) => {
-      console.warn(task)
-      this.tasks.push(task)
+      //console.warn(task)
+      //this.tasks.push(task)
     }, (err) => {
     })
   }

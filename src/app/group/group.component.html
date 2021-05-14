@@ -1,0 +1,23 @@
+<app-header></app-header>
+<app-navigation></app-navigation>
+<img src='' alt='avatar'>
+<h1>{{group.name}}</h1>
+<h1>{{group.description}}</h1>
+<div *ngIf='group.isOpen'>Открытая группа</div>
+<div *ngIf='!group.isOpen'>Закрытая группа</div>
+<h1>Создать пост</h1>
+<form [formGroup]="postForm" (ngSubmit)="onCreatePost()">
+    <label>
+        text:
+        <textarea type="text" formControlName="text" required></textarea>
+    </label>
+    <button type="submit" [disabled]="!postForm.valid">Опубликовать</button>
+</form>
+<ul class="posts">
+    <li *ngFor="let post of posts">
+        <p> {{post.text}} </p>
+        <h4>{{post.date| date:'d.MM.yyyy H:m'}}</h4>
+        <h4>{{$any(post).user.name}} {{$any(post).user.surname}}</h4>
+        <div class="line"></div>
+    </li>
+</ul>

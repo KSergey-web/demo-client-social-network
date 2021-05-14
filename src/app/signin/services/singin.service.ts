@@ -32,6 +32,7 @@ export class SinginService {
         localStorage.setItem(CURRENT_USER_ID, obj.user._id);
         localStorage.setItem(ACCESS_TOKEN_KEY, obj.token);
         let token = localStorage.getItem(ACCESS_TOKEN_KEY);
+        console.warn(token);
       })
     );
   }

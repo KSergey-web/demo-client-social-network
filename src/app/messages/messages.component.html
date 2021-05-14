@@ -16,7 +16,7 @@
                         <ul>
                             <li *ngFor="let message of messages">
                                 <div class="author"> {{message.user.surname}} {{message.user.name}}</div>
-                                <span class='date'>{{message.date  | date:'short'}}</span>
+                                <span class='date'>{{message.date  | date:' dd.MM.yy H:mm'}}</span>
                                 {{ message.text }}
                             </li>
                         </ul>

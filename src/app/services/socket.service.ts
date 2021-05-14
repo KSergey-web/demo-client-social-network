@@ -19,18 +19,23 @@ export class SocketService {
   ) { 
     
     this.socket=io('http://localhost:4000/');
+    if (!localStorage.getItem(ACCESS_TOKEN_KEY)) this.socket.disconnect();
     this.msgFromChatEvent();
     this.taskChanged();
+    this.taskCreated();
     this.connectedEvent();
   }
 
   authEvent(){
     this.socket.on('errorAuth', (err : any) => {
-      alert(err.message);
-      this.router.navigate(['auth']);
+      alert(`errorAuth ${err.message}`);
+      localStorage.removeItem(ACCESS_TOKEN_KEY);
+      this.router.navigate(['signin']);
     });
+    console.warn(localStorage.getItem(ACCESS_TOKEN_KEY));
     this.socket.emit('auth', { token: localStorage.getItem(ACCESS_TOKEN_KEY)});
   }
+
   msgToChatEvent(dto: MessageDTO){
     this.socket.emit('msgToChat', dto);
   }
@@ -48,10 +53,22 @@ export class SocketService {
   private taskChanged():void{
     this.taskChangedObs = new Observable((observer: Observer<Task>) => {
       this.socket.on('changedTask', (task: Task)=> {
-        console.warn(task);
         observer.next(task);
       })
     })
+  }
+
+  taskCreatedObs!: Observable<Task>
+  private taskCreated():void{
+    this.taskCreatedObs = new Observable((observer: Observer<Task>) => {
+      this.socket.on('createdTask', (task: Task)=> {
+        observer.next(task);
+      })
+    })
+  }
+
+  getTaskCreatedStatusObs(): Observable<Task>{
+    return this.taskCreatedObs;
   }
 
   enterToTeamEvent(teamId:string){

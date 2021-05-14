@@ -1,0 +1,27 @@
+
+<h1>Создание группы</h1>
+<form [formGroup]="groupForm" (ngSubmit)="onCreate()">
+    <div>
+        <label for="name">
+          Название группы
+        </label>
+        <input id="name" type="text" formControlName="name" >
+      </div>
+    
+      <div>
+        <label for="description">
+          Описание
+        </label>
+        <textarea id="description" type="text" formControlName="description"></textarea>
+      </div>
+
+      <div>
+        <label for="isOpen">
+          Открытая группа
+        </label>
+        <input type="checkbox" checked formControlName="isOpen">
+      </div>
+
+
+    <button class="button" type="submit" [disabled]="!groupForm.valid">Создать группу</button>
+  </form>
