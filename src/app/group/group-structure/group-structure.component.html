@@ -1,0 +1,12 @@
+<app-header></app-header>
+<app-navigation></app-navigation>
+<h1>Участники группы  {{group.name}}</h1>
+<button (click)='openAddUserForm()' *ngIf=!group.isOpen>Добавить участника</button>
+<ul class="employees">
+    <div *ngFor="let link of links">
+        <li >
+        <h3> {{$any(link).user.name}} {{$any(link).user.surname}} </h3>
+        <h4> {{link.roleUser}} </h4>            
+        </li>
+    </div>
+      </ul>

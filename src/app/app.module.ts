@@ -43,6 +43,8 @@ import { NewPositionComponent } from './employees/new-position/new-position.comp
 import { GroupsComponent } from './groups/groups.component';
 import { GroupFormComponent } from './groups/group-form/group-form.component';
 import { GroupComponent } from './group/group.component';
+import { GroupStructureComponent } from './group/group-structure/group-structure.component';
+import { AddUserFormToGroupComponent } from './group/group-structure/add-user-form-to-group/add-user-form-to-group.component';
 
 export function tokenGetter(){
   return localStorage.getItem(ACCESS_TOKEN_KEY);
@@ -81,7 +83,9 @@ export function tokenGetter(){
     NewPositionComponent,
     GroupsComponent,
     GroupFormComponent,
-    GroupComponent
+    GroupComponent,
+    GroupStructureComponent,
+    AddUserFormToGroupComponent,
   ],
   imports: [
     BrowserModule,

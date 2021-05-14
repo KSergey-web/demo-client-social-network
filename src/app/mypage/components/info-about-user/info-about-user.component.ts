@@ -33,7 +33,7 @@ export class InfoAboutUserComponent implements OnInit {
       this.user = res
       setTimeout(()=>this.userService.getStatusUser(this.user!._id).subscribe((res: any) => {
         this.user!.status =res.status;
-      }, err => console.log(err)),1);
+      }, err => console.log(err)),2);
     });
   }
 

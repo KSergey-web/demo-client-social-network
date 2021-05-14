@@ -48,4 +48,8 @@ export class GroupComponent implements OnInit {
       this.postForm.controls.text.setValue('');
     });
   }
+
+  onSturctureGroup(){
+    this.router.navigate(['group/structure'],{state: {data: this.group}})
+  }
 }

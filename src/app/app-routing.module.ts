@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ChatsComponent } from './chats/chats.component';
 import { EmployeesComponent } from './employees/employees.component';
+import { GroupStructureComponent } from './group/group-structure/group-structure.component';
 import { GroupComponent } from './group/group.component';
 import { GroupsComponent } from './groups/groups.component';
 import { AddUsersComponent } from './messages/add-users/add-users.component';
@@ -31,6 +32,7 @@ const routes: Routes = [
     {path: 'team', component: TeamComponent},
     {path: 'groups', component: GroupsComponent},
     {path: 'group', component: GroupComponent},
+    {path: 'group/structure', component: GroupStructureComponent},
     {path: 'team/structure', component: TeamStructureComponent},
     {path: 'tasks/history', component: HistoryTasksComponent},
     { path: '',   redirectTo: '/signin', pathMatch: 'full' },

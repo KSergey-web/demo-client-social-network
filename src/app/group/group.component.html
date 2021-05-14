@@ -5,6 +5,7 @@
 <h1>{{group.description}}</h1>
 <div *ngIf='group.isOpen'>Открытая группа</div>
 <div *ngIf='!group.isOpen'>Закрытая группа</div>
+<button type="button" (click)="onSturctureGroup()">Участники группы</button>
 <h1>Создать пост</h1>
 <form [formGroup]="postForm" (ngSubmit)="onCreatePost()">
     <label>
