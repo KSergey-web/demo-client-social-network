@@ -3,6 +3,7 @@ import { ACCESS_TOKEN_KEY, SinginService } from './services/singin.service';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SocketService } from '../services/socket.service';
+import { NotificationService } from '../services/notification.service';
 
 @Component({
   selector: 'app-signin',
@@ -20,7 +21,8 @@ export class SigninComponent implements OnInit {
     private signInService: SinginService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private socketService: SocketService
+    private socketService: SocketService,
+    private notificationService: NotificationService
 ) { }
 
   ngOnInit(): void {
@@ -32,7 +34,6 @@ export class SigninComponent implements OnInit {
 
   onLogin(): void {
     this.signInService.login(this.checkoutForm.value).subscribe(res=>{
-      console.log(localStorage.getItem(ACCESS_TOKEN_KEY));
       this.socketService.connect();
       this.router.navigate(['mypage', res.user._id]);
     }, err=> alert('Wrong login or password!'));

@@ -5,7 +5,7 @@
     <li><a routerLink="/chats">Сообщения</a></li>
     <li><a routerLink="/employees">Сотрудники</a></li>
     <li><a routerLink="/groups">Группы</a></li>
-    <li><a routerLink="/heroes">Уведомления</a></li>
+    <li><a routerLink="/notifications">Уведомления </a> <span *ngIf='notif!=0' class="backNotif"> <b> {{notif}}</b></span></li>
     <li><a routerLink="/teams">Команды</a></li>
     <li><a routerLink="/signin">Выйти</a></li>
     </ul>

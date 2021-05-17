@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { NotificationService } from '../services/notification.service';
 import { CURRENT_USER_ID } from '../services/user.service';
 
 @Component({
@@ -9,11 +11,24 @@ import { CURRENT_USER_ID } from '../services/user.service';
 export class NavigationComponent implements OnInit {
 
   userId!: string;
+  notif:number = 0;
+  subNotif?: Subscription | null;
 
-  constructor() { }
+  constructor(
+    private notificationService:NotificationService,
+  ) { }
 
   ngOnInit(): void {
+    this.notificationService.getNotReaded();
+    this.subNotif = this.notificationService.quntNotReadedNotif.subscribe((quntNotif:any) => {
+      this.notif=quntNotif;
+    })
     const id = localStorage.getItem(CURRENT_USER_ID);
     if (id) this.userId = id;
+  }
+
+  ngOnDestroy(): void{
+    this.subNotif?.unsubscribe();
+    this.subNotif = null;
   }
 }

@@ -11,6 +11,7 @@ import { UsersInChatComponent } from './messages/users-in-chat/users-in-chat.com
 import { MyOrganizationsComponent } from './my-organizations/my-organizations.component';
 import { MyPageComponent } from './mypage/mypage.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { NotificationComponent } from './notification/notification.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { SigninComponent } from './signin/signin.component';
 import { HistoryTasksComponent } from './team/components/history-tasks/history-tasks.component';
@@ -35,6 +36,7 @@ const routes: Routes = [
     {path: 'group/structure', component: GroupStructureComponent},
     {path: 'team/structure', component: TeamStructureComponent},
     {path: 'tasks/history', component: HistoryTasksComponent},
+    {path: 'notifications', component: NotificationComponent},
     { path: '',   redirectTo: '/signin', pathMatch: 'full' },
     { path: '**', component: NotFoundComponent }
 ];

@@ -1,0 +1,14 @@
+<app-header></app-header>
+<app-navigation></app-navigation>
+<h1 *ngIf='notifications.length == 0'> Пусто</h1>
+<ul class="notifications">
+    <li *ngFor="let notification of notifications" [class.notReaded] = "!notification.isReaded">
+        <h1>{{notification.date |  date:' dd.MM.yy H:mm'}}</h1>
+        <p> {{notification.organization.name}} <br/>
+        {{notification.team.name}} <br/>
+        {{notification.task.name}} <br/>
+        <span *ngIf='notification.remains'>Времени осталось: {{notification.remains.days}} дней {{notification.remains.hours}} часов {{notification.remains.minutes}} минут</span> <br/>
+        </p>
+        <div class="line"></div>
+    </li>
+</ul>

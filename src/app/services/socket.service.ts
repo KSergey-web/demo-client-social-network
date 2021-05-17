@@ -23,6 +23,7 @@ export class SocketService {
     this.msgFromChatEvent();
     this.taskChanged();
     this.taskCreated();
+    this.newNotificationEvent();
     this.connectedEvent();
   }
 
@@ -32,7 +33,6 @@ export class SocketService {
       localStorage.removeItem(ACCESS_TOKEN_KEY);
       this.router.navigate(['signin']);
     });
-    console.warn(localStorage.getItem(ACCESS_TOKEN_KEY));
     this.socket.emit('auth', { token: localStorage.getItem(ACCESS_TOKEN_KEY)});
   }
 
@@ -65,6 +65,19 @@ export class SocketService {
         observer.next(task);
       })
     })
+  }
+
+  newNotificationObs!: Observable<Task>
+  private newNotificationEvent():void{
+    this.newNotificationObs = new Observable((observer: Observer<Task>) => {
+      this.socket.on('newNotification', (res:any)=> {
+        observer.next(res);
+      })
+    })
+  }
+
+  getnewNotificationObs(): Observable<Task>{
+    return this.newNotificationObs;
   }
 
   getTaskCreatedStatusObs(): Observable<Task>{
