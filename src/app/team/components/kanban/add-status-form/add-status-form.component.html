@@ -1,0 +1,11 @@
+<h1>Долбавление статус</h1>
+<form [formGroup]="statusForm" (ngSubmit)="onCreate()">
+    <div>
+        <label for="name">
+          Название
+        </label>
+        <input id="name" type="text" formControlName="name">
+      </div>
+
+    <button class="button" type="submit">Добавить статус</button>
+  </form>

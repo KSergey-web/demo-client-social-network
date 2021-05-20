@@ -1,3 +1,5 @@
+import { directionEnum } from "src/app/shared/list-workers/enums";
+
 export interface CreateTeamDTO{
     name: string;
 
@@ -25,3 +27,14 @@ export interface Status{
 
     name: string;
 }
+
+export interface AddStatusDTO {
+
+    name: string;
+
+    currentPosition: number;
+  
+    direction: directionEnum;
+  
+    team: string;
+  }

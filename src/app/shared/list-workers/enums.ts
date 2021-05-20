@@ -14,3 +14,9 @@ export enum phaseEnum {
         left10 = 'left10',
 }
 
+
+export enum directionEnum{
+        right = 'right',
+        left = 'left',
+      }
+

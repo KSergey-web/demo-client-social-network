@@ -5,6 +5,7 @@ import * as io from 'socket.io-client';
 import { ACCESS_TOKEN_KEY } from '../signin/services/singin.service';
 import { MessageDTO, MessageEntity } from './interfaces/message.interface';
 import { Task } from './interfaces/task.interface';
+import { Status } from './interfaces/team.interface';
 import { UserService } from './user.service';
 
 @Injectable({
@@ -23,6 +24,8 @@ export class SocketService {
     this.msgFromChatEvent();
     this.taskChanged();
     this.taskCreated();
+    this.statusCreated();
+    this.statusDeleted();
     this.newNotificationEvent();
     this.connectedEvent();
   }
@@ -67,6 +70,38 @@ export class SocketService {
     })
   }
 
+  getTaskCreatedStatusObs(): Observable<Task>{
+    return this.taskCreatedObs;
+  }
+
+
+  statusCreatedObs!: Observable<Status>
+  private statusCreated():void{
+    this.statusCreatedObs = new Observable((observer: Observer<Status>) => {
+      this.socket.on('addedStatus', (status: Status)=> {
+        observer.next(status);
+      })
+    })
+  }
+  
+  getStatusCreatedObs(): Observable<Status>{
+    return this.statusCreatedObs;
+  }
+
+  statusDeletedObs!: Observable<Status>
+  private statusDeleted():void{
+    this.statusDeletedObs = new Observable((observer: Observer<Status>) => {
+      this.socket.on('deletedStatus', (status: Status)=> {
+        observer.next(status);
+      })
+    })
+  }
+  
+  getStatusDeletedObs(): Observable<Status>{
+    return this.statusDeletedObs;
+  }
+
+
   newNotificationObs!: Observable<Task>
   private newNotificationEvent():void{
     this.newNotificationObs = new Observable((observer: Observer<Task>) => {
@@ -80,9 +115,6 @@ export class SocketService {
     return this.newNotificationObs;
   }
 
-  getTaskCreatedStatusObs(): Observable<Task>{
-    return this.taskCreatedObs;
-  }
 
   enterToTeamEvent(teamId:string){
     this.socket.emit('enterTeam',{id:teamId})

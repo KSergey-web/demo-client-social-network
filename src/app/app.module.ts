@@ -46,6 +46,7 @@ import { GroupComponent } from './group/group.component';
 import { GroupStructureComponent } from './group/group-structure/group-structure.component';
 import { AddUserFormToGroupComponent } from './group/group-structure/add-user-form-to-group/add-user-form-to-group.component';
 import { NotificationComponent } from './notification/notification.component';
+import { AddStatusFormComponent } from './team/components/kanban/add-status-form/add-status-form.component';
 
 export function tokenGetter(){
   return localStorage.getItem(ACCESS_TOKEN_KEY);
@@ -88,6 +89,7 @@ export function tokenGetter(){
     GroupStructureComponent,
     AddUserFormToGroupComponent,
     NotificationComponent,
+    AddStatusFormComponent,
   ],
   imports: [
     BrowserModule,

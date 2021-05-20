@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { INWORK_API } from '../app-injection-tokens';
 import { OrganizationUserLink } from './interfaces/organization.interface';
-import { CreateTeamDTO, Status, Team } from './interfaces/team.interface';
+import { AddStatusDTO, CreateTeamDTO, Status, Team } from './interfaces/team.interface';
 import { User } from './interfaces/user.interface';
 
 @Injectable({
@@ -38,6 +38,14 @@ export class TeamService {
 
   getUsers(teamId: string): Observable<Array<User>>{
     return this.http.get<Array<User>>(`${this.apiUrl}/v1/api/team/${teamId}/users`);
+  }
+
+  deleteStatus(statusId: string,teamId: string): Observable<any>{
+    return this.http.delete<any>(`${this.apiUrl}/v1/api/team/${teamId}/status/${statusId}`);
+  }
+
+  addStatus(dto: AddStatusDTO): Observable<Status>{
+    return this.http.post<Status>(`${this.apiUrl}/v1/api/team/addstatus`,dto);
   }
 
 
