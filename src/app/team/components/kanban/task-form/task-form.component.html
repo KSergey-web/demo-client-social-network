@@ -15,15 +15,16 @@
       </div>
 
       <div>
-        <label for="color">
-            Цвет
-          </label>
-        <select formControlName="color" class="form-control"  (change)="changedColor($event)">
-            <option disabled>Цвет</option>
-            <option selected>Зеленый</option>
-            <option>Оранжевый</option>
-        </select>
+      <div ngbDropdown class="d-inline-block">
+        <input *ngIf='false' id="deadline" class="form-control" type="text" formControlName="deadline" >
+        <button class="btn btn-outline-primary" type='button' id="dropdownBasic1" ngbDropdownToggle>{{currentColor.viewValue}}</button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button *ngFor="let color of colors; index as i;"  class="combobox" (click)="changeColor(i)" type='button' ngbDropdownItem>
+            {{color.viewValue}}
+          </button>
+        </div>
       </div>
+    </div>
 
 
       <div class="input-group" *ngIf="deadlineVisible">

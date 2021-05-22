@@ -25,5 +25,3 @@ export enum avatarTypeEnum {
         average = 'average',
         original = 'original',
 }
-
-

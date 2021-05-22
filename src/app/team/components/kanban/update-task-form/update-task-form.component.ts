@@ -6,7 +6,10 @@ import { Task, UpdateTaskDto } from 'src/app/services/interfaces/task.interface'
 import { User } from 'src/app/services/interfaces/user.interface';
 import { TaskService } from 'src/app/services/task.service';
 import { TeamService } from 'src/app/services/team.service';
+import { IColor } from 'src/app/shared/interfaces';
 import { colorEnum } from 'src/app/shared/list-workers/enums';
+
+
 
 @Component({
   selector: 'app-update-task-form',
@@ -18,10 +21,16 @@ export class UpdateTaskFormComponent implements OnInit {
   @Input() task!: Task;
   deadlineVisible: boolean = false;
   isVisibleArrayAddedUsers: boolean = false;
-  @Input()isDisableEdit: boolean = false;
+  @Input() isDisableEdit: boolean = false;
   fncUsersFromTeam!: () => Observable<Array<User>>;
   fncUsersFromTask!: () => Observable<Array<User>>;
+  currentColor!: IColor;
 
+  colors: IColor[] = [
+    { value: colorEnum.green, viewValue: "Без крайнего срока" },
+    { value: colorEnum.orange, viewValue: 'Есть крайний срок' },
+    { value: colorEnum.red, viewValue: 'Крайний срок истек' }
+  ];
 
   taskForm = this.formBuilder.group({
     description: [''],
@@ -40,12 +49,15 @@ export class UpdateTaskFormComponent implements OnInit {
   ) { }
 
   color!: string;
-  initUsers: Array<User>=[]
+  initUsers: Array<User> = []
 
   ngOnInit(): void {
-    this.initUsers=(this.task.users as Array<User>).slice();
-    this.fncUsersFromTeam = () => { 
-      return this.teamService.getUsers(this.task.team as string) };
+    this.currentColor = this.colors[0];
+    this.colors.find(item => { if (item.value == this.task.color) { this.currentColor = item; return true; } return false });
+    this.initUsers = (this.task.users as Array<User>).slice();
+    this.fncUsersFromTeam = () => {
+      return this.teamService.getUsers(this.task.team as string)
+    };
     this.fncUsersFromTask = () => {
       return new Observable((observer: any) => {
         console.warn(this.task.users)
@@ -64,9 +76,9 @@ export class UpdateTaskFormComponent implements OnInit {
     (this.task.color == 'green') ? this.deadlineVisible = false : this.deadlineVisible = true;
     if (this.isDisableEdit) {
       this.taskForm.disable({
-      emitEvent: true
-    });
-  }
+        emitEvent: true
+      });
+    }
     //if ( this.task.color == colorEnum.orange || this.task.color == colorEnum.red) this.initDeadline(this.task.deadline.toString())
 
   }
@@ -113,61 +125,68 @@ export class UpdateTaskFormComponent implements OnInit {
       return;
     }
     const dto = this.compare();
-    if ((Object.keys(dto).length == 0) && (this.addedUsers.length ==0)  && (this.deletedUsers.length ==0)){
+    if ((Object.keys(dto).length == 0) && (this.addedUsers.length == 0) && (this.deletedUsers.length == 0)) {
       this.activeModal.dismiss();
     }
     //this.checkAdded();
-    if (this.addedUsers.length !=0){
+    if (this.addedUsers.length != 0) {
       this.taskService.addUsersToTask(this.task._id, this.addedUsers).subscribe((res) => {
       }, err => {
       });
     }
     //this.checkDeleted();
-    if (this.deletedUsers.length !=0){
-      
+    if (this.deletedUsers.length != 0) {
+
       this.taskService.deleteUsersFromTask(this.task._id, this.deletedUsers).subscribe((res) => {
       }, err => {
       });
     }
-  
+
     if (Object.keys(dto).length != 0) {
-    this.taskService.updateTask(this.task._id, dto).subscribe((res) => {
-      this.activeModal.close(res);
-    }, err => {
-      console.log(err);
-    });
-  }
+      this.taskService.updateTask(this.task._id, dto).subscribe((res) => {
+        this.activeModal.close(res);
+      }, err => {
+        console.log(err);
+      });
+    }
   }
 
-  changedColor(e: any) {
-    (e.target.value == 'green') ? this.deadlineVisible = false : this.deadlineVisible = true;
+  changedColor(value: any) {
+    (value == 'green') ? this.deadlineVisible = false : this.deadlineVisible = true;
   }
 
   addedUsers: Array<User> = [];
   deletedUsers: Array<User> = [];
 
   getArrayUsers(users: Array<User>) {
-    this.addedUsers= users
+    this.addedUsers = users
     this.task.users = (this.task.users as Array<User>).concat(users);
   }
 
-  swith(){
+  swith() {
     this.task.users = (this.task.users as Array<User>).concat(this.addedUsers);
     this.isVisibleArrayAddedUsers = false;
-  }  
+  }
 
   addUsers() {
     this.isVisibleArrayAddedUsers = true;
   }
 
-  deleteUser(user: User){
+  deleteUser(user: User) {
     const ind = this.deletedUsers.indexOf(user);
-     if (ind == -1){
-       this.deletedUsers.push(user);
-     }
-     else{
-      this.deletedUsers.splice(ind,1);
-     }
+    if (ind == -1) {
+      this.deletedUsers.push(user);
+    }
+    else {
+      this.deletedUsers.splice(ind, 1);
+    }
+  }
+
+  changeColor(index: number) {
+    console.log(index);
+    this.currentColor = this.colors[index];
+    this.taskForm.controls.color.setValue(this.currentColor.value);
+    this.changedColor(this.currentColor.value);
   }
 
   // checkAdded(){
@@ -182,7 +201,7 @@ export class UpdateTaskFormComponent implements OnInit {
   // checkDeleted(){
   //   console.warn(this.deletedUsers);
   //   this.initUsers.forEach(user => {
-      
+
   //     const ind = this.deletedUsers.findIndex(deleted => {
   //       console.warn(deleted);
   //       console.warn(user)

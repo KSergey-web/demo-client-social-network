@@ -5,6 +5,7 @@ import { TasKDTO } from 'src/app/services/interfaces/task.interface';
 import { Status } from 'src/app/services/interfaces/team.interface';
 import { OrganizationService } from 'src/app/services/organization.service';
 import { TaskService } from 'src/app/services/task.service';
+import { IColor } from 'src/app/shared/interfaces';
 import { colorEnum } from 'src/app/shared/list-workers/enums';
 
 @Component({
@@ -18,12 +19,18 @@ export class TaskFormComponent implements OnInit {
   @Input() teamId!: string;
   deadlineVisible:boolean = false;
 
+  currentColor!: IColor;
+
   taskForm = this.formBuilder.group({
     description: '',
-    color: '',
     deadline: '',
     name:'',
   });
+
+  colors: IColor[] = [
+    { value: colorEnum.green, viewValue: "Без крайнего срока" },
+    { value: colorEnum.orange, viewValue: 'Есть крайний срок' },
+  ];
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -35,15 +42,12 @@ export class TaskFormComponent implements OnInit {
 
   
   ngOnInit(): void {
+    this.currentColor = this.colors[0];
   }
 
   onCreate(){
-    if (this.taskForm.value.color == ''){
-      alert("Выберите цвет");
-      return;
-    }
     const taskdto: TasKDTO = {
-      color:(this.taskForm.value.color == "Зеленый") ? colorEnum.green : colorEnum.orange,
+      color:this.currentColor.value,
       name:this.taskForm.value.name,
       description: this.taskForm.value.description,
       status:this.status._id,
@@ -64,8 +68,12 @@ export class TaskFormComponent implements OnInit {
     });
   }
 
-  changedColor(e:any) {
-    (e.target.value == 'Зеленый') ? this.deadlineVisible = false: this.deadlineVisible = true;  
+  changedColor(value:any) {
+    (value == colorEnum.green) ? this.deadlineVisible = false: this.deadlineVisible = true;  
   }
 
+  changeColor(index: number) {
+    this.currentColor = this.colors[index];
+    this.changedColor(this.currentColor.value);
+  }
 }

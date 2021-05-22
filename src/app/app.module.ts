@@ -47,6 +47,9 @@ import { GroupStructureComponent } from './group/group-structure/group-structure
 import { AddUserFormToGroupComponent } from './group/group-structure/add-user-form-to-group/add-user-form-to-group.component';
 import { NotificationComponent } from './notification/notification.component';
 import { AddStatusFormComponent } from './team/components/kanban/add-status-form/add-status-form.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSliderModule } from '@angular/material/slider';
+import {MatSelectModule} from '@angular/material/select';
 
 export function tokenGetter(){
   return localStorage.getItem(ACCESS_TOKEN_KEY);
@@ -96,12 +99,14 @@ export function tokenGetter(){
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    MatSelectModule,
     FormsModule,
     JwtModule.forRoot({config:{
       tokenGetter, 
       allowedDomains: environment.tokenWhiteListedDomains
     }}),
     NgbModule,
+    BrowserAnimationsModule,
   ],
   providers: [{
     provide: AUTH_API_URL,

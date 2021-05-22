@@ -13,13 +13,15 @@
         <textarea id="description" type="text" formControlName="description" ></textarea>>
     </div>
 
-    <div>
-        <label for="color">
-            Цвет
-        </label>
-        <input formControlName="color" class="form-control" type="text" (change)="changedColor($event)" >
-    </div>
-
+          <div ngbDropdown class="d-inline-block">
+            <input *ngIf='false' id="deadline" class="form-control" type="text" formControlName="deadline" >
+            <button class="btn btn-outline-primary" type='button' id="dropdownBasic1" ngbDropdownToggle>{{currentColor.viewValue}}</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button *ngFor="let color of colors; index as i;"  class="combobox" (click)="changeColor(i)" type='button' ngbDropdownItem>
+                {{color.viewValue}}
+              </button>
+            </div>
+          </div>
 
     <div class="input-group" *ngIf="deadlineVisible">
         <label for="deadline">
