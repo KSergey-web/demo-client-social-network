@@ -9,6 +9,7 @@ import { Token } from '@angular/compiler';
 import { tap} from 'rxjs/operators'
 import { RegisterDTO } from 'src/app/sign-up/dto/register';
 import { CURRENT_USER_ID } from 'src/app/services/user.service';
+import { User } from 'src/app/services/interfaces/user.interface';
 
 export const ACCESS_TOKEN_KEY: string = "inwork_access_token";
 
@@ -48,7 +49,7 @@ export class SinginService {
     this.router.navigate(['signin']);
   }
 
-  getUser():Observable<RegisterDTO> {
-    return this.http.get<RegisterDTO>(`${this.apiUrl}/v1/api/user`);
+  getUser():Observable<User> {
+    return this.http.get<User>(`${this.apiUrl}/v1/api/user`);
   }
 }

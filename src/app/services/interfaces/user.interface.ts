@@ -19,7 +19,7 @@ export interface User {
     
       birthdate: Date;
     
-    //  avatar: string;
+      avatar?: string;
     
       telephone: string;
     

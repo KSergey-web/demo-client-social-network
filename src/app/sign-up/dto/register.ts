@@ -19,4 +19,6 @@ surname: string;
  login: string;
 
  password: string;
+
+ file: string;
 }

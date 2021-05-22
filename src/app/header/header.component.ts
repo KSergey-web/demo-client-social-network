@@ -1,7 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from '../services/interfaces/user.interface';
 import { OrganizationService } from '../services/organization.service';
+import { SharedService } from '../services/shared.service';
 import { SocketService } from '../services/socket.service';
+import { avatarTypeEnum } from '../shared/list-workers/enums';
 import { SinginService } from '../signin/services/singin.service';
 import { HeaderOrganization, HeaderUser } from './interfaces/Header';
 import { HeaderService } from './services/header.service';
@@ -13,7 +16,7 @@ import { HeaderService } from './services/header.service';
 })
 export class HeaderComponent implements OnInit {
 
-  user?: HeaderUser;
+  user!: User;
 
   organization?: HeaderOrganization;
   
@@ -22,7 +25,8 @@ export class HeaderComponent implements OnInit {
     private headerService: HeaderService ,
     private signInService: SinginService,
     private organizationService: OrganizationService,
-    private socketService: SocketService  
+    private socketService: SocketService,
+    private sharedService: SharedService
   ) { }
 
   ngOnInit(): void {
@@ -36,8 +40,13 @@ export class HeaderComponent implements OnInit {
 
   initUser() {
     this.headerService.getUser().subscribe(
-      res => {
-        this.user = res
+      user => {
+        
+        this.sharedService.getAvatar(user!.avatar as string, avatarTypeEnum.mini).subscribe(file => {
+          user.avatar = file.avatar;
+          this.user = user;
+        });
+        
     }, 
       err => {
         console.log(err); 

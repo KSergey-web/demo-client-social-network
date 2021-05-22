@@ -20,3 +20,10 @@ export enum directionEnum{
         left = 'left',
       }
 
+export enum avatarTypeEnum {
+        mini = 'mini',
+        average = 'average',
+        original = 'original',
+}
+
+

@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AUTH_API_URL, ORGANIZATION_KEY } from 'src/app/app-injection-tokens';
 import { Organization } from 'src/app/services/interfaces/organization.interface';
+import { User } from 'src/app/services/interfaces/user.interface';
 import { SinginService } from 'src/app/signin/services/singin.service';
 import { HeaderOrganization, HeaderUser} from '../interfaces/Header';
 
@@ -20,10 +21,8 @@ export class HeaderService {
     private signInService: SinginService,
   ) { }
 
-  getUser():Observable<HeaderUser>{
-   return this.signInService.getUser().pipe(map(({name, surname}) => {
-     return {name, surname}
-    }));
+  getUser():Observable<User>{
+   return this.signInService.getUser();
   }
 
   getOrganization():Observable<HeaderOrganization>{

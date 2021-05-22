@@ -1,6 +1,6 @@
 <div class="parent-box container">
 <div class="avatar">
-  <img src="../../../../assets/avatarmain.png" alt="avatar">
+  <img *ngIf='user?.avatar' [src]="user.avatar" class="avatar" alt="avatar">
   <button *ngIf='checkCurretUser()'>Редактировать</button>
   <br>
   <button *ngIf='!checkCurretUser()'>Создать чат</button>

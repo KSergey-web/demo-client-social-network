@@ -1,69 +1,74 @@
 <div class="container">
   <form [formGroup]="registrForm" (ngSubmit)="onRegistr()">
     <div>
-        <label for="login">
-          Логин
-        </label>
-        <input id="login" type="text" formControlName="login">
-      </div>
-    
-      <div>
-        <label for="password">
-          Пароль
-        </label>
-        <input id="password" type="text" formControlName="password">
-      </div>
-
-      <div>
-        <label for="name">
-          Имя
-        </label>
-        <input id="name" type="text" formControlName="name">
-      </div>
-
-      <div>
-        <label for="surname">
-          Фамилия
-        </label>
-        <input id="surname" type="text" formControlName="surname">
-      </div>
-
-      <div>
-        <label for="patronymic">
-          Отчество
-        </label>
-        <input id="patronymic" type="text" formControlName="patronymic">
-      </div>
-
-      <label for="birthdate">
-        Дата рождения
+      <label for="login">
+        Логин
       </label>
-      <div class="input-group-append">
-        <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
-        <input id="birthdate" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker" formControlName="birthdate">
-      </div>
-     
-      <div class="form-group">
-        <label for="file">Аватар</label><br/>
-        <input type="file" id="file" name="file"  placeholder='Файл' (change)="uploadFile($event)" >
+      <input id="login" type="text" formControlName="login">
     </div>
 
-      <div>
-        <label for="email">
-          Email
-        </label>
-        <input id="email" type="text" formControlName="email">
-      </div>
+    <div>
+      <label for="password">
+        Пароль
+      </label>
+      <input id="password" type="text" formControlName="password">
+    </div>
 
-     
-      <div>
-        <label for="telephone">
-          Телефон
-        </label>
-        <input id="telephone" type="text" formControlName="telephone">
-      </div>
+    <div>
+      <label for="name">
+        Имя
+      </label>
+      <input id="name" type="text" formControlName="name">
+    </div>
 
+    <div>
+      <label for="surname">
+        Фамилия
+      </label>
+      <input id="surname" type="text" formControlName="surname">
+    </div>
+
+    <div>
+      <label for="patronymic">
+        Отчество
+      </label>
+      <input id="patronymic" type="text" formControlName="patronymic">
+    </div>
+
+    <label for="birthdate">
+      Дата рождения
+    </label>
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
+      <input id="birthdate" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker"
+        formControlName="birthdate">
+    </div>
+
+    <div>
+      <label for="email">
+        Email
+      </label>
+      <input id="email" type="text" formControlName="email">
+    </div>
+
+
+    <div>
+      <label for="telephone">
+        Телефон
+      </label>
+      <input id="telephone" type="text" formControlName="telephone">
+    </div>
+
+    <div>
+      <label for="telephone">
+        Аватар
+      </label>
+    <input style="display: none" #fileInput type="file" (change)="onFileSelected($event)" id='file' formControlName="file">
+    <button type="button" (click)="fileInput.click()">Выбрать изображение</button>
+    <img *ngIf='cardImageBase64' [src]="cardImageBase64" class="avatar" >
+    {{imageError}}
+    </div>
     <button class="reg" type="submit"><b>Зарегистрироваться</b></button>
-  
+
   </form>
 </div>
