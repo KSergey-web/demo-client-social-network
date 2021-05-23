@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
+import { INWORK_API } from 'src/app/app-injection-tokens';
 import { Task, UpdateTaskDto } from 'src/app/services/interfaces/task.interface';
 import { User } from 'src/app/services/interfaces/user.interface';
 import { TaskService } from 'src/app/services/task.service';
@@ -25,6 +26,9 @@ export class UpdateTaskFormComponent implements OnInit {
   fncUsersFromTeam!: () => Observable<Array<User>>;
   fncUsersFromTask!: () => Observable<Array<User>>;
   currentColor!: IColor;
+  currentDate: string ='';
+  time = {hour: 13, minute: 30};
+  getFileHref = '';
 
   colors: IColor[] = [
     { value: colorEnum.green, viewValue: "Без крайнего срока" },
@@ -39,14 +43,17 @@ export class UpdateTaskFormComponent implements OnInit {
     name: '',
     answer: '',
   });
-
+  selectedFile: File | null = null;
 
   constructor(
     public activeModal: NgbActiveModal,
     private formBuilder: FormBuilder,
     private taskService: TaskService,
-    private teamService: TeamService
-  ) { }
+    private teamService: TeamService,
+    @Inject(INWORK_API) private apiUrl:string,
+  ) { 
+    this.getFileHref = `${this.apiUrl}/v1/api/file-resource/`;
+  }
 
   color!: string;
   initUsers: Array<User> = []
@@ -69,18 +76,20 @@ export class UpdateTaskFormComponent implements OnInit {
       description: this.task.description,
       color: this.task.color,
       answer: this.task.answer,
-      deadline: this.task.deadline ? this.task.deadline.toDateString() : ""
+      deadline: this.task.deadline ? this.task.deadline.toJSON().slice(0,10) : new Date().toJSON().slice(0,10)
     }, {
       emitEvent: true
     });
+    this.currentDate= this.taskForm.value.deadline;
+    this.time.hour= this.task.deadline ? this.task.deadline.getHours() : 0;
+    this.time.minute=this.task.deadline ? this.task.deadline.getMinutes() : 0;
     (this.task.color == 'green') ? this.deadlineVisible = false : this.deadlineVisible = true;
     if (this.isDisableEdit) {
       this.taskForm.disable({
         emitEvent: true
       });
     }
-    //if ( this.task.color == colorEnum.orange || this.task.color == colorEnum.red) this.initDeadline(this.task.deadline.toString())
-
+    console.log(this.task.files);
   }
 
 
@@ -89,14 +98,11 @@ export class UpdateTaskFormComponent implements OnInit {
     date.setFullYear(this.taskForm.value.deadline.year);
     date.setMonth(this.taskForm.value.deadline.month);
     date.setDate(this.taskForm.value.deadline.day);
+    date.setHours(this.time.hour);
+    date.setMinutes(this.time.minute);
     return date;
   }
 
-  initDeadline(strDate: string) {
-    const date = new Date(strDate);
-    console.log(strDate);
-    this.taskForm.setValue({ deadline: strDate });
-  }
 
   compare(): UpdateTaskDto {
     let dto: UpdateTaskDto = {};
@@ -107,6 +113,9 @@ export class UpdateTaskFormComponent implements OnInit {
     }
     if (dto.color != colorEnum.green) {
       const date = new Date(this.taskForm.value.deadline)
+      date.setHours(this.time.hour);
+      date.setMinutes(this.time.minute);
+      console.warn(this.time.hour);
       if (date != this.task.deadline) dto.deadline = date
     }
     if (this.taskForm.value.answer != this.task.answer) dto.answer = this.taskForm.value.answer;
@@ -188,6 +197,16 @@ export class UpdateTaskFormComponent implements OnInit {
     this.taskForm.controls.color.setValue(this.currentColor.value);
     this.changedColor(this.currentColor.value);
   }
+
+
+  onFileSelected(event:any) {
+    this.selectedFile = <File>event.target.files[0];
+    this.taskService.addfileToTask(this.selectedFile,this.task._id).subscribe((res:Task) => {console.log(res); this.task.files=res.files},err=>{console.log(err)});
+}
+
+deleteFile(fileId: string){
+  this.taskService.deleteFileFromTask(fileId,this.task._id).subscribe((res:Task) => {console.log(res); this.task.files=res.files},err=>{console.log(err)});
+}
 
   // checkAdded(){
   //   this.initUsers.forEach(user => {

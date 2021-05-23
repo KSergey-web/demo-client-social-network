@@ -21,7 +21,7 @@
                     (contextmenu)="displayContextMenuOnTask($event,task); false"
                     >
                         <b class='name'>  {{task.name}}</b>
-                        <p class='date' *ngIf="task.deadline"> {{task.deadline | date:'dd.MM.yyyy h:mm'}}</p>
+                        <p class='date' *ngIf="task.deadline"> {{task.deadline | date:'dd.MM.yyyy H:mm'}}</p>
                         <div class="line"></div>
                         <div class='user' *ngFor="let user of $any(task.users)"> {{user.surname}} {{user.name}}</div>
                         <app-context-menu *ngIf="rightClickMenuItems.length > 0 && isDisplayContextMenu"

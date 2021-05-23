@@ -17,6 +17,8 @@ export class SigninComponent implements OnInit {
     password: ''
   });
 
+  
+
   constructor(
     private signInService: SinginService,
     private formBuilder: FormBuilder,
@@ -24,6 +26,7 @@ export class SigninComponent implements OnInit {
     private socketService: SocketService,
     private notificationService: NotificationService
 ) { }
+
 
   ngOnInit(): void {
     if (this.signInService.isAuthenticated()){
@@ -38,5 +41,7 @@ export class SigninComponent implements OnInit {
       this.router.navigate(['mypage', res.user._id]);
     }, err=> alert('Wrong login or password!'));
   }
+
+
 
 }

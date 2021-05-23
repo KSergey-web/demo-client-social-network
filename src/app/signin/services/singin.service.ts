@@ -52,4 +52,6 @@ export class SinginService {
   getUser():Observable<User> {
     return this.http.get<User>(`${this.apiUrl}/v1/api/user`);
   }
+
+
 }

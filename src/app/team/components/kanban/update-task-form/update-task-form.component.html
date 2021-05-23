@@ -14,21 +14,27 @@
     </div>
 
           <div ngbDropdown class="d-inline-block">
-            <input *ngIf='false' id="deadline" class="form-control" type="text" formControlName="deadline" >
             <button class="btn btn-outline-primary" type='button' id="dropdownBasic1" ngbDropdownToggle>{{currentColor.viewValue}}</button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
               <button *ngFor="let color of colors; index as i;"  class="combobox" (click)="changeColor(i)" type='button' ngbDropdownItem>
-                {{color.viewValue}}
+                <span *ngIf="color.value !='red'">{{color.viewValue}}</span>
               </button>
             </div>
           </div>
 
-    <div class="input-group" *ngIf="deadlineVisible">
-        <label for="deadline">
-            Крайний срок
-        </label>
-        <input id="deadline" class="form-control" type="text" formControlName="deadline" >
-    </div>
+          
+
+          <div class="input-group" *ngIf="deadlineVisible">
+            <label for="deadline">
+                Крайний срок:
+              </label>
+            <input id="deadline" class="form-control" [placeholder]="currentDate" name="dp" ngbDatepicker #dp="ngbDatepicker" formControlName="deadline" >
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
+            </div>
+          </div>
+          <ngb-timepicker [(ngModel)]="time" [ngModelOptions]="{standalone: true}" ></ngb-timepicker> 
+
 
     <div>
         <label for="answer">
@@ -36,6 +42,15 @@
         </label>
         <textarea id="answer" type="answer" formControlName="answer" ></textarea>
     </div>
+
+    Файлы:
+    <div *ngFor="let file of task.files">
+        <a  [href]="getFileHref + file._id" download >{{file.originalName}}</a>
+        <button *ngIf='!isDisableEdit' (click)='deleteFile(file._id)' type='button'><img src="../../../../../assets/deleteicon.png" height='20px' width='20px' alt="Удалить"></button>
+    </div>  
+    <input style="display: none" #fileInput type="file" (change)="onFileSelected($event)" id='file'>
+    <button *ngIf='!isDisableEdit' type="button" (click)="fileInput.click()">Добавить файл</button>
+
     <div *ngIf='!isVisibleArrayAddedUsers' class='executors'>
         <button class="button" type="button" (click)="addUsers()" *ngIf='!isDisableEdit'>Назначить исполнителей</button>
         <ul > Исполнители

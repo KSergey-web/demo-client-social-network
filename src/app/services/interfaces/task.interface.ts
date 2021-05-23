@@ -26,6 +26,11 @@ export interface Task{
 
   team: Team | string;
 
+  files:Array<{
+    _id: string,
+    originalName: string
+  }>;
+
   users: Array<User> | Array<string>;
 
   answer: string;

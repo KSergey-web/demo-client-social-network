@@ -68,5 +68,15 @@ export class TaskService {
   getHistory(teamId: string): Observable<Array<Task>>{
     return this.http.get<Array<Task>>(`${this.apiUrl}/v1/api/task/history/team/${teamId}`)
   }
+
+  addfileToTask(selectedFile: File, taskId: string):Observable<Task>{
+    const fd = new FormData();
+    fd.append('file', selectedFile, selectedFile.name);
+    return this.http.post<Task>(`${this.apiUrl}/v1/api/task/${taskId}/addfile`, fd)
+  }
+
+  deleteFileFromTask(fileId: string, taskId: string):Observable<Task>{
+    return this.http.delete<Task>(`${this.apiUrl}/v1/api/task/${taskId}/file/${fileId}`)
+  }
  }
 
