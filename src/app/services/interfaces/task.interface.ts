@@ -1,4 +1,5 @@
 import { colorEnum } from "src/app/shared/list-workers/enums";
+import { FileResource } from "./file-resource.interface";
 import { Status, Team } from "./team.interface";
 import { User } from "./user.interface";
 
@@ -26,10 +27,7 @@ export interface Task{
 
   team: Team | string;
 
-  files:Array<{
-    _id: string,
-    originalName: string
-  }>;
+  files:Array<FileResource>;
 
   users: Array<User> | Array<string>;
 

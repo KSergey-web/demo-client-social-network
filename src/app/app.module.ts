@@ -50,6 +50,7 @@ import { AddStatusFormComponent } from './team/components/kanban/add-status-form
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
 import {MatSelectModule} from '@angular/material/select';
+import { PostContentComponent } from './group/post-content/post-content.component';
 
 export function tokenGetter(){
   return localStorage.getItem(ACCESS_TOKEN_KEY);
@@ -93,6 +94,7 @@ export function tokenGetter(){
     AddUserFormToGroupComponent,
     NotificationComponent,
     AddStatusFormComponent,
+    PostContentComponent,
   ],
   imports: [
     BrowserModule,

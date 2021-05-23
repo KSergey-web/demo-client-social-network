@@ -1,3 +1,4 @@
+import { FileResource } from "./file-resource.interface";
 import { Group } from "./group.interface";
 import { User } from "./user.interface";
 
@@ -6,7 +7,7 @@ export interface Post {
 
     date: Date;
   
-    image?: string;
+    files: Array<FileResource>;
 
     user: User | string;
   
@@ -16,7 +17,7 @@ export interface Post {
 export interface PostDTO{
     text: string;
 
-    image?: string;
+    files?: Array<File>;
 
     group: string;
 }

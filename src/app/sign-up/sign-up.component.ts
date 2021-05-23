@@ -63,15 +63,6 @@ onFileSelected(event:any) {
     this.signUpService.registr(dto).subscribe(()=>{ alert("Succes"),this.router.navigate(['/signin'])}, err=>{ console.log(err),alert('Wrong data!')});;
   }
 
-  uploadFile(files?:any) {
-    console.log('files', files)
-    //     var formData = new FormData();
-
-    // for(let i =0; i < files.length; i++){
-    //   formData.append("files", files[i], files[i]['name']);
-    //     }
-  }
-
   imageError!: string | null;
     isImageSaved!: boolean;
     cardImageBase64!: string | null;
