@@ -1,12 +1,12 @@
 <app-header></app-header>
+<div class="parent-box">
 <app-navigation></app-navigation>
 
 <div id="app" class="container">
-    <div class='chatName'><h1>{{chat.name}}</h1></div>
+    <h1 class='myH1 online'>{{chat.name}}</h1>
     <button (click)='onAddUsersToChat()'> Добавить сотрудников в чат</button>
     <button (click)='onUsersFromChat()'> Участники</button>
-    <div class="row">
-        <div class="col-md-6 offset-md-3 col-sm-12">
+    <div class="row chat">
             <br>
             <div id="status"></div>
             <div id="chat">
@@ -15,20 +15,19 @@
                     <div id="messages" class="card-block">
                         <ul>
                             <li *ngFor="let message of messages">
-                                <div class="author"> {{message.user.surname}} {{message.user.name}}</div>
+                                <div class="sender"> {{message.user.surname}} {{message.user.name}}</div>
                                 <span class='date'>{{message.date  | date:' dd.MM.yy H:mm'}}</span>
                                 {{ message.text }}
                             </li>
                         </ul>
                     </div>
                 </div>
-                <form [formGroup]="msgForm" (ngSubmit)="sendMessage()">
-                    <label>
-                      <input type="text" formControlName="text" required>
-                    </label>
+                <form [formGroup]="msgForm" (ngSubmit)="sendMessage()"  class='textar'>
+                      <textarea type="text" formControlName="text" required class='textar'></textarea>
+           
                     <button type="submit" class="btn send" [disabled]="!msgForm.valid">Отправить</button>
                   </form>
-            </div>
         </div>
     </div>
+</div>
 </div>

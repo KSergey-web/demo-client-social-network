@@ -1,14 +1,22 @@
 <app-header></app-header>
-<app-navigation></app-navigation>
-<h1 *ngIf='notifications.length == 0'> Пусто</h1>
-<ul class="notifications">
-    <li *ngFor="let notification of notifications" [class.notReaded] = "!notification.isReaded">
-        <h1>{{notification.date |  date:' dd.MM.yy H:mm'}}</h1>
-        <p> {{notification.organization.name}} <br/>
-        {{notification.team.name}} <br/>
-        {{notification.task.name}} <br/>
-        <span *ngIf='notification.remains'>Времени осталось: {{notification.remains.days}} дней {{notification.remains.hours}} часов {{notification.remains.minutes}} минут</span> <br/>
-        </p>
-        <div class="line"></div>
-    </li>
-</ul>
+<div class="parent-box small-margin-top">
+    <app-navigation></app-navigation>
+    <div class="container">
+        <h1 *ngIf='notifications.length == 0'> Пусто</h1>
+        <ul class="notifications">
+            <li *ngFor="let notification of notifications" [class.notReaded]="!notification.isReaded">
+                <div class="small-padding-left">
+                <span>{{notification.date | date:' dd.MM.yy H:mm'}}</span>
+                <p>Организация: {{notification.organization.name}}<br />
+                    Команда: {{notification.team.name}} <br />
+                    Задача: "{{notification.task.name}}" <br />
+                    <span *ngIf="notification.phase=='left10'">Крайний срок задачи подходит к концу</span>
+                    <span *ngIf="notification.phase=='expired'">Время выполнения задачи истекло</span><br/>
+                    <span *ngIf='notification.remains'>Оставшееся время (дней: {{notification.remains.days}} часов: {{notification.remains.hours}} минут: {{notification.remains.minutes}})</span><br />
+                </p>
+            </div>
+                <div class="line"></div>
+            </li>
+        </ul>
+    </div>
+</div>

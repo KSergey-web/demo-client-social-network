@@ -1,12 +1,15 @@
-
 <app-header></app-header>
-<app-navigation></app-navigation>
-<button class="simple-button" (click)="showDialog()">Создать команду</button>
-<app-team-form *ngIf="isModalDialogVisible"  (isConfirmed)="closeModal($event)"></app-team-form>
-Команды:
-<ul class="teams">
-        <li *ngFor="let team of teams"
-        (dblclick)="toTeam(team)">
-           <div> <span> {{team.name}} </span> </div>            
-        </li>
-</ul>
+<div class="parent-box small-margin-top">
+        <app-navigation></app-navigation>
+        <div class="container">
+                <button class="simple-button" (click)="showDialog()">Создать команду</button>
+                <app-team-form *ngIf="isModalDialogVisible" (isConfirmed)="closeModal($event)"></app-team-form>
+                <h1 class="myh1 online">Ваши команды в организации</h1>:
+                <ul class="teams">
+                        <li *ngFor="let team of teams" (dblclick)="toTeam(team)">
+                                 {{team.name}}
+                                 <div class="line"></div>
+                        </li>
+                </ul>
+        </div>
+</div>

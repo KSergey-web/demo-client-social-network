@@ -1,20 +1,19 @@
-Ваши организаци:
+<h1 class="myh1 online">Ваши организации:</h1>
 <ul class="organizations">
-    <li *ngFor="let link of organizationUserLinks">
-      <div class="parent-box">
-        <div>
-      <h1> {{link.organization.name}} </h1> 
-      <h2> Ваша должность: {{link.position}}</h2> 
-      <h3> Ваш статус: 
-        <span *ngIf="link.roleUser=='superUser'">Создатель организаци</span>
-        <span *ngIf="link.roleUser=='user'">Работник</span>
-      </h3> 
-      <p>{{link.organization.description}}</p> 
-    </div>
-    <div class='select'>
-      <button (click)="onSelect(link.organization)">Выбрать</button>
-    </div>
+  <li *ngFor="let link of organizationUserLinks">
+    <div class="parent-box small-padding-left">
+      <div>
+        <h1 class="myh1"> {{link.organization.name}} </h1>
+        <p> Ваша должность: {{link.position}} <br/>
+         Ваш статус:
+          <span *ngIf="link.roleUser=='superUser'">Создатель организаци</span>
+          <span *ngIf="link.roleUser=='user'">Работник</span><br/>
+        {{link.organization.description}}</p>
+      </div>
+      <div class='select'>
+        <button (click)="onSelect(link.organization)">Выбрать</button>
+      </div>
     </div>
     <div class="line"></div>
-    </li>
-  </ul>
+  </li>
+</ul>

@@ -1,13 +1,15 @@
 <app-header></app-header>
-<app-navigation></app-navigation>
-<form [formGroup]="addWorkerForm" (ngSubmit)="hireWorker()">
-    <div>
+<div class='parent-box small-margin-top'>
+  <app-navigation></app-navigation>
+  <div class="container">
+    <form *ngIf='isAdmin' [formGroup]="addWorkerForm" (ngSubmit)="hireWorker()">
+      <div>
         <label for="login">
-            login
+          login
         </label>
         <input id="login" type="text" formControlName="login">
       </div>
-    
+
       <div>
         <label for="position">
           Должность
@@ -15,21 +17,31 @@
         <input id="position" type="text" formControlName="position">
       </div>
 
-    <button class="button" type="submit">Нанять работника</button>
-  </form>
-<h1 class='em'>Работники организации {{organization.name}}</h1>
-<ul class="employees">
-        <li *ngFor="let link of organizationUserLinks"
-        (dblclick)="toPageUser(link.user)">
-        <img src='../../assets/avatar.png' alt = 'avatar'>  
-        <h2> {{link.user.name}} {{link.user.surname}} </h2> 
-         <h2>  Должность: {{link.position}} </h2>
-           <h2> Статус в организаци: 
-            <span *ngIf="link.roleUser=='superUser'">Создатель организации</span>
-            <span *ngIf="link.roleUser=='user'">Работник</span>
-           </h2> 
-          <h2 [class.online]="link.user.status=='online'">{{link.user.status}}</h2> 
-          <button class="button" (click)='openNewPositionForm(link)'>Изменить должность</button>
-          <div class="line"></div>           
-        </li>
-      </ul>
+      <button class="button" type="submit">Нанять работника</button>
+    </form>
+    <h1 class='em myh1'>Сотрудники организации {{organization.name}}</h1>
+    <ul class="employees">
+      <li *ngFor="let link of organizationUserLinks" (dblclick)="toPageUser(link.user)">
+        <div class="parent-box small-padding-left">
+          <div>
+            <img src='../../assets/avatar.png' alt='avatar'>
+            <h1 class="myh1"> {{link.user.name}} {{link.user.surname}} </h1>
+            <p> Должность: {{link.position}} <br />
+              Статус в организаци:
+              <span *ngIf="link.roleUser=='superUser'">Создатель организации</span>
+              <span *ngIf="link.roleUser=='user'">Работник</span>
+              <br />
+              <b>
+              <span [class.online]="link.user.status=='online'">{{link.user.status}}</span></b>
+            <p>
+          </div>
+          <div class='actions'>
+            <button class="button" (click)='openNewPositionForm(link)'>Изменить должность</button><br/>
+            <button class="button" (click)='openNewPositionForm(link)'>Уволить</button>
+          </div>
+        </div>
+        <div class="line"></div>
+      </li>
+    </ul>
+  </div>
+</div>

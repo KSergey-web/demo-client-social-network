@@ -1,7 +1,11 @@
 <app-header></app-header>
+<div class="parent-box small-margin-top">
 <app-navigation></app-navigation>
+<div class="container">
 <form [formGroup]="usersForm" (ngSubmit)="onSubmit()">
     <app-list-workers [fncGetUnwantedUsers]='fncUsersFromChat' (arrayWorkers)="getArrayWorkers($event)"></app-list-workers>
     <button type="button" (click)="onCancel()">Отмена</button>
     <button type="submit">Добавить</button>
   </form>
+  </div>>
+</div>

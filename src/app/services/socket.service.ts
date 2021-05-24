@@ -70,7 +70,7 @@ export class SocketService {
     })
   }
 
-  getTaskCreatedStatusObs(): Observable<Task>{
+  getTaskCreatedObs(): Observable<Task>{
     return this.taskCreatedObs;
   }
 
@@ -124,7 +124,7 @@ export class SocketService {
     this.socket.emit('leaveTeam',{id:teamId})
   }
 
-  getTaskChangeStatusObs(): Observable<Task>{
+  getTaskChangeObs(): Observable<Task>{
     return this.taskChangedObs;
   }
 

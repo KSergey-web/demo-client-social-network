@@ -33,13 +33,13 @@ export class InfoAboutUserComponent implements OnInit {
     this.currentUserId = localStorage.getItem(CURRENT_USER_ID)!;
     this.organizationService.getOrganizationsOfUser(this.userId).subscribe(res => {this.organizationUserLinks = res});
     this.userService.getUser(this.userId).subscribe(user => {
+      this.user = user;
       this.sharedService.getAvatar(user!.avatar as string, avatarTypeEnum.average).subscribe(obj => {
-        user.avatar = obj.avatar;
-        this.user = user;
+        this.user.avatar = obj.avatar;
         setTimeout(()=>this.userService.getStatusUser(this.user!._id).subscribe((res: any) => {
-          this.user!.status =res.status;
+          this.user!.status = res.status;
         }, err => console.log(err)),2);
-      });
+      },(err)=>console.error(err));
     });
   }
 

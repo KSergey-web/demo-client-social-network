@@ -1,17 +1,19 @@
 <app-header></app-header>
-<div class="parent-box">
+<div class="parent-box small-margin-top">
 <app-navigation></app-navigation>
-<div>
+<div class="container">
 <button class="simple-button" (click)="showDialog()">Создать чат</button>
 <app-chat-form *ngIf="isModalDialogVisible"  (isConfirmed)="closeModal($event)"></app-chat-form>
-<h3>Ваши чаты:</h3>
+<h1 class="myh1 online">Ваши чаты:</h1>
 <ul class="chats">
         <li *ngFor="let chat of chats"
         (dblclick)="toChat(chat)">
-           <h3> {{chat.name}} </h3>
-           {{chat.message.user.surname}} {{chat.message.user.name}} {{chat.message.date| date:'h:m z'}}: {{chat.message.text}}
+        <div class="small-padding-left">
+           <h1 class="myh1"> {{chat.name}} </h1>
+           <span class="sender">{{chat.message.user.surname}} {{chat.message.user.name}} </span><span> {{chat.message.date | date:' dd.MM.yy H:mm'}}</span>: {{chat.message.text}}
+        </div>
            <div class="line"></div>
         </li>
-        
 </ul>
+</div>
 </div>

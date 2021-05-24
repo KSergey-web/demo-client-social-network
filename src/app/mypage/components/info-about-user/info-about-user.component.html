@@ -1,23 +1,23 @@
-<div class="parent-box container">
-<div class="avatar">
-  <img *ngIf='user?.avatar' [src]="user.avatar" class="avatar" alt="avatar">
-  <button *ngIf='checkCurretUser()'>Редактировать</button>
-  <br>
-  <button *ngIf='!checkCurretUser()'>Создать чат</button>
-</div>
+<div class="parent-box">
+  <div class="avatar">
+    <img *ngIf='user?.avatar' [src]="user.avatar" class="avatar" alt="avatar">
+    <button *ngIf='checkCurretUser()'>Редактировать</button>
+    <br>
+    <button *ngIf='!checkCurretUser()'>Создать чат</button>
+  </div>
 
-<div class="info container">
-  <div *ngIf="user">
-  <h1>{{user.surname}} {{user.name}} {{user.patronymic}}</h1>
-  <h2 *ngIf="user && user.status" [class.online]="user.status=='online'">{{user.status}}</h2>
-  номер телефона: {{user.telephone}} <br/>
-  дата рождения: {{user.birthdate | date:'dd.MM.yyyy '}}<br/>
-</div>
-<span>Организация</span> --- <span>Должность:</span>
-<ul class="listOrganizations">
-  <li *ngFor="let link of organizationUserLinks">
-    <span>{{link.organization.name}}</span> --- <span>{{link.position}}</span>
-  </li>
-</ul>
-</div>
+  <div class="info">
+    <div *ngIf="user">
+      <h1>{{user.surname}} {{user.name}} {{user.patronymic}}</h1>
+      <h2 *ngIf="user && user.status" [class.online]="user.status=='online'">{{user.status}}</h2>
+      номер телефона: {{user.telephone}} <br />
+      дата рождения: {{user.birthdate | date:'dd.MM.yyyy '}}<br />
+    </div>
+    <span>Организация</span> --- <span>Должность:</span>
+    <ul class="listOrganizations">
+      <li *ngFor="let link of organizationUserLinks">
+        <span>{{link.organization.name}}</span> --- <span>{{link.position}}</span>
+      </li>
+    </ul>
+  </div>
 </div>

@@ -42,10 +42,13 @@ export class KanbanComponent implements OnInit {
   ngOnInit(): void {
     this.socketService.enterToTeamEvent(this.teamId);
     this.subTaskChanged = this.socketService
-      .getTaskChangeStatusObs()
-      .subscribe((task) => this.updateTasks());
+      .getTaskChangeObs()
+      .subscribe((task) => {
+        console.warn('tchenge');
+        this.updateTasks()
+      });
     this.subTaskCreated = this.socketService
-      .getTaskCreatedStatusObs()
+      .getTaskCreatedObs()
       .subscribe((task) => this.tasks.push(task));
     this.subStatusCreated = this.socketService
       .getStatusCreatedObs()
@@ -87,7 +90,7 @@ export class KanbanComponent implements OnInit {
         this.tasks = res;
       },
       (err) => {
-        console.log(err);
+        console.error(err);
         alert(err.message);
       }
     );

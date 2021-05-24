@@ -1,7 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 /* Application-wide Styles */
-h1 {
+.myh1 {
   font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 h2, h3 {
   font-family: Arial, Helvetica, sans-serif;
@@ -29,9 +31,9 @@ body, html{
 }
 
 body {
-  //background-image: url("./assets/background.png");
-  //background-attachment:fixed;
-
+  background-image: url("./assets/background.png");
+  background-attachment:fixed;
+  background-size: cover;
   left: 0px;
   top: 0px;
   //z-index: 2;
@@ -39,6 +41,7 @@ body {
 
 .parent-box{
   display: inline-flex;
+  width: 100%;
 }
 
 div {
@@ -91,3 +94,28 @@ background-color: #2a2d2e;
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+li {
+  list-style-type: none; /* Убираем маркеры */
+ }
+ ul {
+  padding-left: 0; /* Сдвигаем список влево */
+ }
+
+ .sender{
+  color: blue;
+  font-weight: bold;
+}
+
+.small-padding-left{
+ padding-left: 4%;
+}
+
+.container{
+  margin-left: 10%;
+  max-width: 40%;
+}
+
+.small-margin-top{
+  margin-top: 2rem;
+}

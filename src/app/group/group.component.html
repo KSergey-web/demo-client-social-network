@@ -1,38 +1,48 @@
 <app-header></app-header>
-<app-navigation></app-navigation>
-<img src='' alt='avatar'>
-<h1>{{group.name}}</h1>
-<h1>{{group.description}}</h1>
-<div *ngIf='group.isOpen'>Открытая группа</div>
-<div *ngIf='!group.isOpen'>Закрытая группа</div>
-<button type="button" (click)="onSturctureGroup()">Участники группы</button>
-<button (click)='visibleCreatePost=!visibleCreatePost'>Создать пост</button>
-<form *ngIf="visibleCreatePost" [formGroup]="postForm" (ngSubmit)="onCreatePost()">
-    <label>
-        text:
-        <textarea type="text" formControlName="text" required></textarea>
-    </label>
-    <ul>
-        <li *ngFor="let file of selectedFiles">
-            {{file.name}}
-            <button (click)='deleteFile(file)' type='button'><img src="../../../../../assets/deleteicon.png"
-                    height='20px' width='20px' alt="Удалить"></button>
-        </li>
-    </ul>
-    <input style="display: none" #fileInput type="file" (change)="onFileSelected($event)" id='file' multiple>
-    <button type="button" (click)="fileInput.click()">Выбрать файлы</button><br/>
-    <button type="submit" [disabled]="!postForm.valid">Опубликовать</button>
-</form>
-<ul class="posts">
-    <li *ngFor="let post of posts">
-        <h4>{{post.date| date:'d.MM.yyyy H:m'}}</h4>
-        <p> {{post.text}}</p>
-        <div *ngFor="let file of post.files">
-            <button *ngIf='file?.buffer' (click)='openContentImage(getImage(file))' type='button'><img
-                    [src]="getImage(file)" class="image-post" alt="image" /> </button>
-                    <a *ngIf="!(file.hasOwnProperty('buffer'))" [href]="getFileHref + file._id" download >{{file.originalName}}</a>
-        </div>
-        <h4>{{$any(post).user.name}} {{$any(post).user.surname}}</h4>
-        <div class="line"></div>
-    </li>
-</ul>
+<div class="parent-box small-margin-top">
+    <app-navigation></app-navigation>
+    <div class="container">
+        <img class='avatar' src='' alt='avatar'>
+        <h1 class='myh1 online'>{{group.name}}</h1>
+        <p>{{group.description}}
+            <span *ngIf='group.isOpen'>Открытая группа</span>
+            <span *ngIf='!group.isOpen'>Закрытая группа</span>
+        </p>
+        <button type="button" (click)="onSturctureGroup()">Участники группы</button>
+        <button (click)='visibleCreatePost=!visibleCreatePost'>Создать пост</button>
+        <form *ngIf="visibleCreatePost" [formGroup]="postForm" (ngSubmit)="onCreatePost()">
+            <label>
+                text:
+                <textarea type="text" formControlName="text" required></textarea>
+            </label>
+            <ul>
+                <li *ngFor="let file of selectedFiles">
+                    {{file.name}}
+                    <button (click)='deleteFile(file)' type='button'><img src="../../../../../assets/deleteicon.png"
+                            height='20px' width='20px' alt="Удалить"></button>
+                </li>
+            </ul>
+            <input style="display: none" #fileInput type="file" (change)="onFileSelected($event)" id='file' multiple>
+            <button type="button" (click)="fileInput.click()">Выбрать файлы</button><br />
+            <button type="submit" [disabled]="!postForm.valid">Опубликовать</button>
+        </form>
+        <ul class="posts">
+            <li *ngFor="let post of posts">
+                <div>
+                    <p>{{post.date| date:'d.MM.yyyy H:m'}}
+                        <br />
+                        {{post.text}}
+                    </p>
+                    <div *ngFor="let file of post.files">
+                        <button *ngIf='file?.buffer' (click)='openContentImage(getImage(file))' type='button'><img
+                                [src]="getImage(file)" class="image-post" alt="image" /> </button>
+                        <a *ngIf="!(file.hasOwnProperty('buffer'))" [href]="getFileHref + file._id"
+                            download>{{file.originalName}}</a>
+                    </div>
+                    <a [routerLink]="'/mypage/'+$any(post).user._id" >Автор поста {{$any(post).user.name}} {{$any(post).user.surname}}</a>
+                </div>
+                <div class="line"></div>
+            </li>
+        </ul>
+    </div>
+</div>

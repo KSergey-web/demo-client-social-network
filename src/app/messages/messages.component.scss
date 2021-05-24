@@ -11,13 +11,30 @@
     color: black;
 }
 
-.chatName{
-    h1 {
-        color: #05a8c8;
-      }
-}
 
 .send{
     background-color: white;
     
+}
+
+.textar{
+    width: 99%;
+}
+
+
+.container{
+    margin-left: 10%;
+    max-width: 40%;
+}
+
+#chat{
+    width: 99%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.chat{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
 }

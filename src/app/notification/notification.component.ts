@@ -33,8 +33,8 @@ export class NotificationComponent implements OnInit {
 
   updateArray(){
     this.notificationService.getNotifications().subscribe(res => {
-      console.log(res)
       this.notifications = res;
+      this.notifications.sort((n1,n2) =>{ if (n1.date<n2.date) return 1; else return -1} )
     },)
   }
 }

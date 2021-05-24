@@ -16,6 +16,7 @@ export class GroupsComponent implements OnInit {
   groups: Array<Group> = [];
 
   organizationId!: string;
+  organizationName!: string;
 
   constructor(
     private groupService:GroupService,
@@ -25,7 +26,8 @@ export class GroupsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.organizationId= this.organizationService.currentOrganization.getValue()._id;
+    this.organizationId = this.organizationService.currentOrganization.getValue()._id;
+    this.organizationName =  this.organizationService.currentOrganization.getValue().name;
     if (this.organizationId == ""){
         alert('Выберите организацию');
         this.router.navigate(['myorganizations']);

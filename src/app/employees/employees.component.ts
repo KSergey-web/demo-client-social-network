@@ -6,6 +6,7 @@ import { HireUserByLoginDTO, Organization, OrganizationUserLink } from '../servi
 import { User } from '../services/interfaces/user.interface';
 import { OrganizationService } from '../services/organization.service';
 import { NewPositionComponent } from './new-position/new-position.component';
+import { CURRENT_USER_ID } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-employees',
@@ -17,6 +18,8 @@ export class EmployeesComponent implements OnInit {
   organizationUserLinks: Array<OrganizationUserLink> = [];
 
   organization!:Organization;
+
+  isAdmin: boolean = false; 
 
   constructor(
     private organizationService: OrganizationService,
@@ -53,8 +56,12 @@ export class EmployeesComponent implements OnInit {
 
   updateListUsers(){
     this.organizationService.getUsersFromOrganization().subscribe(res => {
-      console.log(res[0]);
-      this.organizationUserLinks = res
+      this.organizationUserLinks = res;
+      this.organizationUserLinks.forEach(link => {
+        if (link.user!._id == localStorage.getItem(CURRENT_USER_ID)){
+          this.isAdmin = true;
+        }
+      })
     });
   }
 

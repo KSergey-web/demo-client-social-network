@@ -71,16 +71,17 @@ export class UpdateTaskFormComponent implements OnInit {
         observer.next(this.task.users);
       });
     }
+    const date = this.task.deadline ? this.task.deadline : new Date();
     this.taskForm.setValue({
       name: this.task.name,
       description: this.task.description,
       color: this.task.color,
       answer: this.task.answer,
-      deadline: this.task.deadline ? this.task.deadline.toJSON().slice(0,10) : new Date().toJSON().slice(0,10)
+      deadline:{year:date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()}
     }, {
       emitEvent: true
     });
-    this.currentDate= this.taskForm.value.deadline;
+    this.currentDate= date.toJSON().slice(0,12);
     this.time.hour= this.task.deadline ? this.task.deadline.getHours() : 0;
     this.time.minute=this.task.deadline ? this.task.deadline.getMinutes() : 0;
     (this.task.color == 'green') ? this.deadlineVisible = false : this.deadlineVisible = true;
@@ -89,14 +90,13 @@ export class UpdateTaskFormComponent implements OnInit {
         emitEvent: true
       });
     }
-    console.log(this.task.files);
   }
 
 
   fromFormToDate(): Date {
     const date = new Date();
     date.setFullYear(this.taskForm.value.deadline.year);
-    date.setMonth(this.taskForm.value.deadline.month);
+    date.setMonth(this.taskForm.value.deadline.month-1);
     date.setDate(this.taskForm.value.deadline.day);
     date.setHours(this.time.hour);
     date.setMinutes(this.time.minute);
@@ -112,11 +112,8 @@ export class UpdateTaskFormComponent implements OnInit {
       dto.color = this.taskForm.value.color;
     }
     if (dto.color != colorEnum.green) {
-      const date = new Date(this.taskForm.value.deadline)
-      date.setHours(this.time.hour);
-      date.setMinutes(this.time.minute);
-      console.warn(this.time.hour);
-      if (date != this.task.deadline) dto.deadline = date
+      const date = this.compareDate();
+      if (date) dto.deadline = date
     }
     if (this.taskForm.value.answer != this.task.answer) dto.answer = this.taskForm.value.answer;
     return dto;
@@ -192,7 +189,6 @@ export class UpdateTaskFormComponent implements OnInit {
   }
 
   changeColor(index: number) {
-    console.log(index);
     this.currentColor = this.colors[index];
     this.taskForm.controls.color.setValue(this.currentColor.value);
     this.changedColor(this.currentColor.value);

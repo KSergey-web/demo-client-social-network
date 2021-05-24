@@ -1,11 +1,23 @@
-
 <app-header></app-header>
-<app-navigation></app-navigation>
-<button class="simple-button" (click)="openCreateGroupForm()">Создать группу</button>
-Группы:
-<ul class="groups">
-        <li *ngFor="let group of groups"
-        (dblclick)="toGroup(group)">
-           <div> <span> {{group.name}} </span> </div>            
-        </li>
-</ul>
+<div class="parent-box small-margin-top">
+        <app-navigation></app-navigation>
+        <div class="container">
+                <button class="simple-button" (click)="openCreateGroupForm()">Создать группу</button>
+                <h1 class="myh1 online">Ваши группы в организации {{organizationName}}</h1>
+                <ul class="groups">
+                        <li *ngFor="let group of groups" (dblclick)="toGroup(group)">
+                                <div class='parent-box small-padding-left'>
+                                        <div>
+                                        <h1 class="myh1"> {{group.name}} </h1>
+                                                <p>
+                                                        <span *ngIf='group.isOpen'>Открытая группа</span>
+                                                        <span *ngIf='!group.isOpen'>Закрытая группа</span><br/>
+                                                                {{group.description}}
+                                                        </p>
+                                                </div>
+                                </div>
+                                <div class="line"></div>
+                        </li>
+                </ul>
+        </div>
+</div>
