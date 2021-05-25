@@ -39,7 +39,6 @@ export class GroupStructureComponent implements OnInit {
   }
 
   updateListUsers() {
-    console.log(this.group.isOpen);
     if (!this.group.isOpen) {
       this.groupService.getUsers(this.group._id).subscribe((res: Array<GroupUserLink>) => {
         console.log(res);

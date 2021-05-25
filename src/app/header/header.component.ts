@@ -41,10 +41,9 @@ export class HeaderComponent implements OnInit {
   initUser() {
     this.headerService.getUser().subscribe(
       user => {
-        
+        this.user = user; 
         this.sharedService.getAvatar(user!.avatar as string, avatarTypeEnum.mini).subscribe(file => {
-          user.avatar = file.avatar;
-          this.user = user;
+          this.user.avatar = file.avatar;
         });
         
     }, 

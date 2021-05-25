@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { OrganizationUserLink } from 'src/app/services/interfaces/organization.interface';
 import { Team } from 'src/app/services/interfaces/team.interface';
 import { User } from 'src/app/services/interfaces/user.interface';
+import { OrganizationService } from 'src/app/services/organization.service';
 import { TeamService } from 'src/app/services/team.service';
 
 @Component({
@@ -14,15 +15,18 @@ import { TeamService } from 'src/app/services/team.service';
 export class AddUserFormComponent implements OnInit {
 
   organizationUserLinks!: Array<OrganizationUserLink>;
+  organizationName ='';
   @Input() team!: Team ;
   fncUsersFromTeam!:() =>Observable<Array<User>>;
 
   constructor(
     public activeModal: NgbActiveModal,
-    private teamService: TeamService
+    private teamService: TeamService,
+    private organizationService: OrganizationService,
   ) { }
 
   ngOnInit(): void {
+    this.organizationName =  this.organizationService.currentOrganization.getValue().name;
     this.fncUsersFromTeam= () =>{return this.teamService.getUsers(this.team._id)};
   }
 
