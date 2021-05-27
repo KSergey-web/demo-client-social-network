@@ -1,7 +1,9 @@
+
 export enum userStatusEnum {
     online='online',
     offline='offline'
 }
+
 
 export interface User {  
 
@@ -19,12 +21,14 @@ export interface User {
     
       birthdate: Date;
     
-      avatar?: string;
+      avatar: string;
     
       telephone: string;
     
      login: string;
 
      status?: userStatusEnum; 
+
+     avatarBuffer: string;
 }
 

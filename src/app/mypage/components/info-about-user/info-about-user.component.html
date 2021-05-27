@@ -1,6 +1,8 @@
 <div class="parent-box">
   <div class="avatar">
-    <img *ngIf='user?.avatar' [src]="user.avatar" class="avatar" alt="avatar">
+    <div *ngIf='user'>
+    <img *ngIf='user.avatarBuffer' [src]="user.avatarBuffer" class="avatar" alt="avatar">
+    </div>
     <button *ngIf='checkCurretUser()'>Редактировать</button>
     <br>
     <button *ngIf='!checkCurretUser()'>Создать чат</button>

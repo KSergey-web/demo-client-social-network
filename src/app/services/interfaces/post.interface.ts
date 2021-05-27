@@ -1,4 +1,4 @@
-import { FileResource } from "./file-resource.interface";
+import { FileResAndBuffer, FileResource } from "./file-resource.interface";
 import { Group } from "./group.interface";
 import { User } from "./user.interface";
 
@@ -7,7 +7,7 @@ export interface Post {
 
     date: Date;
   
-    files: Array<FileResource>;
+    files: Array<FileResAndBuffer>;
 
     user: User | string;
   

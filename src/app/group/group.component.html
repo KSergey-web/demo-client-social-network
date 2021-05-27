@@ -36,8 +36,8 @@
                     <div *ngFor="let file of post.files">
                         <button *ngIf='file?.buffer' (click)='openContentImage(getImage(file))' type='button'><img
                                 [src]="getImage(file)" class="image-post" alt="image" /> </button>
-                        <a *ngIf="!(file.hasOwnProperty('buffer'))" [href]="getFileHref + file._id"
-                            download>{{file.originalName}}</a>
+                        <a *ngIf="!(file.hasOwnProperty('buffer'))" [href]="getFileHref + file.fileRes._id"
+                            download>{{file.fileRes.originalName}}</a>
                     </div>
                     <a [routerLink]="'/mypage/'+$any(post).user._id" >Автор поста {{$any(post).user.name}} {{$any(post).user.surname}}</a>
                 </div>

@@ -24,7 +24,7 @@
       <li *ngFor="let link of organizationUserLinks" (dblclick)="toPageUser(link.user)">
         <div class="parent-box small-padding-left">
           <div>
-            <img src='../../assets/avatar.png' alt='avatar'>
+            <img *ngIf='link.user.avatarBuffer' [src]='link.user.avatarBuffer' class='avatar rounding' alt='avatar'>
             <h1 class="myh1"> {{link.user.name}} {{link.user.surname}} </h1>
             <p> Должность: {{link.position}} <br />
               Статус в организаци:

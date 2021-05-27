@@ -7,3 +7,11 @@ export interface FileResource {
 
         mimetype: string;
 }
+
+
+export interface FileResAndBuffer
+{
+  fileRes:FileResource;
+
+  buffer?:any;
+}

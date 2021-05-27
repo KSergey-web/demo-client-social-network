@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ChatService } from 'src/app/services/chat.service';
+import { FileResourceService } from 'src/app/services/file-resource.service';
 import { OrganizationUserLink } from 'src/app/services/interfaces/organization.interface';
 import { User } from 'src/app/services/interfaces/user.interface';
 import { OrganizationService } from 'src/app/services/organization.service';
@@ -25,7 +26,7 @@ export class InfoAboutUserComponent implements OnInit {
     private organizationService: OrganizationService,
     private userService: UserService,
     private chatService: ChatService,
-    private sharedService: SharedService
+    private fileResourceService: FileResourceService
     ) { 
   }
 
@@ -34,8 +35,8 @@ export class InfoAboutUserComponent implements OnInit {
     this.organizationService.getOrganizationsOfUser(this.userId).subscribe(res => {this.organizationUserLinks = res});
     this.userService.getUser(this.userId).subscribe(user => {
       this.user = user;
-      this.sharedService.getAvatar(user!.avatar as string, avatarTypeEnum.average).subscribe(obj => {
-        this.user.avatar = obj.avatar;
+      this.fileResourceService.getAvatar(user.avatar, avatarTypeEnum.average).subscribe(res => {
+        this.user.avatarBuffer = res.buffer;
         setTimeout(()=>this.userService.getStatusUser(this.user!._id).subscribe((res: any) => {
           this.user!.status = res.status;
         }, err => console.log(err)),2);

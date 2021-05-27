@@ -58,7 +58,9 @@ onFileSelected(event:any) {
       dto.birthdate.setFullYear(this.registrForm.value.birthdate.year);
       dto.birthdate.setMonth(this.registrForm.value.birthdate.month);
       dto.birthdate.setDate(this.registrForm.value.birthdate.day)
+      if (!this.imageError){
       dto.file = this.selectedFile;
+      }
       console.log(dto);
     this.signUpService.registr(dto).subscribe(()=>{ alert("Succes"),this.router.navigate(['/signin'])}, err=>{ console.log(err),alert('Wrong data!')});;
   }

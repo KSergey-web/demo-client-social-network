@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FileResourceService } from '../services/file-resource.service';
 import { User } from '../services/interfaces/user.interface';
 import { OrganizationService } from '../services/organization.service';
 import { SharedService } from '../services/shared.service';
@@ -26,7 +27,7 @@ export class HeaderComponent implements OnInit {
     private signInService: SinginService,
     private organizationService: OrganizationService,
     private socketService: SocketService,
-    private sharedService: SharedService
+    private fileResourceService: FileResourceService
   ) { }
 
   ngOnInit(): void {
@@ -42,9 +43,9 @@ export class HeaderComponent implements OnInit {
     this.headerService.getUser().subscribe(
       user => {
         this.user = user; 
-        this.sharedService.getAvatar(user!.avatar as string, avatarTypeEnum.mini).subscribe(file => {
-          this.user.avatar = file.avatar;
-        });
+        this.fileResourceService.getAvatar(user.avatar, avatarTypeEnum.mini).subscribe(res => {
+          this.user.avatarBuffer = res.buffer;
+        }, err => console.error(err));
         
     }, 
       err => {

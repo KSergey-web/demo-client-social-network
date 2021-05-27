@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { INWORK_API } from '../app-injection-tokens';
-import { FileResource } from '../services/interfaces/file-resource.interface';
+import { FileResAndBuffer, FileResource } from '../services/interfaces/file-resource.interface';
 import { Group } from '../services/interfaces/group.interface';
 import { Post, PostDTO } from '../services/interfaces/post.interface';
 import { PostService } from '../services/post.service';
@@ -46,7 +46,7 @@ export class GroupComponent implements OnInit {
   }
 
   updateArray(){
-    this.postService.getPosts(this.group._id).subscribe(res => this.posts = res);
+    this.postService.getPosts(this.group._id).subscribe(res => {this.posts = res, console.log(res[0])});
   }
 
   onCreatePost(){
@@ -60,8 +60,8 @@ export class GroupComponent implements OnInit {
     }, err=>{console.warn(err)});
   }
 
-  getImage(file: FileResource){
-    return 'data:'+file.mimetype+';base64,'+file.buffer;
+  getImage(file: FileResAndBuffer){
+    return 'data:'+file.fileRes.mimetype+';base64,'+file.buffer;
   }
 
   onSturctureGroup(){
