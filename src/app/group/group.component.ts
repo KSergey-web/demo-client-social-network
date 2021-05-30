@@ -3,10 +3,12 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { INWORK_API } from '../app-injection-tokens';
+import { FileResourceService } from '../services/file-resource.service';
 import { FileResAndBuffer, FileResource } from '../services/interfaces/file-resource.interface';
 import { Group } from '../services/interfaces/group.interface';
 import { Post, PostDTO } from '../services/interfaces/post.interface';
 import { PostService } from '../services/post.service';
+import { avatarTypeEnum } from '../shared/list-workers/enums';
 import { PostContentComponent } from './post-content/post-content.component';
 
 @Component({
@@ -33,6 +35,8 @@ export class GroupComponent implements OnInit {
     private postService: PostService,
     private modalService: NgbModal,
     @Inject(INWORK_API) private apiUrl:string,
+    private fileResourceService: FileResourceService
+    
   ) { 
       this.group = history.state.data;
     if (!this.group){
@@ -42,6 +46,9 @@ export class GroupComponent implements OnInit {
   }
 
   ngOnInit(): void {
+      this.fileResourceService.getAvatar(this.group.avatar, avatarTypeEnum.average).subscribe(res => {
+        this.group.avatarBuffer = res.buffer;
+      }, err => console.error(err));
     this.updateArray()
   }
 

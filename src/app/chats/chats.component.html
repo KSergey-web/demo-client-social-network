@@ -9,8 +9,11 @@
         <li *ngFor="let chat of chats"
         (dblclick)="toChat(chat)">
         <div class="small-padding-left">
+         <img *ngIf='chat.avatarBuffer' [src]='chat.avatarBuffer' class='avatar' alt='avatar'>
            <h1 class="myh1"> {{chat.name}} </h1>
+           <div *ngIf='chat.message'>
            <span class="sender">{{chat.message.user.surname}} {{chat.message.user.name}} </span><span> {{chat.message.date | date:' dd.MM.yy H:mm'}}</span>: {{chat.message.text}}
+           </div>
         </div>
            <div class="line"></div>
         </li>

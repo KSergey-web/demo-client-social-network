@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
+import { serialize } from 'object-to-formdata';
 import { Observable } from 'rxjs';
 import { INWORK_API } from '../app-injection-tokens';
 import { AddUsersToChatDTO, Chat, ChatDTO } from './interfaces/chat.interface';
@@ -24,7 +25,7 @@ export class ChatService {
       }
       )
     }
-    return this.http.post<Chat>(`${this.apiUrl}/v1/api/chat`,dto);
+    return this.http.post<Chat>(`${this.apiUrl}/v1/api/chat`,serialize(dto));
   }
 
   addUsersToChat(chatId:string, users: Array<OrganizationUserLink>) : Observable<Chat>{

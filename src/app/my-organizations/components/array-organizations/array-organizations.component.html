@@ -3,6 +3,7 @@
   <li *ngFor="let link of organizationUserLinks">
     <div class="parent-box small-padding-left">
       <div>
+        <img *ngIf='link.organization.avatarBuffer' [src]='link.organization.avatarBuffer' class='avatar' alt='avatar'>
         <h1 class="myh1"> {{link.organization.name}} </h1>
         <p> Ваша должность: {{link.position}} <br/>
          Ваш статус:

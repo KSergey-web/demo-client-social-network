@@ -4,7 +4,8 @@ export interface Chat{
     _id: string;
     name: string;
     avatar: string;
-    message: MessageEntity
+    message: MessageEntity;
+    avatarBuffer?: string;
 }
 
 export interface ChatDTO{

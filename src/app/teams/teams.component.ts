@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FileResourceService } from '../services/file-resource.service';
 import { Team } from '../services/interfaces/team.interface';
 import { OrganizationService } from '../services/organization.service';
 import { TeamService } from '../services/team.service';
+import { avatarTypeEnum } from '../shared/list-workers/enums';
 
 @Component({
   selector: 'app-teams',
@@ -18,7 +20,8 @@ export class TeamsComponent implements OnInit {
   constructor(
     private teamService:TeamService,
     private organizationService:OrganizationService,
-    private router:Router
+    private router:Router,
+    private fileResourceService: FileResourceService
   ) { }
 
   ngOnInit(): void {
@@ -32,7 +35,13 @@ export class TeamsComponent implements OnInit {
   }
 
   updateArray(){
-    this.teamService.getTeams(this.organizationId).subscribe(res => this.teams = res);
+    this.teamService.getTeams(this.organizationId).subscribe(res =>{ 
+      res.forEach(team => {
+        this.fileResourceService.getAvatar(team.avatar, avatarTypeEnum.mini).subscribe(res => {
+          team.avatarBuffer = res.buffer;
+        }, err => console.error(err));
+      });
+      this.teams = res});
   }
 
   isModalDialogVisible: boolean = false;

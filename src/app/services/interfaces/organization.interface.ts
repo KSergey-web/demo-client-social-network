@@ -5,6 +5,7 @@ export interface Organization{
     name: string;
     description: string;
     avatar: string;
+    avatarBuffer?: string;
 }
 
 export interface OrganizationUserLink{

@@ -6,6 +6,7 @@ import { INWORK_API } from '../app-injection-tokens';
 import { OrganizationUserLink } from './interfaces/organization.interface';
 import { AddStatusDTO, CreateTeamDTO, Status, Team } from './interfaces/team.interface';
 import { User } from './interfaces/user.interface';
+import { serialize } from 'object-to-formdata';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,8 @@ export class TeamService {
       }
       )
     }
-    return this.http.post<Team>(`${this.apiUrl}/v1/api/team`,dto);
+    console.log(dto);
+    return this.http.post<Team>(`${this.apiUrl}/v1/api/team`,serialize(dto));
   }
 
   getTeams(organizationId: string): Observable<Array<Team>>{

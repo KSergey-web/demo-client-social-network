@@ -33,7 +33,7 @@
               <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
             </div>
           </div>
-          <ngb-timepicker [(ngModel)]="time" [ngModelOptions]="{standalone: true}" ></ngb-timepicker> 
+          <ngb-timepicker *ngIf="deadlineVisible" [(ngModel)]="time" [ngModelOptions]="{standalone: true}" ></ngb-timepicker> 
 
 
     <div>

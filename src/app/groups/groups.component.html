@@ -8,6 +8,7 @@
                         <li *ngFor="let group of groups" (dblclick)="toGroup(group)">
                                 <div class='parent-box small-padding-left'>
                                         <div>
+                                        <img *ngIf='group.avatarBuffer' [src]='group.avatarBuffer' class='avatar' alt='avatar'>
                                         <h1 class="myh1"> {{group.name}} </h1>
                                                 <p>
                                                         <span *ngIf='group.isOpen'>Открытая группа</span>

@@ -60,7 +60,6 @@ export class EmployeesComponent implements OnInit {
   updateListUsers() {
     this.organizationService.getUsersFromOrganization().subscribe(res => {
       res.forEach(link => {
-        console.log(link.user)
         this.fileResourceService.getAvatar(link.user.avatar, avatarTypeEnum.mini).subscribe(res => {
           link.user.avatarBuffer = res.buffer;
         }, err => console.error(err));

@@ -4,10 +4,17 @@
       <input type="text" formControlName="name" required>
     </label>
   
-    <label>
-      Avatar:
-      <input type="text" formControlName="avatar">
-    </label>
+     
+    <div>
+      <label for="avatar">
+        Аватар
+      </label>
+    <input style="display: none" #fileInput type="file" (change)="onFileSelected($event)" id='file' formControlName="avatar">
+    <button type="button" (click)="fileInput.click()">Выбрать изображение</button><br/>
+    <img *ngIf='cardImageBase64' [src]="cardImageBase64" class="avatar-average" >
+    {{imageError}}
+    </div>
+    
     <app-list-workers (arrayWorkers)="getArrayWorkers($event)"></app-list-workers>
     <button type="button" (click)="onCancel()">Отмена</button>
     <button type="submit" [disabled]="!teamForm.valid">Создать</button>

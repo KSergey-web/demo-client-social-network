@@ -12,6 +12,8 @@ export interface Group{
   
     isOpen: Boolean;
 
+    avatarBuffer?: string;
+
     organization: Organization | string;
 }
 
@@ -20,7 +22,7 @@ export interface GroupDTO{
 
     description: string;
   
-    avatar: string;
+    avatar?: File | null;
   
     isOpen: Boolean;
 

@@ -5,6 +5,7 @@ import { INWORK_API } from '../app-injection-tokens';
 import { Group, GroupDTO, GroupUserLink } from './interfaces/group.interface';
 import { OrganizationUserLink } from './interfaces/organization.interface';
 import { User } from './interfaces/user.interface';
+import { serialize } from 'object-to-formdata';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class GroupService {
   }
 
   createGroup(dto:GroupDTO): Observable<Group>{
-    return this.http.post<Group>(`${this.apiUrl}/v1/api/group`,dto);
+    return this.http.post<Group>(`${this.apiUrl}/v1/api/group`,serialize(dto));
   }
 
   getGroups(organizationId:string): Observable<Array<Group>>{

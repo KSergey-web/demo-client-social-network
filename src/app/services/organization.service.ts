@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { INWORK_API } from '../app-injection-tokens';
 import {HireUserByLoginDTO, Organization, OrganizationUserLink} from './interfaces/organization.interface'
 import { userStatusEnum } from './interfaces/user.interface';
+import { serialize } from 'object-to-formdata';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class OrganizationService {
   }
 
   createOrganization(organization: any): Observable<Organization>{
-    return this.http.post<Organization>(`${this.apiUrl}/v1/api/organization/`, organization);
+    return this.http.post<Organization>(`${this.apiUrl}/v1/api/organization/`, serialize(organization));
   }
 
   getUsersFromOrganization(): Observable<Array<OrganizationUserLink>>{

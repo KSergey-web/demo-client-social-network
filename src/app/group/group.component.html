@@ -2,7 +2,7 @@
 <div class="parent-box small-margin-top">
     <app-navigation></app-navigation>
     <div class="container">
-        <img class='avatar' src='' alt='avatar'>
+        <img *ngIf='group.avatarBuffer' [src]='group.avatarBuffer' class='avatar-average' alt='avatar'>
         <h1 class='myh1 online'>{{group.name}}</h1>
         <p>{{group.description}}
             <span *ngIf='group.isOpen'>Открытая группа</span>

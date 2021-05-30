@@ -5,7 +5,7 @@ export interface CreateTeamDTO{
 
     organization: string;
 
-    avatar: string;
+    avatar?: File | null;
 
     users?: Array<string>;
 }
@@ -18,6 +18,8 @@ export interface Team{
     avatar: string;
 
     name: string;
+    
+    avatarBuffer?: string;
 }
 
 export interface Status{

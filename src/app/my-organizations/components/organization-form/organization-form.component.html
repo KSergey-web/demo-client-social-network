@@ -9,10 +9,15 @@
       <input type="text" formControlName="description">
     </label>
     
-    <label>
-      Avatar:
-      <input type="text" formControlName="avatar">
-    </label>
-  
+    <div>
+      <label for="avatar">
+        Аватар
+      </label>
+    <input style="display: none" #fileInput type="file" (change)="onFileSelected($event)" id='file' formControlName="avatar">
+    <button type="button" (click)="fileInput.click()">Выбрать изображение</button><br/>
+    <img *ngIf='cardImageBase64' [src]="cardImageBase64" class="avatar-average" >
+    {{imageError}}
+    </div>
+    
     <button type="submit" [disabled]="!organizationForm.valid">Создать</button>
   </form>
