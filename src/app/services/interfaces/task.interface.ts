@@ -1,3 +1,4 @@
+import { IColor } from "src/app/shared/interfaces";
 import { colorEnum } from "src/app/shared/list-workers/enums";
 import { FileResource } from "./file-resource.interface";
 import { Status, Team } from "./team.interface";
@@ -19,7 +20,7 @@ export interface Task{
 
     description: string;
 
-  color: string;
+  color: colorEnum;
 
   deadline: Date;
 
@@ -32,6 +33,8 @@ export interface Task{
   users: Array<User> | Array<string>;
 
   answer: string;
+
+  completionDate: Date | null;
 }
 
 export interface UpdateTaskDto{

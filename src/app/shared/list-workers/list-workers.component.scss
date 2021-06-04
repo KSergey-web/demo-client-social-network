@@ -23,7 +23,11 @@
     left: .1em;
   }
   .employees li.selected {
-    background-color:#84c4d0;
+    background-color: #5de1f0;
+  }
+
+  .users li.selected {
+    background-color: #5de1f0;
   }
 
   .employees li.selected:active {
@@ -31,5 +35,5 @@
   }
 
   h1{
-    color: white;
+    color: black;
   }

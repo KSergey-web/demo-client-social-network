@@ -21,7 +21,6 @@ export class EmployeesComponent implements OnInit {
 
   organization!: Organization;
 
-  isAdmin: boolean = false;
 
   constructor(
     private organizationService: OrganizationService,
@@ -65,11 +64,6 @@ export class EmployeesComponent implements OnInit {
         }, err => console.error(err));
       })
       this.organizationUserLinks = res;
-      this.organizationUserLinks.forEach(link => {
-        if (link.user!._id == localStorage.getItem(CURRENT_USER_ID)) {
-          this.isAdmin = true;
-        }
-      })
     });
   }
 
@@ -106,5 +100,9 @@ export class EmployeesComponent implements OnInit {
         alert(`Error ${status}`);
     }
     return;
+  }
+
+  isAdminOrHostOrg(): boolean{
+   return this.organizationService.isAdminOrHost();
   }
 }

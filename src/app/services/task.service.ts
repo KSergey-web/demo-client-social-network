@@ -66,7 +66,11 @@ export class TaskService {
   }
 
   getHistory(teamId: string): Observable<Array<Task>>{
-    return this.http.get<Array<Task>>(`${this.apiUrl}/v1/api/task/history/team/${teamId}`)
+    return this.http.get<Array<Task>>(`${this.apiUrl}/v1/api/task/history/team/${teamId}`).pipe(tap((tasks:Array<any>) => tasks.forEach((task) => {
+      task.completionDate = new Date(task.completionDate);
+      if (task.deadline) 
+      task.deadline = new Date(task.deadline)
+    })));
   }
 
   addfileToTask(selectedFile: File, taskId: string):Observable<Task>{

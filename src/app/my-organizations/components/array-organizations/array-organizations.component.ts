@@ -4,6 +4,7 @@ import { FileResourceService } from 'src/app/services/file-resource.service';
 import { Organization, OrganizationUserLink } from 'src/app/services/interfaces/organization.interface';
 import { OrganizationService } from 'src/app/services/organization.service';
 import { CURRENT_USER_ID } from 'src/app/services/user.service';
+import { roleUserOrganizationEnum } from 'src/app/shared/interfaces';
 import { avatarTypeEnum } from 'src/app/shared/list-workers/enums';
 
 @Component({
@@ -29,8 +30,9 @@ export class ArrayOrganizationsComponent implements OnInit {
     this.updateArray();
   }
 
-  onSelect(organization: Organization){
-    this.organizationService.currentOrganization.next(organization);
+  onSelect(link: OrganizationUserLink){ 
+    this.organizationService.roleUser = link.roleUser;
+    this.organizationService.currentOrganization.next(link.organization);
   }
 
   updateArray(): void {
@@ -42,5 +44,10 @@ export class ArrayOrganizationsComponent implements OnInit {
       })
       this.organizationUserLinks = links;
     });
+  }
+
+  isHost(link: OrganizationUserLink): boolean{
+    if (link.roleUser == roleUserOrganizationEnum.superUser) return true;
+    else return false;
   }
 }

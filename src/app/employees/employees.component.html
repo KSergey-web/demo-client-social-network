@@ -2,10 +2,10 @@
 <div class='parent-box small-margin-top'>
   <app-navigation></app-navigation>
   <div class="container">
-    <form *ngIf='isAdmin' [formGroup]="addWorkerForm" (ngSubmit)="hireWorker()">
+    <form *ngIf='isAdminOrHostOrg()' class='myform' [formGroup]="addWorkerForm" (ngSubmit)="hireWorker()">
       <div>
         <label for="login">
-          login
+          Логин
         </label>
         <input id="login" type="text" formControlName="login">
       </div>
@@ -36,8 +36,11 @@
             <p>
           </div>
           <div class='actions'>
+            <div *ngIf='isAdminOrHostOrg()'>
             <button class="button" (click)='openNewPositionForm(link)'>Изменить должность</button><br/>
-            <button class="button" (click)='openNewPositionForm(link)'>Уволить</button>
+            <button class="button" >Изменить статус</button><br/>
+            <button class="button" >Уволить</button>
+          </div>
           </div>
         </div>
         <div class="line"></div>

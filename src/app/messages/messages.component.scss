@@ -3,9 +3,6 @@
     overflow-y: scroll;
 }
 
-#app {
-    margin-top: 2rem;
-}
 
 .author{
     color: black;
@@ -13,12 +10,23 @@
 
 
 .send{
-    background-color: white;
-    
+    text-align: center;
+    width: 100%;
+}
+
+.btn{
+    background-color: whitesmoke;
+    width: 40%;
+}
+
+textarea{
+    margin-top: 1em;
+    width: 99%;
 }
 
 .textar{
-    width: 99%;
+    
+  
 }
 
 

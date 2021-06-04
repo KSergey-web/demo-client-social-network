@@ -1,12 +1,23 @@
 <app-header></app-header>
-<app-navigation></app-navigation>
-<ul>
-    <li *ngFor="let task of tasks" >
-            <div class='task' 
-            (dblclick)="openModalUpdateTask(task)"
-            >
-                <p class='name'> {{task.name}}</p>
-                <p class='date' *ngIf="task.deadline"> {{task.deadline | date:'short'}}</p>
+<div class="parent-box small-margin-top">
+    <app-navigation></app-navigation>
+    <div class="container">
+        <h1 class="myh1">История задач</h1>
+        <ul class="tasks">
+            <li *ngFor="let task of tasks">
+                <div class="parent-box task">
+                <div class="circle" 
+                [class.green] = "task.color == 'green'"
+                [class.orange] = "task.color == 'orange'"
+                [class.red] = "task.color == 'red'"
+                    ></div>
+                <div class='parent-box' (dblclick)="openModalUpdateTask(task)">
+                    <div class='name'> {{task.name}}</div>
+                    <div class='date' *ngIf="task.completionDate"> {{task.completionDate | date:'dd.MM.yyyy HH:mm'}}</div>
+                </div>
             </div>
-    </li>
-</ul>
+                <div class="line"></div>
+            </li>
+        </ul>
+    </div>
+</div>

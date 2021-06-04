@@ -32,6 +32,10 @@ export class OrganizationFormComponent {
     console.warn(this.organizationForm.value);
   }
 
+  onCancel(){
+  this.isConfirmed.emit(false);
+}
+
   selectedFile: File | null = null;
   onFileSelected(event:any) {
     this.selectedFile = <File>event.target.files[0];

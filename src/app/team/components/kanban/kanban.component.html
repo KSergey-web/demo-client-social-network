@@ -1,3 +1,4 @@
+<div class="ct">
 <div class="big-table">
     <table class="statistic">
         <thead>
@@ -20,8 +21,10 @@
                     (dblclick)="openModalUpdateTask(task)"
                     (contextmenu)="displayContextMenuOnTask($event,task); false"
                     >
-                        <b class='name'>  {{task.name}}</b>
+                    <div>    
+                    <b class='name'>  {{task.name}}</b>
                         <p class='date' *ngIf="task.deadline"> {{task.deadline | date:'dd.MM.yyyy H:mm'}}</p>
+                    </div>
                         <div class="line"></div>
                         <div class='user' *ngFor="let user of $any(task.users)"> {{user.surname}} {{user.name}}</div>
                         <app-context-menu *ngIf="rightClickMenuItems.length > 0 && isDisplayContextMenu"
@@ -32,4 +35,5 @@
             </td>
         </tbody>
     </table>
+</div>
 </div>

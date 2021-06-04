@@ -2,12 +2,14 @@
 <div class="parent-box small-margin-top">
     <div class='panel-kanban'>
         <app-navigation></app-navigation>
-        <h1  class="online">{{team.name}}</h1>
-        <button type="button" (click)="onSturctureTeam()">Состав команды</button>
-        <br />
-        <button type="button" (click)="onHistoryTasks()">История задач</button>
+        <div class="actions">
+            <h1 class="online">{{team.name}}</h1>
+            <button type="button" (click)="onSturctureTeam()">Состав команды</button>
+            <br />
+            <button type="button" (click)="onHistoryTasks()">История задач</button>
+        </div>
     </div>
     <div>
-        <app-kanban [teamId]="team._id"> </app-kanban>
+        <app-kanban [teamId]="team._id" [team]="team"> </app-kanban>
     </div>
 </div>

@@ -1,21 +1,25 @@
 <app-header></app-header>
-<div class="parent-box small-margin-top">
+<div class="parent-box small-margin-top item-top">
     <app-navigation></app-navigation>
     <div class="container">
-        <img *ngIf='group.avatarBuffer' [src]='group.avatarBuffer' class='avatar-average' alt='avatar'>
         <h1 class='myh1 online'>{{group.name}}</h1>
-        <p>{{group.description}}
+        <p class="desc">
             <span *ngIf='group.isOpen'>Открытая группа</span>
-            <span *ngIf='!group.isOpen'>Закрытая группа</span>
+            <span *ngIf='!group.isOpen'>Закрытая группа</span> <br/>
+            {{group.description}}
         </p>
         <button type="button" (click)="onSturctureGroup()">Участники группы</button>
         <button (click)='visibleCreatePost=!visibleCreatePost'>Создать пост</button>
-        <form *ngIf="visibleCreatePost" [formGroup]="postForm" (ngSubmit)="onCreatePost()">
+        <form *ngIf="visibleCreatePost" class='form-post' [formGroup]="postForm" (ngSubmit)="onCreatePost()">
             <label>
-                text:
-                <textarea type="text" formControlName="text" required></textarea>
+                Текст: 
             </label>
-            <ul>
+            <br/>
+                <textarea type="text"  formControlName="text" required></textarea>
+            
+            <br/>
+            <button type="button" (click)="fileInput.click()">Добавить файлы</button><br />
+            <ul class="desc">
                 <li *ngFor="let file of selectedFiles">
                     {{file.name}}
                     <button (click)='deleteFile(file)' type='button'><img src="../../../../../assets/deleteicon.png"
@@ -23,19 +27,25 @@
                 </li>
             </ul>
             <input style="display: none" #fileInput type="file" (change)="onFileSelected($event)" id='file' multiple>
-            <button type="button" (click)="fileInput.click()">Выбрать файлы</button><br />
+            
             <button type="submit" [disabled]="!postForm.valid">Опубликовать</button>
         </form>
+        
         <ul class="posts">
+            <li class="update"> <button (click)='updateArray()' class="update" type='button'><img src="../../assets/emblemsynchronizing_93485.png" height='20px' width='20px' alt="Обновить"></button><li>
             <li *ngFor="let post of posts">
-                <div>
-                    <p>{{post.date| date:'d.MM.yyyy H:m'}}
+                <div class="content">
+                    <p> <span class='sender'>{{post.date| date:'d.MM.yyyy H:m'}}</span>
                         <br />
                         {{post.text}}
                     </p>
-                    <div *ngFor="let file of post.files">
+                    <div class='files'>
+                    <div  *ngFor="let file of post.files">
                         <button *ngIf='file?.buffer' (click)='openContentImage(getImage(file))' type='button'><img
                                 [src]="getImage(file)" class="image-post" alt="image" /> </button>
+                    </div>
+                    </div>
+                    <div  *ngFor="let file of post.files">
                         <a *ngIf="!(file.hasOwnProperty('buffer'))" [href]="getFileHref + file.fileRes._id"
                             download>{{file.fileRes.originalName}}</a>
                     </div>
@@ -45,4 +55,5 @@
             </li>
         </ul>
     </div>
+    <img *ngIf='group.avatarBuffer' [src]='group.avatarBuffer' class='avatar-average' alt='avatar'>
 </div>

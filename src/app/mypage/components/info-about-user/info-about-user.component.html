@@ -3,9 +3,10 @@
     <div *ngIf='user'>
     <img *ngIf='user.avatarBuffer' [src]="user.avatarBuffer" class="avatar" alt="avatar">
     </div>
+    <div class='actions'>
     <button *ngIf='checkCurretUser()'>Редактировать</button>
-    <br>
     <button *ngIf='!checkCurretUser()'>Создать чат</button>
+  </div>
   </div>
 
   <div class="info">
@@ -15,11 +16,13 @@
       номер телефона: {{user.telephone}} <br />
       дата рождения: {{user.birthdate | date:'dd.MM.yyyy '}}<br />
     </div>
+    <div>
     <span>Организация</span> --- <span>Должность:</span>
     <ul class="listOrganizations">
       <li *ngFor="let link of organizationUserLinks">
         <span>{{link.organization.name}}</span> --- <span>{{link.position}}</span>
       </li>
     </ul>
+  </div>
   </div>
 </div>

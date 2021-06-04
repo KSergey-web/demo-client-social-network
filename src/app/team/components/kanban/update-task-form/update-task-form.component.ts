@@ -4,6 +4,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { INWORK_API } from 'src/app/app-injection-tokens';
 import { Task, UpdateTaskDto } from 'src/app/services/interfaces/task.interface';
+import { Team } from 'src/app/services/interfaces/team.interface';
 import { User } from 'src/app/services/interfaces/user.interface';
 import { TaskService } from 'src/app/services/task.service';
 import { TeamService } from 'src/app/services/team.service';
@@ -20,6 +21,7 @@ import { colorEnum } from 'src/app/shared/list-workers/enums';
 export class UpdateTaskFormComponent implements OnInit {
 
   @Input() task!: Task;
+  @Input() team!: Team;
   deadlineVisible: boolean = false;
   isVisibleArrayAddedUsers: boolean = false;
   @Input() isDisableEdit: boolean = false;
@@ -59,15 +61,21 @@ export class UpdateTaskFormComponent implements OnInit {
   initUsers: Array<User> = []
 
   ngOnInit(): void {
+    console.log(this.task.files);
     this.currentColor = this.colors[0];
-    this.colors.find(item => { if (item.value == this.task.color) { this.currentColor = item; return true; } return false });
+    this.colors.find(item => {
+       if (item.value == this.task.color) 
+       { this.currentColor = item; 
+        return true; 
+      } 
+      return false 
+    });
     this.initUsers = (this.task.users as Array<User>).slice();
     this.fncUsersFromTeam = () => {
       return this.teamService.getUsers(this.task.team as string)
     };
     this.fncUsersFromTask = () => {
       return new Observable((observer: any) => {
-        console.warn(this.task.users)
         observer.next(this.task.users);
       });
     }
@@ -108,8 +116,9 @@ export class UpdateTaskFormComponent implements OnInit {
     let dto: UpdateTaskDto = {};
     if (this.taskForm.value.name != this.task.name) dto.name = this.taskForm.value.name;
     if (this.taskForm.value.description != this.task.description) dto.description = this.taskForm.value.description;
-    if (this.taskForm.value.color != this.task.color) {
-      dto.color = this.taskForm.value.color;
+    dto.color =  this.task.color;
+    if (this.currentColor.value  != this.task.color) {
+      dto.color = this.currentColor.value;
     }
     if (dto.color != colorEnum.green) {
       const date = this.compareDate();
@@ -170,8 +179,13 @@ export class UpdateTaskFormComponent implements OnInit {
   }
 
   swith() {
-    this.task.users = (this.task.users as Array<User>).concat(this.addedUsers);
     this.isVisibleArrayAddedUsers = false;
+    
+  }
+
+  concatUsers(){
+    this.task.users = (this.task.users as Array<User>).concat(this.addedUsers);
+    this.swith();
   }
 
   addUsers() {

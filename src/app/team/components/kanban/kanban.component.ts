@@ -2,7 +2,7 @@ import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { Task } from 'src/app/services/interfaces/task.interface';
-import { Status } from 'src/app/services/interfaces/team.interface';
+import { Status, Team } from 'src/app/services/interfaces/team.interface';
 import { SocketService } from 'src/app/services/socket.service';
 import { TaskService } from 'src/app/services/task.service';
 import { TeamService } from 'src/app/services/team.service';
@@ -23,6 +23,7 @@ import { UpdateTaskFormComponent } from './update-task-form/update-task-form.com
 })
 export class KanbanComponent implements OnInit {
   @Input() teamId!: string;
+  @Input() team!: Team;
 
   statuses: Array<Status> = [];
   tasks: Array<Task> = [];
@@ -251,6 +252,7 @@ export class KanbanComponent implements OnInit {
   openModalUpdateTask(task: Task) {
     const modalRef = this.modalService.open(UpdateTaskFormComponent);
     (modalRef.componentInstance as UpdateTaskFormComponent).task = task;
+    (modalRef.componentInstance as UpdateTaskFormComponent).team = this.team;
     modalRef.result.then(
       (task) => {
         this.updateTasks();

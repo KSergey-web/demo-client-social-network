@@ -90,6 +90,17 @@ label{
   height: 53px;
 }
 
+.item-center{
+  align-items: center;
+}
+
+.item-top{
+  align-items: flex-start;
+}
+
+.padding4{
+  padding: 4%;
+}
 
 input{
   background-color: #ececec;
@@ -97,6 +108,7 @@ input{
 
 .container{
 background-color: #2a2d2e;
+padding-top: 1em;
 }
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
@@ -120,6 +132,10 @@ li {
  padding-left: 4%;
 }
 
+.small-padding-right{
+  padding-right: 4%;
+ }
+
 .container{
   margin-left: 10%;
   max-width: 40%;
@@ -133,4 +149,12 @@ li {
   border-radius: 100px; /* Радиус скругления */
   border: 3px solid; /* Параметры рамки */
   box-shadow: 0 0 7px #666; /* Параметры тени */
+}
+
+.flex-start{
+  align-items: flex-start;
+}
+
+li{
+  padding: 2px;
 }

@@ -1,23 +1,23 @@
 <form [formGroup]="organizationForm" (ngSubmit)="onSubmit()">
     <label>
-      Name:
+      Название:
       <input type="text" formControlName="name" required>
     </label>
   
     <label>
-      Description:
+      Описание:
       <input type="text" formControlName="description">
     </label>
     
     <div>
       <label for="avatar">
-        Аватар
+        Аватар: 
       </label>
     <input style="display: none" #fileInput type="file" (change)="onFileSelected($event)" id='file' formControlName="avatar">
     <button type="button" (click)="fileInput.click()">Выбрать изображение</button><br/>
     <img *ngIf='cardImageBase64' [src]="cardImageBase64" class="avatar-average" >
     {{imageError}}
     </div>
-    
     <button type="submit" [disabled]="!organizationForm.valid">Создать</button>
+    <button type="button" (click)='onCancel()'>Отмена</button>
   </form>

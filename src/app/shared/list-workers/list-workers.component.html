@@ -16,7 +16,6 @@
 </div>
 
 <div *ngIf='fncGetUsers'>
-  <h1  class="myh1">Участники</h1>
   <ul class="users">
     <div *ngFor="let user of users">
       <li [class.selected]="selectedUsers.indexOf(user) != -1" (click)="onSelectUser(user)">

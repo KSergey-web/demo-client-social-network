@@ -1,3 +1,4 @@
+import { roleUserOrganizationEnum } from "src/app/shared/interfaces";
 import { User } from "./user.interface";
 
 export interface Organization{
@@ -10,10 +11,11 @@ export interface Organization{
 
 export interface OrganizationUserLink{
     position: string,
-    roleUser: string,
+    roleUser: roleUserOrganizationEnum,
     organization: Organization,
     user: User
 }
+
 
 export interface HireUserByLoginDTO{
     position: string,

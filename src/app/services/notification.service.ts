@@ -28,11 +28,11 @@ export class NotificationService {
   }
 
   markAllAsReaded(): Observable<any>{
-    return this.http.get<any>(`${this.apiUrl}/v1/api/notification/all/markreaded`);
+    return this.http.get<any>(`${this.apiUrl}/v1/api/notification/all/mark-readed`);
   }
 
   getNotReaded(){
-      this.http.get<number>(`${this.apiUrl}/v1/api/notification/quantity/notReaded`).subscribe((res:any) => {
+      this.http.get<number>(`${this.apiUrl}/v1/api/notification/quantity/not-readed`).subscribe((res:any) => {
         this.quntNotReadedNotif.next(res.quantity)
       });
   }

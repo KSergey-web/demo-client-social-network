@@ -1,5 +1,7 @@
-<h1>Долбавление задачи в статус "{{status.name}}"</h1>
-<form [formGroup]="taskForm" (ngSubmit)="onCreate()">
+
+<div class="padding4">
+<form [formGroup]="taskForm" class="small-padding-left small-padding-right" (ngSubmit)="onCreate()">
+  <h1 class='myh1'>Добавление задачи в статус "{{status.name}}"</h1>
     <div>
         <label for="name">
           Название задачи
@@ -39,3 +41,5 @@
 
     <button class="button" type="submit">Создать задачу</button>
   </form>
+  </div>
+  

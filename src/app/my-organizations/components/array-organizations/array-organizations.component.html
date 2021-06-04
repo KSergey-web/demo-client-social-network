@@ -12,7 +12,10 @@
         {{link.organization.description}}</p>
       </div>
       <div class='select'>
-        <button (click)="onSelect(link.organization)">Выбрать</button>
+        
+        <button (click)="onSelect(link)">Выбрать</button><br/>
+        <button>Покинуть</button><br/>
+        <button *ngIf='isHost(link)'>Редактировать</button><br/>
       </div>
     </div>
     <div class="line"></div>

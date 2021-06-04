@@ -63,7 +63,9 @@ export class GroupComponent implements OnInit {
     }
     this.postService.createPost(dto,this.selectedFiles).subscribe(res => {
       this.posts.unshift(res);
-      this.postForm.controls.text.setValue(''); 
+      this.postForm.controls.text.setValue('');
+      this.selectedFiles = [];
+      this.visibleCreatePost = false;
     }, err=>{console.warn(err)});
   }
 
