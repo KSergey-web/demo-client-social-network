@@ -1,15 +1,19 @@
 <div *ngIf='!fncGetUsers'>
-  
+
   <h1 class="myh1" *ngIf="organization._id != ''">Работники организации: {{organization.name}}</h1>
   <ul class="employees">
     <div *ngFor="let link of organizationUserLinks">
       <li *ngIf="link.user._id != currentUserId" [class.selected]="selectedWorkers.indexOf(link) != -1"
         (click)="onSelectWorker(link)">
-        <p>
-        <img src='{{link.organization.avatar}}' alt='avatar'>
-        {{link.user.name}} {{link.user.surname}} <br/>
-        Должность: {{link.position}}
-    </p>
+        <div class="parent-box flex-center">
+          <div>
+            <img *ngIf='link.user.avatarBuffer' [src]='link.user.avatarBuffer' class='avatar' alt='avatar'>
+          </div>
+          <p>
+            {{link.user.name}} {{link.user.surname}} <br />
+            Должность: {{link.position}}
+          </p>
+        </div>
       </li>
     </div>
   </ul>
@@ -18,8 +22,12 @@
 <div *ngIf='fncGetUsers'>
   <ul class="users">
     <div *ngFor="let user of users">
+
       <li [class.selected]="selectedUsers.indexOf(user) != -1" (click)="onSelectUser(user)">
-         {{user.name}} {{user.surname}}
+        <div class="parent-box flex-center">
+          <div><img *ngIf='user.avatarBuffer' [src]='user.avatarBuffer' class='avatar' alt='avatar'></div>
+          <div>{{user.name}} {{user.surname}}</div>
+          </div>
       </li>
     </div>
   </ul>

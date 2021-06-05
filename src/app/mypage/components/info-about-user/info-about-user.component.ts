@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ChatService } from 'src/app/services/chat.service';
 import { FileResourceService } from 'src/app/services/file-resource.service';
 import { OrganizationUserLink } from 'src/app/services/interfaces/organization.interface';
@@ -26,6 +27,7 @@ export class InfoAboutUserComponent implements OnInit {
     private organizationService: OrganizationService,
     private userService: UserService,
     private chatService: ChatService,
+    private router: Router,
     private fileResourceService: FileResourceService
     ) { 
   }
@@ -49,5 +51,9 @@ export class InfoAboutUserComponent implements OnInit {
       return true;
     }
     else return false;
+  }
+
+  createPrivateChat(){
+    this.chatService.createPrivateChat(this.user._id).subscribe(chat => {this.router.navigate(['messages'], { state: { data: chat } })});
   }
 }

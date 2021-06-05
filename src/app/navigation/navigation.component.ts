@@ -24,7 +24,6 @@ export class NavigationComponent implements OnInit {
       this.notif=quntNotif;
     })
     const id = localStorage.getItem(CURRENT_USER_ID);
-    console.warn(id);
     if (id) this.userId = id;
   }
 

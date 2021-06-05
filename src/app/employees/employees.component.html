@@ -39,7 +39,7 @@
             <div *ngIf='isAdminOrHostOrg()'>
             <button class="button" (click)='openNewPositionForm(link)'>Изменить должность</button><br/>
             <button class="button" >Изменить статус</button><br/>
-            <button class="button" >Уволить</button>
+            <button *ngIf='!isCurrentUser(link.user._id)' class="button" >Уволить</button>
           </div>
           </div>
         </div>

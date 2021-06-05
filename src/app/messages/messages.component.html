@@ -3,9 +3,14 @@
 <app-navigation></app-navigation>
 
 <div id="app" class="container">
-    <h1 class='myh1 online'>{{chat.name}}</h1>
+    <div *ngIf='!chat.isPrivate'>
+    <h1 class='myh1 online'>Чат: {{chat.name}}</h1>
     <button (click)='onAddUsersToChat()'> Добавить сотрудников в чат</button>
     <button (click)='onUsersFromChat()'> Участники</button>
+    </div>
+    <div *ngIf='chat.isPrivate'>
+        <h1 class='myh1 online'> {{chat.name}}</h1>
+    </div>
     <div class="row chat">
             <br>
             <div id="status"></div>

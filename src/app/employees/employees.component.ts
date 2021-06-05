@@ -105,4 +105,11 @@ export class EmployeesComponent implements OnInit {
   isAdminOrHostOrg(): boolean{
    return this.organizationService.isAdminOrHost();
   }
+
+  isCurrentUser(userId:string): boolean{
+    if (userId == localStorage.getItem(CURRENT_USER_ID)) return true; 
+    else return false;
+  }
+
+  
 }

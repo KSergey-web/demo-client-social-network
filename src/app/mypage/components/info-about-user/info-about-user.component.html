@@ -5,7 +5,7 @@
     </div>
     <div class='actions'>
     <button *ngIf='checkCurretUser()'>Редактировать</button>
-    <button *ngIf='!checkCurretUser()'>Создать чат</button>
+    <button *ngIf='!checkCurretUser()' (click)='createPrivateChat()'>Создать чат</button>
   </div>
   </div>
 

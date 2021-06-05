@@ -2,7 +2,6 @@
 <div class='parent-box small-margin-top'>
     <app-navigation></app-navigation>
     <div class="container">
-        <h1 class="myh1 online">Состав команды {{team.name}}</h1>
         <button (click)='openAddUserForm()'>Добавить участника</button>
         <ul class="employees">
             <div *ngFor="let user of users">

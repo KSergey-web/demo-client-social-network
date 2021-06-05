@@ -1,10 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { FileResourceService } from 'src/app/services/file-resource.service';
 import { Organization, OrganizationUserLink } from 'src/app/services/interfaces/organization.interface';
 import { User } from 'src/app/services/interfaces/user.interface';
 import { OrganizationService } from 'src/app/services/organization.service';
 import { CURRENT_USER_ID } from 'src/app/services/user.service';
+import { avatarTypeEnum } from './enums';
 
 @Component({
   selector: 'app-list-workers',
@@ -33,6 +35,7 @@ export class ListWorkersComponent implements OnInit {
   constructor(
     private organizationService: OrganizationService,
     private router: Router,
+    private fileResourceService: FileResourceService
     ) {
   }
 
@@ -72,6 +75,11 @@ export class ListWorkersComponent implements OnInit {
             }
           }
           this.organizationUserLinks = usersFromOrg;
+          this.organizationUserLinks.forEach(link => {
+            this.fileResourceService.getAvatar(link.user.avatar, avatarTypeEnum.mini).subscribe(res => {         
+              link.user.avatarBuffer = res.buffer;
+            }, err => console.error(err));
+          })
         });
       }
     });
@@ -94,7 +102,11 @@ export class ListWorkersComponent implements OnInit {
             }
           }
           this.users = users;
-          console.log(this.users);
+          this.users.forEach(user => {
+            this.fileResourceService.getAvatar(user.avatar, avatarTypeEnum.mini).subscribe(res => {         
+              user.avatarBuffer = res.buffer;
+            }, err => console.error(err));
+          })
         });
   })
 }
