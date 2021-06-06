@@ -46,6 +46,10 @@ export class OrganizationService {
     return this.http.post<Array<any>>(`${this.apiUrl}/v1/api/organization/hirewithlogin`, dto);
   }
 
+  fireWorker(organizationId: string, userId: string): Observable<any>{
+    return this.http.delete<any>(`${this.apiUrl}/v1/api/organization/fire/${organizationId}/${userId}`);
+  }
+
   setNewPosition(userId: string, position: string):Observable<any>{
     const organizationId = this.currentOrganization.getValue()._id;
     return this.http.patch<any>(`${this.apiUrl}/v1/api/organization/${organizationId}/position`, {userId, position});

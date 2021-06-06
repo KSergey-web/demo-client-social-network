@@ -1,5 +1,8 @@
 <app-header></app-header>
+<div class="parent-box small-margin-top">
 <app-navigation></app-navigation>
+<div class="container">
+    <h1 class="myh1">Участники чата "{{chat.name}}"</h1>
 <ul class="employees">
     <div *ngFor="let user of users">
         <li >
@@ -7,3 +10,5 @@
         </li>
     </div>
       </ul>
+    </div>
+</div>

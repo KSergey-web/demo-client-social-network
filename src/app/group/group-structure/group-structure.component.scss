@@ -1,5 +1,23 @@
 .employees{
-    background-color:#fff;
+    background-color:white;
     display: inline-block;
     width: 100%;
+}
+
+.actions{
+    margin-left: auto;
+    margin-right: 0em;
+    text-align: right;
+}
+
+.del-icon{
+    max-height: 1em;
+}
+
+.info{
+    max-width: 90%;
+}
+
+.del{
+    outline: none;
 }

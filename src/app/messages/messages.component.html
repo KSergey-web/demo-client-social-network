@@ -4,7 +4,7 @@
 
 <div id="app" class="container">
     <div *ngIf='!chat.isPrivate'>
-    <h1 class='myh1 online'>Чат: {{chat.name}}</h1>
+    <h1 class='myh1 online'>Чат "{{chat.name}}"</h1>
     <button (click)='onAddUsersToChat()'> Добавить сотрудников в чат</button>
     <button (click)='onUsersFromChat()'> Участники</button>
     </div>
@@ -21,7 +21,7 @@
                         <ul>
                             <li *ngFor="let message of messages">
                                 <div class="sender"> {{message.user.surname}} {{message.user.name}}</div>
-                                <span class='date'>{{message.date  | date:' dd.MM.yy H:mm'}}: </span>
+                                <span class='date'>{{message.date  | date:' dd.MM.yy HH:mm'}}: </span>
                                 {{ message.text }}
                             </li>
                         </ul>

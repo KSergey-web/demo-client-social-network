@@ -2,13 +2,16 @@
 <div class="parent-box small-margin-top">
     <app-navigation></app-navigation>
     <div class="container">
-        <h1 class="myh1 online">Участники группы {{group.name}}</h1>
+        <h1 class="myh1 online">Участники группы "{{group.name}}"</h1>
         <button (click)='openAddUserForm()' *ngIf=!group.isOpen>Добавить участника</button>
         <ul class="employees">
             <div *ngFor="let link of links">
                 <li>
-                    <h3> {{$any(link).user.name}} {{$any(link).user.surname}} </h3>
-                    <h4> {{link.roleUser}} </h4>
+                    <div class="parent-box">
+                    <div class="info"> <b *ngIf="link.roleUser == 'admin'" class="online">А </b>{{$any(link).user.name}} {{$any(link).user.surname}} </div>
+                    <div class="actions"><img class="del-icon" src="../../../assets/delicon.png" alt="del"></div>
+                </div>
+                <div class="line"></div>
                 </li>
             </div>
         </ul>

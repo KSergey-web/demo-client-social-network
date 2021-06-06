@@ -71,6 +71,18 @@ export class EmployeesComponent implements OnInit {
     this.router.navigate(['mypage', user._id])
   }
 
+  
+  fireWorker(user: User) {
+    console.log(user);
+    if (this.organization._id == "") {
+      alert("Организация не выбрана");
+      return;
+    }
+    this.organizationService.fireWorker(this.organization._id, user._id).subscribe(res => this.updateListUsers(), err => {
+      console.log(err);
+    });
+  }
+  
   hireWorker() {
     if (this.organization._id == "") {
       alert("Организация не выбрана");

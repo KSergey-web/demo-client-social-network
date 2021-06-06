@@ -1,4 +1,5 @@
-import { directionEnum } from "src/app/shared/list-workers/enums";
+import { directionEnum, roleUserTeamEnum } from "src/app/shared/list-workers/enums";
+import { User } from "./user.interface";
 
 export interface CreateTeamDTO{
     name: string;
@@ -39,4 +40,14 @@ export interface AddStatusDTO {
     direction: directionEnum;
   
     team: string;
+  }
+
+  export interface TeamUserLink{
+    _id?: string;
+
+    roleUser: roleUserTeamEnum;
+  
+    team: Team | string;
+  
+    user: User;
   }

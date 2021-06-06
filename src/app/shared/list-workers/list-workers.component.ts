@@ -44,7 +44,6 @@ export class ListWorkersComponent implements OnInit {
     this.organization = this.organizationService.currentOrganization.getValue();
     if (this.organization._id != ""){
       if (!this.fncGetUsers){
-        console.log('tut');
       this.updateListWorkers();
       this.emitWorkers();
       }
@@ -74,14 +73,14 @@ export class ListWorkersComponent implements OnInit {
               }
             }
           }
-          this.organizationUserLinks = usersFromOrg;
-          this.organizationUserLinks.forEach(link => {
-            this.fileResourceService.getAvatar(link.user.avatar, avatarTypeEnum.mini).subscribe(res => {         
-              link.user.avatarBuffer = res.buffer;
-            }, err => console.error(err));
-          })
+          this.organizationUserLinks = usersFromOrg; 
         });
       }
+      this.organizationUserLinks.forEach(link => {
+        this.fileResourceService.getAvatar(link.user.avatar, avatarTypeEnum.mini).subscribe(res => {         
+          link.user.avatarBuffer = res.buffer;
+        }, err => console.error(err));
+      })
     });
   }
   

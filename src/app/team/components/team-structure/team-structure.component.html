@@ -3,10 +3,12 @@
     <app-navigation></app-navigation>
     <div class="container">
         <button (click)='openAddUserForm()'>Добавить участника</button>
+        <h1 class="myh1 online">Состав команды {{team.name}}</h1>
         <ul class="employees">
-            <div *ngFor="let user of users">
+            <div *ngFor="let link of links">
                 <li>
-                    <span> {{user.name}} {{user.surname}} </span>
+                    <div><b *ngIf="link.roleUser == 'admin'" class="online">А </b>{{link.user.name}} {{link.user.surname}} <br/>
+                    </div>
                 </li>
             </div>
         </ul>

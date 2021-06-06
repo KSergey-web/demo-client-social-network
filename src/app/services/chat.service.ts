@@ -45,7 +45,7 @@ export class ChatService {
   }
 
   createPrivateChat(userId: string): Observable<Chat>{
-    return this.http.post<Chat>(`${this.apiUrl}/v1/api/chat/create-private/${userId}`,{});
+    return this.http.post<Chat>(`${this.apiUrl}/v1/api/chat/private/user/${userId}`,{});
   }
 
   getUsersFromChat(chatId:string): Observable<Array<User>>{

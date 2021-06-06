@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
-import { Team } from 'src/app/services/interfaces/team.interface';
+import { Team, TeamUserLink } from 'src/app/services/interfaces/team.interface';
 import { User } from 'src/app/services/interfaces/user.interface';
 import { TeamService } from 'src/app/services/team.service';
 import { AddUserFormComponent } from './add-user-form/add-user-form.component';
@@ -14,7 +14,7 @@ import { AddUserFormComponent } from './add-user-form/add-user-form.component';
 })
 export class TeamStructureComponent implements OnInit {
 
-  users: Array<User> = [];
+  links: Array<TeamUserLink> = [];
   team!: Team;
  
   
@@ -35,8 +35,8 @@ export class TeamStructureComponent implements OnInit {
   }
 
   updateListUsers(){
-    this.teamService.getUsers(this.team._id).subscribe((res:Array<User>) => {
-      this.users = res;
+    this.teamService.getTeamUserLinks(this.team._id).subscribe((res:Array<TeamUserLink>) => {
+      this.links = res;
     });
   }  
 
@@ -44,7 +44,7 @@ export class TeamStructureComponent implements OnInit {
     const modalRef = this.modalService.open(AddUserFormComponent);
     (modalRef.componentInstance as AddUserFormComponent).team = this.team;
     modalRef.result.then((obs: Observable<User>)=>{
-      obs.subscribe(user => this.users.push(user), err => {alert(err.message); console.log(err)})      
+      obs.subscribe(user => this.updateListUsers(), err => {alert(err.message); console.log(err)})      
     },(err) => {
     })
   }

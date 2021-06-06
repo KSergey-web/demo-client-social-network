@@ -3,7 +3,6 @@
 <app-navigation></app-navigation>
 <div class="container">
 <button class="simple-button" (click)="showDialog()">Создать чат</button>
-<app-chat-form *ngIf="isModalDialogVisible"  (isConfirmed)="closeModal($event)"></app-chat-form>
 <h1 class="myh1 online">Ваши чаты:</h1>
 <ul class="chats">
         <li *ngFor="let chat of chats"

@@ -1,3 +1,4 @@
+<div class='padding4'>
 <form [formGroup]="chatForm" (ngSubmit)="onSubmit()">
     <label>
       Название чата
@@ -18,3 +19,4 @@
     <button type="button" (click)="onCancel()">Отмена</button>
     <button type="submit" [disabled]="!chatForm.valid">Создать</button>
   </form>
+</div>

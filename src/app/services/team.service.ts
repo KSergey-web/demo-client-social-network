@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { INWORK_API } from '../app-injection-tokens';
 import { OrganizationUserLink } from './interfaces/organization.interface';
-import { AddStatusDTO, CreateTeamDTO, Status, Team } from './interfaces/team.interface';
+import { AddStatusDTO, CreateTeamDTO, Status, Team, TeamUserLink } from './interfaces/team.interface';
 import { User } from './interfaces/user.interface';
 import { serialize } from 'object-to-formdata';
 
@@ -40,6 +40,10 @@ export class TeamService {
 
   getUsers(teamId: string): Observable<Array<User>>{
     return this.http.get<Array<User>>(`${this.apiUrl}/v1/api/team/${teamId}/users`);
+  }
+
+  getTeamUserLinks(teamId: string): Observable<Array<TeamUserLink>>{
+    return this.http.get<Array<TeamUserLink>>(`${this.apiUrl}/v1/api/team/${teamId}/links`);
   }
 
   deleteStatus(statusId: string,teamId: string): Observable<any>{

@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { ChatService } from 'src/app/services/chat.service';
 import { OrganizationUserLink } from 'src/app/services/interfaces/organization.interface';
 import * as _ from 'lodash';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-chat-form',
@@ -23,7 +24,9 @@ export class ChatFormComponent {
 
   constructor(
     private fb: FormBuilder,
-    private chatService: ChatService) { }
+    private chatService: ChatService,
+    public activeModal: NgbActiveModal,
+    ) { }
 
   onSubmit() {
     const dto = {
@@ -32,7 +35,7 @@ export class ChatFormComponent {
     if (!this.imageError){
       dto.avatar = this.selectedFile;
       }
-    this.chatService.createChat(dto, this.organizationUserLinks).subscribe(res => this.isConfirmed.emit(true), err => alert(err?.message));
+    this.chatService.createChat(dto, this.organizationUserLinks).subscribe(res => this.activeModal.close(res), err => alert(err?.message));
   }
 
   getArrayWorkers(workers: Array<OrganizationUserLink>){
@@ -40,7 +43,7 @@ export class ChatFormComponent {
   }
 
   onCancel(){
-    this.isConfirmed.emit(false);
+    this.activeModal.dismiss();
   }
 
   selectedFile: File | null = null;
