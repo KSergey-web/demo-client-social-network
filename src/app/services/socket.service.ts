@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Observer, Subscription } from 'rxjs';
 import * as io from 'socket.io-client';
+import { INWORK_API } from '../app-injection-tokens';
 import { ACCESS_TOKEN_KEY } from '../signin/services/singin.service';
 import { MessageDTO, MessageEntity } from './interfaces/message.interface';
 import { Task } from './interfaces/task.interface';
@@ -16,10 +17,11 @@ export class SocketService {
 
   constructor(
     private router:Router,
-    private userService: UserService
+    private userService: UserService,
+    @Inject(INWORK_API) private apiUrl:string,
   ) { 
     
-    this.socket=io('http://localhost:4000/');
+    this.socket=io(this.apiUrl);
     if (!localStorage.getItem(ACCESS_TOKEN_KEY)) this.socket.disconnect();
     this.msgFromChatEvent();
     this.taskChanged();

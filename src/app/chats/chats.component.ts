@@ -4,7 +4,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ChatService } from '../services/chat.service';
 import { FileResourceService } from '../services/file-resource.service';
 import { Chat } from '../services/interfaces/chat.interface';
+import { MessageEntity } from '../services/interfaces/message.interface';
 import { OrganizationService } from '../services/organization.service';
+import { SocketService } from '../services/socket.service';
 import { avatarTypeEnum } from '../shared/list-workers/enums';
 import { ChatFormComponent } from './chat-form/chat-form.component';
 
@@ -24,10 +26,30 @@ export class ChatsComponent implements OnInit {
     private router: Router,
     private fileResourceService: FileResourceService,
     private modalService: NgbModal,
+    private socketService: SocketService
   ) { }
 
   ngOnInit(): void {
     this.updateArray();
+    this.socketService.getObsmsg().subscribe(msg => {
+      this.updateArray();
+    }
+      );
+  }
+
+  compareMessage(message1: MessageEntity, message2: MessageEntity): number{
+    if (!message1 && !message2){
+      return 0;
+    }
+    else if (!message1 && message2){
+      return 1;
+    }
+    else if (message1 && !message2){
+      return -1;
+    }
+    else {
+      return message2.date.getTime() - message1.date.getTime();
+    }
   }
 
   updateArray() {
@@ -35,10 +57,13 @@ export class ChatsComponent implements OnInit {
       console.log(chats);
       chats.forEach(chat => {
         this.fileResourceService.getAvatar(chat.avatar, avatarTypeEnum.mini).subscribe(res => {
-         
           chat.avatarBuffer = res.buffer;
         }, err => console.error(err));
+        if (!chat.message){
+          chat.isNoMessage = true;
+        }
       })
+     chats.sort((chat1,chat2) => { return this.compareMessage(chat1.message,chat2.message)})
       this.chats = chats;
       
       // this.chats = this.chats.sort((chat1: Chat, chat2: Chat) =>{

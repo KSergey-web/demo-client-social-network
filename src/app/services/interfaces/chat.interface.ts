@@ -7,6 +7,7 @@ export interface Chat{
     message: MessageEntity;
     avatarBuffer?: string;
     isPrivate:boolean;
+    isNoMessage?: boolean;
 }
 
 export interface ChatDTO{

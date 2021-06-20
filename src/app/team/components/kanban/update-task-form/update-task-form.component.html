@@ -1,84 +1,94 @@
 <div class="padding4">
-<form [formGroup]="taskForm" class="small-padding-left small-padding-right" (ngSubmit)="onSave()">
-    <div>
-        <label for="name">
-            Название задачи
-        </label>
-        <br/>
-        <input id="name" type="text" class="name" formControlName="name" >
-    </div>
+    <form [formGroup]="taskForm" class="small-padding-left small-padding-right" (ngSubmit)="onSave()">
+        <div>
+            <label for="name">
+                Название задачи
+            </label>
+            <br />
+            <input id="name" type="text" class="name" formControlName="name">
+        </div>
 
-    <div>
-        <label for="description">
-            Описание
-        </label>
-        <br/>
-        <textarea id="description" type="text" formControlName="description" ></textarea>
-    </div>
+        <div>
+            <label for="description">
+                Описание
+            </label>
+            <br />
+            <textarea id="description" type="text" formControlName="description"></textarea>
+        </div>
 
-          <div ngbDropdown class="d-inline-block">
-           
-            <button *ngIf="deadlineVisible && isDisableEdit" class="btn btn-outline-primary" type='button' id="dropdownBasic1">{{currentColor.viewValue}}</button>
-            <button *ngIf="!isDisableEdit" class="btn btn-outline-primary" type='button' id="dropdownBasic1" ngbDropdownToggle>{{currentColor.viewValue}}</button>
+        <div ngbDropdown class="d-inline-block">
+
+            <button *ngIf="(deadlineVisible && isDisableEdit) || (deadlineVisible && !isAdmin)" class="btn btn-outline-primary" type='button'
+                id="dropdownBasic1">{{currentColor.viewValue}}</button>
+            <button *ngIf="showColor()" class="btn btn-outline-primary" type='button' id="dropdownBasic1"
+                ngbDropdownToggle>{{currentColor.viewValue}}</button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-              <button *ngFor="let color of colors; index as i;"  class="combobox" (click)="changeColor(i)" type='button' ngbDropdownItem>
-                <span *ngIf="color.value !='red'">{{color.viewValue}}</span>
-              </button>
-              </div>
-           
-          </div>
-
-          <div *ngIf="deadlineVisible">Крайний срок    </div>
-          
-          <div class="np">
-          <div class="input-group" *ngIf="deadlineVisible">
-            
-            
-            <input id="deadline" class="form-control" [placeholder]="currentDate" name="dp" ngbDatepicker #dp="ngbDatepicker" formControlName="deadline" [disabled]='isDisableEdit'>
-            <div class="input-group-append">
-              <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button" *ngIf='!isDisableEdit'></button>
+                <button *ngFor="let color of colors; index as i;" class="combobox" (click)="changeColor(i)"
+                    type='button' ngbDropdownItem>
+                    <span *ngIf="color.value !='red'">{{color.viewValue}}</span>
+                </button>
             </div>
         </div>
-          </div>
-          <ngb-timepicker *ngIf="deadlineVisible" [(ngModel)]="time" [ngModelOptions]="{standalone: true}" [disabled]='isDisableEdit'></ngb-timepicker> 
+
+        <div *ngIf="deadlineVisible">Крайний срок </div>
+
+        <div class="np">
+            <div class="input-group" *ngIf="deadlineVisible">
 
 
-    <div>
-        <label for="answer">
-            Ответ
-        </label>
-        <br/>
-        <textarea id="answer" type="answer" formControlName="answer" ></textarea>
-    </div>
+                <input id="deadline" class="form-control" [placeholder]="currentDate" name="dp" ngbDatepicker
+                    #dp="ngbDatepicker" formControlName="deadline">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"
+                        *ngIf='!isDisableEdit &&  isAdmin'></button>
+                </div>
+            </div>
+        </div>
+        <ngb-timepicker *ngIf="deadlineVisible" [(ngModel)]="time" [ngModelOptions]="{standalone: true}"
+            [disabled]='isEditTimepicker()'></ngb-timepicker>
 
-    <div>Файлы</div>
-    <ul>
-    <li *ngFor="let file of task.files">
-        <a  [href]="getFileHref + file._id" download >{{file.originalName}}</a>
-        <button *ngIf='!isDisableEdit' (click)='deleteFile(file._id)' type='button'><img src="../../../../../assets/deleteicon.png" height='20px' width='20px' alt="Удалить"></button>
-    </li>
-    </ul>  
-    <input style="display: none" #fileInput type="file" (change)="onFileSelected($event)" id='file'>
-    <button *ngIf='!isDisableEdit' type="button" (click)="fileInput.click()">Добавить файл</button>
 
-    <div *ngIf='!isVisibleArrayAddedUsers' class='executors'>
-        <button class="button" type="button" (click)="addUsers()" *ngIf='!isDisableEdit'>Назначить исполнителей</button>
-        <ul > Исполнители
-            <li *ngFor="let user of $any(task.users)"  [class.selected]="deletedUsers.indexOf(user) != -1"> 
-                {{user.name}} {{user.surname}}
-                <button (click)='deleteUser(user)' type='button' *ngIf='!isDisableEdit'><img src="../../../../../assets/deleteicon.png" height='20px' width='20px' alt="Удалить"></button>
+        <div>
+            <label for="answer">
+                Ответ
+            </label>
+            <br />
+            <textarea id="answer" type="answer" formControlName="answer"></textarea>
+        </div>
+
+        <div>Файлы</div>
+        <ul>
+            <li *ngFor="let file of task.files">
+                <a [href]="getFileHref + file._id" download>{{file.originalName}}</a>
+                <button *ngIf='!isDisableEdit' (click)='deleteFile(file._id)' type='button'><img
+                        src="../../../../../assets/deleteicon.png" height='20px' width='20px' alt="Удалить"></button>
             </li>
         </ul>
-    </div>
+        <input style="display: none" #fileInput type="file" (change)="onFileSelected($event)" id='file'>
+        <button *ngIf='!isDisableEdit' type="button" (click)="fileInput.click()">Добавить файл</button>
 
-    <div *ngIf='isVisibleArrayAddedUsers' class='newexecutors'>
-        <div class='myh1'>Участники команды {{team.name}}</div>
-        <app-list-workers [fncGetUnwantedUsers]='fncUsersFromTask' [fncGetUsers]='fncUsersFromTeam' (arrayUsers)="getArrayUsers($event)"></app-list-workers>
-        <button class="button" type="button" (click)="concatUsers()">Добавить</button>
-        <button class="button" type="button" (click)="swith()">Отмена</button>
-    </div>
-    <div class='savebnt'>
-    <button *ngIf='!isDisableEdit && !isVisibleArrayAddedUsers' class="button" type="submit">Сохранить</button>
-</div>
-</form>
+        <div *ngIf='!isVisibleArrayAddedUsers' class='executors'>
+            <button class="button" type="button" (click)="addUsers()" *ngIf='!isEditTimepicker()'>Назначить
+                исполнителей</button>
+            <ul> Исполнители
+                <li *ngFor="let user of $any(task.users)" [class.selected]="deletedUsers.indexOf(user) != -1">
+                    {{user.name}} {{user.surname}}
+                    <button (click)='deleteUser(user)' type='button' *ngIf='!isDisableEdit'><img
+                            src="../../../../../assets/deleteicon.png" height='20px' width='20px'
+                            alt="Удалить"></button>
+                </li>
+            </ul>
+        </div>
+
+        <div *ngIf='isVisibleArrayAddedUsers' class='newexecutors'>
+            <div class='myh1'>Участники команды {{team.name}}</div>
+            <app-list-workers [fncGetUnwantedUsers]='fncUsersFromTask' [fncGetUsers]='fncUsersFromTeam'
+                (arrayUsers)="getArrayUsers($event)"></app-list-workers>
+            <button class="button" type="button" (click)="concatUsers()">Добавить</button>
+            <button class="button" type="button" (click)="swith()">Отмена</button>
+        </div>
+        <div class='savebnt'>
+            <button *ngIf='!isDisableEdit && !isVisibleArrayAddedUsers' class="button" type="submit">Сохранить</button>
+        </div>
+    </form>
 </div>

@@ -62,7 +62,7 @@ onFileSelected(event:any) {
       dto.file = this.selectedFile;
       }
       console.log(dto);
-    this.signUpService.registr(dto).subscribe(()=>{ alert("Succes"),this.router.navigate(['/signin'])}, err=>{ console.log(err),alert('Wrong data!')});;
+    this.signUpService.registr(dto).subscribe(()=>{ this.router.navigate(['/signin'])}, err=>{ console.log(err),alert('Wrong data!')});;
   }
 
   imageError!: string | null;

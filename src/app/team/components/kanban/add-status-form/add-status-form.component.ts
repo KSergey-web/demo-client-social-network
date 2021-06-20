@@ -40,7 +40,6 @@ export class AddStatusFormComponent implements OnInit {
       name:this.statusForm.value.name,
     }
     this.teamService.addStatus(dto).subscribe((res)=>{ 
-      alert("Succes");
       this.activeModal.close(res);
     }, err=>{ 
       console.log(err),

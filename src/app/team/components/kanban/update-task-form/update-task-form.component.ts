@@ -9,7 +9,7 @@ import { User } from 'src/app/services/interfaces/user.interface';
 import { TaskService } from 'src/app/services/task.service';
 import { TeamService } from 'src/app/services/team.service';
 import { IColor } from 'src/app/shared/interfaces';
-import { colorEnum } from 'src/app/shared/list-workers/enums';
+import { colorEnum, roleUserTeamEnum } from 'src/app/shared/list-workers/enums';
 
 
 
@@ -31,6 +31,7 @@ export class UpdateTaskFormComponent implements OnInit {
   currentDate: string ='';
   time = {hour: 13, minute: 30};
   getFileHref = '';
+  isAdmin:boolean = false;
 
   colors: IColor[] = [
     { value: colorEnum.green, viewValue: "Без крайнего срока" },
@@ -58,10 +59,22 @@ export class UpdateTaskFormComponent implements OnInit {
   }
 
   color!: string;
-  initUsers: Array<User> = []
+  initUsers: Array<User> = [];
+
+  checkAdmin(){
+    this.teamService.getRole(this.team._id).subscribe(res => {
+      if (res.roleUser != roleUserTeamEnum.admin){
+        this.taskForm.controls.name.disable();
+        this.taskForm.controls.description.disable();
+        this.taskForm.controls.deadline.disable()
+      } else
+      this.isAdmin = true;
+    }
+      
+    );
+  }
 
   ngOnInit(): void {
-    console.log(this.task.files);
     this.currentColor = this.colors[0];
     this.colors.find(item => {
        if (item.value == this.task.color) 
@@ -80,6 +93,7 @@ export class UpdateTaskFormComponent implements OnInit {
       });
     }
     const date = this.task.deadline ? this.task.deadline : new Date();
+    console.warn(date);
     this.taskForm.setValue({
       name: this.task.name,
       description: this.task.description,
@@ -89,6 +103,7 @@ export class UpdateTaskFormComponent implements OnInit {
     }, {
       emitEvent: true
     });
+    console.warn(this.taskForm.value.deadline);
     this.currentDate= date.toJSON().slice(0,12);
     this.time.hour= this.task.deadline ? this.task.deadline.getHours() : 0;
     this.time.minute=this.task.deadline ? this.task.deadline.getMinutes() : 0;
@@ -98,17 +113,41 @@ export class UpdateTaskFormComponent implements OnInit {
         emitEvent: true
       });
     }
+    else 
+    this.checkAdmin();
   }
 
+  isEditTimepicker(){
+    if (this.isDisableEdit){
+      return true;
+    } else if(!this.isAdmin){
+      return true;
+    }
+    else return false;
+  }
 
   fromFormToDate(): Date {
     const date = new Date();
+    this.taskForm.controls.deadline.enable()
+    console.warn(this.taskForm.value.deadline);
     date.setFullYear(this.taskForm.value.deadline.year);
     date.setMonth(this.taskForm.value.deadline.month-1);
     date.setDate(this.taskForm.value.deadline.day);
     date.setHours(this.time.hour);
     date.setMinutes(this.time.minute);
+    date.setSeconds(0);
+    this.taskForm.controls.deadline.disable()
     return date;
+  }
+
+  showColor(){
+    if (this.isDisableEdit) {
+      return false
+    }
+    else if (this.isAdmin){
+      return true;
+    }
+    else return false;
   }
 
 
@@ -211,11 +250,11 @@ export class UpdateTaskFormComponent implements OnInit {
 
   onFileSelected(event:any) {
     this.selectedFile = <File>event.target.files[0];
-    this.taskService.addfileToTask(this.selectedFile,this.task._id).subscribe((res:Task) => {console.log(res); this.task.files=res.files},err=>{console.log(err)});
+    this.taskService.addfileToTask(this.selectedFile,this.task._id).subscribe((res:Task) => { this.task.files=res.files},err=>{console.log(err)});
 }
 
 deleteFile(fileId: string){
-  this.taskService.deleteFileFromTask(fileId,this.task._id).subscribe((res:Task) => {console.log(res); this.task.files=res.files},err=>{console.log(err)});
+  this.taskService.deleteFileFromTask(fileId,this.task._id).subscribe((res:Task) => { this.task.files=res.files},err=>{console.log(err)});
 }
 
   // checkAdded(){

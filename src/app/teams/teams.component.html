@@ -4,7 +4,7 @@
         <div class="container">
                 <button class="simple-button" (click)="showDialog()">Создать команду</button>
                 <app-team-form *ngIf="isModalDialogVisible" (isConfirmed)="closeModal($event)"></app-team-form>
-                <h1 class="myh1 online">Ваши команды в организации</h1>:
+                <h1 class="myh1 online">Ваши команды в организации {{organization.name}}</h1>:
                 <ul class="teams">
                         <li *ngFor="let team of teams" (dblclick)="toTeam(team)">
                                 <img *ngIf='team.avatarBuffer' [src]='team.avatarBuffer' class='avatar' alt='avatar'>

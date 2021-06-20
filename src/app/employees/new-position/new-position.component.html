@@ -1,13 +1,15 @@
+<div class='padding4'>
 <div>
-    Сотрудник: {{link.user.surname}} {{link.user.name}} {{link.user.patronymic}}
-    Должность: {{link.position}} 
+    <b>Сотрудник</b><br/> {{link.user.surname}} {{link.user.name}} {{link.user.patronymic}}<br/>
+    <b>Должность</b><br/>{{link.position}} 
 </div>
 <form [formGroup]="positionForm" (ngSubmit)="onSave()">
     <div>
         <label for="position">
-            Новая должность
+            Новая должность:
         </label>
         <input id="position" type="text" formControlName="position" >
     </div>
     <button class="button" type="submit">Сохранить</button>
 </form>
+</div>

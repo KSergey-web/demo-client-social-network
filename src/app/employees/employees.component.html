@@ -37,7 +37,7 @@
           </div>
           <div class='actions'>
             <div *ngIf='isAdminOrHostOrg()'>
-              <button class="button" (click)='openNewPositionForm(link)'>Изменить должность</button><br />
+              <button class="button change" (click)='openNewPositionForm(link)'>Изменить должность</button><br />
               <button class="button">Изменить статус</button><br />
               <button *ngIf='!isCurrentUser(link.user._id)' class="button"
                 (click)='fireWorker(link.user)'>Уволить</button>

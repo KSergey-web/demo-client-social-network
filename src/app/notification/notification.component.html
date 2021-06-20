@@ -2,7 +2,8 @@
 <div class="parent-box small-margin-top">
     <app-navigation></app-navigation>
     <div class="container">
-        <h1 *ngIf='notifications.length == 0'> Пусто</h1>
+        <h1 class='online myh1'>Уведомления</h1>
+        <h1 *ngIf='notifications.length == 0' class="myh1 empty m4"> Пусто</h1>
         <ul class="notifications">
             <li *ngFor="let notification of notifications" [class.notReaded]="!notification.isReaded">
                 <div class="small-padding-left">

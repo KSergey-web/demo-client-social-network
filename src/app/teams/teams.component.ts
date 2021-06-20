@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FileResourceService } from '../services/file-resource.service';
+import { Organization } from '../services/interfaces/organization.interface';
 import { Team } from '../services/interfaces/team.interface';
 import { OrganizationService } from '../services/organization.service';
 import { TeamService } from '../services/team.service';
@@ -16,6 +17,7 @@ export class TeamsComponent implements OnInit {
   teams: Array<Team> = [];
 
   organizationId!: string;
+  organization!: Organization;
 
   constructor(
     private teamService:TeamService,
@@ -26,6 +28,7 @@ export class TeamsComponent implements OnInit {
 
   ngOnInit(): void {
     this.organizationId= this.organizationService.currentOrganization.getValue()._id;
+    this.organization= this.organizationService.currentOrganization.getValue();
     if (this.organizationId == ""){
         alert('Выберите организацию');
         this.router.navigate(['myorganizations']);

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { serialize } from 'object-to-formdata';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { INWORK_API } from '../app-injection-tokens';
 import { AddUsersToChatDTO, Chat, ChatDTO } from './interfaces/chat.interface';
 import { OrganizationUserLink } from './interfaces/organization.interface';
@@ -41,7 +42,7 @@ export class ChatService {
   }
 
   getChats(): Observable<Array<Chat>>{
-    return this.http.get<Array<Chat>>(`${this.apiUrl}/v1/api/chat/all`);
+    return this.http.get<Array<Chat>>(`${this.apiUrl}/v1/api/chat/all`).pipe(tap((chats:Array<Chat>) => chats.forEach((chat) => {if (chat.message) chat.message.date = new Date(chat.message.date)})));
   }
 
   createPrivateChat(userId: string): Observable<Chat>{

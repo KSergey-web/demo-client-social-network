@@ -7,6 +7,7 @@ import { OrganizationUserLink } from './interfaces/organization.interface';
 import { AddStatusDTO, CreateTeamDTO, Status, Team, TeamUserLink } from './interfaces/team.interface';
 import { User } from './interfaces/user.interface';
 import { serialize } from 'object-to-formdata';
+import { roleUserTeamEnum } from '../shared/list-workers/enums';
 
 @Injectable({
   providedIn: 'root'
@@ -64,5 +65,9 @@ export class TeamService {
       })
     });
     return userObservable;
+  }
+
+  getRole(teamId: string): Observable<{roleUser:roleUserTeamEnum}>{
+    return this.http.get<{roleUser:roleUserTeamEnum}>(`${this.apiUrl}/v1/api/team/${teamId}/role`)
   }
 }

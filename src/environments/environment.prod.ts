@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  inWorkApi: 'http://localhost:4000',
-  tokenWhiteListedDomains:['http://localhost:4000']
+  inWorkApi: 'http://192.168.0.109:4000',
+  tokenWhiteListedDomains:['http://192.168.0.109:4000']
 };

@@ -6,7 +6,7 @@ import { Status, Team } from 'src/app/services/interfaces/team.interface';
 import { SocketService } from 'src/app/services/socket.service';
 import { TaskService } from 'src/app/services/task.service';
 import { TeamService } from 'src/app/services/team.service';
-import { directionEnum } from 'src/app/shared/list-workers/enums';
+import { directionEnum, roleUserTeamEnum } from 'src/app/shared/list-workers/enums';
 import { AddStatusFormComponent } from './add-status-form/add-status-form.component';
 import { ContextMenuModel } from './context-menu/context-menu-model';
 import {
@@ -27,6 +27,7 @@ export class KanbanComponent implements OnInit {
 
   statuses: Array<Status> = [];
   tasks: Array<Task> = [];
+  isAdmin:boolean = false;
 
   constructor(
     private teamService: TeamService,
@@ -39,6 +40,17 @@ export class KanbanComponent implements OnInit {
   subTaskCreated!: Subscription | null;
   subStatusCreated!: Subscription | null;
   subStatusDeleted!: Subscription | null;
+
+
+  checkAdmin(){
+    this.teamService.getRole(this.team._id).subscribe(res => {
+      console.warn(res);
+      if (res.roleUser != roleUserTeamEnum.admin){
+      } else
+      this.isAdmin = true;
+    }
+  );
+  }
 
   ngOnInit(): void {
     this.socketService.enterToTeamEvent(this.teamId);
@@ -53,7 +65,7 @@ export class KanbanComponent implements OnInit {
       .subscribe((task) => this.tasks.push(task));
     this.subStatusCreated = this.socketService
       .getStatusCreatedObs()
-      .subscribe((status) => this.updateArrayStatuses());
+      .subscribe((status) => {this.updateArrayStatuses(); this.updateTasks()});
       this.subStatusDeleted = this.socketService
       .getStatusDeletedObs()
       .subscribe((status) => {
@@ -62,6 +74,7 @@ export class KanbanComponent implements OnInit {
       });
       this.updateArrayStatuses();
     this.updateTasks();
+    this.checkAdmin();
   }
 
   ngOnDestroy(): void {
@@ -105,6 +118,7 @@ export class KanbanComponent implements OnInit {
           else return -1;
         });
         this.statuses = res;
+        console.warn(res);
       },
       (err) => {
         console.log(err);
@@ -128,7 +142,12 @@ export class KanbanComponent implements OnInit {
 
   displayContextMenuOnTask(event: any, task: Task) {
     this.selectedTask = task;
-    this.rightClickMenuItems = menuForTask;
+    
+    if (!this.isAdmin){
+    this.rightClickMenuItems = menuForTask.slice(0,2);
+    } else {
+      this.rightClickMenuItems = menuForTask;
+    }
     this.displayContextMenu(event);
   }
 
@@ -140,7 +159,6 @@ export class KanbanComponent implements OnInit {
 
   getRightClickMenuStyle() {
     return {
-      position: 'fixed',
       left: `${this.rightClickMenuPositionX}px`,
       top: `${this.rightClickMenuPositionY}px`,
     };
@@ -178,6 +196,7 @@ export class KanbanComponent implements OnInit {
     switch (event.data) {
       case menuForTask[0].menuEvent: {
         const statusId = this.aboutStatusToTheRightOfTask();
+        console.warn(statusId);
         if (!statusId) {
           return true;
         }
@@ -244,7 +263,9 @@ export class KanbanComponent implements OnInit {
     (modalRef.componentInstance as AddStatusFormComponent).direction =
       direction;
     modalRef.result.then(
-      (status) => {},
+      (status) => {
+        this.updateArrayStatuses(); this.updateTasks();
+      },
       (err) => {}
     );
   }

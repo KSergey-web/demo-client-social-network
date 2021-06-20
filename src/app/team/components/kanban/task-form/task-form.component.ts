@@ -56,11 +56,11 @@ export class TaskFormComponent implements OnInit {
     if (taskdto.color == colorEnum.orange){
       taskdto.deadline =new Date();
       taskdto.deadline.setFullYear(this.taskForm.value.deadline.year);
-      taskdto.deadline.setMonth(this.taskForm.value.deadline.month);
-      taskdto.deadline.setDate(this.taskForm.value.deadline.day)
+      taskdto.deadline.setMonth(this.taskForm.value.deadline.month - 1);
+      taskdto.deadline.setDate(this.taskForm.value.deadline.day);
+      taskdto.deadline.setSeconds(0);
     }
     this.taskService.createTask(taskdto).subscribe((res)=>{ 
-      alert("Succes");
       this.activeModal.close(res);
     }, err=>{ 
       console.log(err),
